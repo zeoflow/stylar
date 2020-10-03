@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_padding">
+
+    <com.zeoflow.stylar.view.StylarView
+        android:id="@+id/zStylarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!--<ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:fontFamily="@font/zeoflow_normal"
+                android:padding="5dp"
+                android:textAlignment="center"/>
+        </LinearLayout>
+    </ScrollView>-->
+
+</LinearLayout>
