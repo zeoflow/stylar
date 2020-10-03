@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="stylar_drawables_scheduler" type="id" />
+    <item name="stylar_drawables_scheduler_last_text_hashcode" type="id" />
+    <item name="stylar_tables_scheduler" type="id" />
+
+</resources>
