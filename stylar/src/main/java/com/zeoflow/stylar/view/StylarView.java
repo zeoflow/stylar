@@ -78,11 +78,11 @@ public class StylarView extends FrameLayout
     public void setTextAlignment(String alignment)
     {
         if (alignment.equals(ALIGNMENT_LEFT)) {
-            this.mtvTextView.setGravity(View.TEXT_ALIGNMENT_TEXT_START);
+            mtvTextView.setGravity(Gravity.START);
         } else if (alignment.equals(ALIGNMENT_CENTER)) {
-            this.mtvTextView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            mtvTextView.setGravity(Gravity.CENTER);
         } else if (alignment.equals(ALIGNMENT_RIGHT)) {
-            this.mtvTextView.setGravity(View.TEXT_ALIGNMENT_TEXT_END);
+            mtvTextView.setGravity(Gravity.END);
         }
     }
 

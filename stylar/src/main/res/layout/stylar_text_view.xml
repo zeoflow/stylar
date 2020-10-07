@@ -17,6 +17,6 @@
             android:background="#ffffff"
             android:fontFamily="@font/zeoflow_normal"
             android:padding="5dp"
-            android:textAlignment="center" />
+            android:gravity="center" />
     </LinearLayout>
 </ScrollView>
