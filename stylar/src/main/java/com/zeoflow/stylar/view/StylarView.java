@@ -40,6 +40,7 @@ public class StylarView extends FrameLayout
         zAttrs = attrs;
         init();
     }
+
     public StylarView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes)
     {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -58,6 +59,14 @@ public class StylarView extends FrameLayout
         mtvTextView = findViewById(R.id.mtvTextView);
         mtvScrollView = findViewById(R.id.mtvScrollView);
 
+    }
+
+    /**
+     * @return String
+     */
+    public String getText()
+    {
+        return String.valueOf(this.mtvTextView.getText());
     }
 
     public TextView getMtvTextView()
