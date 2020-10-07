@@ -9,14 +9,17 @@ import org.commonmark.node.Text;
  *
  * @since 4.2.0
  */
-public class OpenBracketInlineProcessor extends InlineProcessor {
+public class OpenBracketInlineProcessor extends InlineProcessor
+{
     @Override
-    public char specialCharacter() {
+    public char specialCharacter()
+    {
         return '[';
     }
 
     @Override
-    protected Node parse() {
+    protected Node parse()
+    {
         int startIndex = index;
         index++;
 

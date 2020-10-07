@@ -14,29 +14,43 @@ import java.lang.ref.WeakReference;
  *
  * @since 4.4.0
  */
-public class TextViewSpan {
+public class TextViewSpan
+{
+
+    private final WeakReference<TextView> reference;
+
+    public TextViewSpan(@NonNull TextView textView)
+    {
+        this.reference = new WeakReference<>(textView);
+    }
 
     @Nullable
-    public static TextView textViewOf(@NonNull CharSequence cs) {
-        if (cs instanceof Spanned) {
+    public static TextView textViewOf(@NonNull CharSequence cs)
+    {
+        if (cs instanceof Spanned)
+        {
             return textViewOf((Spanned) cs);
         }
         return null;
     }
 
     @Nullable
-    public static TextView textViewOf(@NonNull Spanned spanned) {
+    public static TextView textViewOf(@NonNull Spanned spanned)
+    {
         final TextViewSpan[] spans = spanned.getSpans(0, spanned.length(), TextViewSpan.class);
         return spans != null && spans.length > 0
-                ? spans[0].textView()
-                : null;
+            ? spans[0].textView()
+            : null;
     }
 
-    public static void applyTo(@NonNull Spannable spannable, @NonNull TextView textView) {
+    public static void applyTo(@NonNull Spannable spannable, @NonNull TextView textView)
+    {
 
         final TextViewSpan[] spans = spannable.getSpans(0, spannable.length(), TextViewSpan.class);
-        if (spans != null) {
-            for (TextViewSpan span : spans) {
+        if (spans != null)
+        {
+            for (TextViewSpan span : spans)
+            {
                 spannable.removeSpan(span);
             }
         }
@@ -44,21 +58,16 @@ public class TextViewSpan {
         final TextViewSpan span = new TextViewSpan(textView);
         // `SPAN_INCLUSIVE_INCLUSIVE` to persist in case of possible text change (deletion, etc)
         spannable.setSpan(
-                span,
-                0,
-                spannable.length(),
-                Spanned.SPAN_INCLUSIVE_INCLUSIVE
+            span,
+            0,
+            spannable.length(),
+            Spanned.SPAN_INCLUSIVE_INCLUSIVE
         );
     }
 
-    private final WeakReference<TextView> reference;
-
-    public TextViewSpan(@NonNull TextView textView) {
-        this.reference = new WeakReference<>(textView);
-    }
-
     @Nullable
-    public TextView textView() {
+    public TextView textView()
+    {
         return reference.get();
     }
 }

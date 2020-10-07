@@ -6,10 +6,11 @@ import androidx.annotation.Nullable;
 /**
  * @since 3.0.0
  */
-public interface SpanFactory {
+public interface SpanFactory
+{
 
     @Nullable
     Object getSpans(
-            @NonNull StylarConfiguration configuration,
-            @NonNull RenderProps props);
+        @NonNull StylarConfiguration configuration,
+        @NonNull RenderProps props);
 }

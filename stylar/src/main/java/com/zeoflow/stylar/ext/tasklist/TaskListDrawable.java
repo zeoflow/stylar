@@ -18,7 +18,8 @@ import androidx.annotation.Nullable;
  * @since 1.0.1
  */
 @SuppressWarnings("WeakerAccess")
-public class TaskListDrawable extends Drawable {
+public class TaskListDrawable extends Drawable
+{
 
     // represent ratios (not exact coordinates)
     private static final Point POINT_0 = new Point(2.75F / 18, 8.25F / 18);
@@ -39,9 +40,10 @@ public class TaskListDrawable extends Drawable {
     // unfortunately we cannot rely on TextView to be LAYER_TYPE_SOFTWARE
     // if we could we would draw our checkMarkPath with PorterDuff.CLEAR
     public TaskListDrawable(
-            @ColorInt int checkedFillColor,
-            @ColorInt int normalOutlineColor,
-            @ColorInt int checkMarkColor) {
+        @ColorInt int checkedFillColor,
+        @ColorInt int normalOutlineColor,
+        @ColorInt int checkMarkColor)
+    {
         this.checkedFillColor = checkedFillColor;
         this.normalOutlineColor = normalOutlineColor;
 
@@ -50,7 +52,8 @@ public class TaskListDrawable extends Drawable {
     }
 
     @Override
-    protected void onBoundsChange(Rect bounds) {
+    protected void onBoundsChange(Rect bounds)
+    {
         super.onBoundsChange(bounds);
 
         // we should exclude stroke with from final bounds (half of the strokeWidth from all sides)
@@ -73,15 +76,18 @@ public class TaskListDrawable extends Drawable {
     }
 
     @Override
-    public void draw(@NonNull Canvas canvas) {
+    public void draw(@NonNull Canvas canvas)
+    {
 
         final Paint.Style style;
         final int color;
 
-        if (isChecked) {
+        if (isChecked)
+        {
             style = Paint.Style.FILL_AND_STROKE;
             color = checkedFillColor;
-        } else {
+        } else
+        {
             style = Paint.Style.STROKE;
             color = normalOutlineColor;
         }
@@ -96,66 +102,79 @@ public class TaskListDrawable extends Drawable {
         final float radius = rectF.width() / 8;
 
         final int save = canvas.save();
-        try {
+        try
+        {
 
             canvas.translate(left, top);
 
             canvas.drawRoundRect(rectF, radius, radius, paint);
 
-            if (isChecked) {
+            if (isChecked)
+            {
                 canvas.drawPath(checkMarkPath, checkMarkPaint);
             }
-        } finally {
+        } finally
+        {
             canvas.restoreToCount(save);
         }
     }
 
     @Override
-    public void setAlpha(@IntRange(from = 0, to = 255) int alpha) {
+    public void setAlpha(@IntRange(from = 0, to = 255) int alpha)
+    {
         paint.setAlpha(alpha);
     }
 
     @Override
-    public void setColorFilter(@Nullable ColorFilter colorFilter) {
+    public void setColorFilter(@Nullable ColorFilter colorFilter)
+    {
         paint.setColorFilter(colorFilter);
     }
 
     @Override
-    public int getOpacity() {
+    public int getOpacity()
+    {
         return PixelFormat.OPAQUE;
     }
 
     @Override
-    public boolean isStateful() {
+    public boolean isStateful()
+    {
         return true;
     }
 
     @Override
-    protected boolean onStateChange(int[] state) {
+    protected boolean onStateChange(int[] state)
+    {
 
         final boolean checked;
 
         final int length = state != null
-                ? state.length
-                : 0;
+            ? state.length
+            : 0;
 
-        if (length > 0) {
+        if (length > 0)
+        {
 
             boolean inner = false;
 
-            for (int i = 0; i < length; i++) {
-                if (android.R.attr.state_checked == state[i]) {
+            for (int i = 0; i < length; i++)
+            {
+                if (android.R.attr.state_checked == state[i])
+                {
                     inner = true;
                     break;
                 }
             }
             checked = inner;
-        } else {
+        } else
+        {
             checked = false;
         }
 
         final boolean result = checked != isChecked;
-        if (result) {
+        if (result)
+        {
             invalidateSelf();
             isChecked = checked;
         }
@@ -163,21 +182,25 @@ public class TaskListDrawable extends Drawable {
         return result;
     }
 
-    private static class Point {
+    private static class Point
+    {
 
         final float x;
         final float y;
 
-        Point(float x, float y) {
+        Point(float x, float y)
+        {
             this.x = x;
             this.y = y;
         }
 
-        void moveTo(@NonNull Path path, float side) {
+        void moveTo(@NonNull Path path, float side)
+        {
             path.moveTo(side * x, side * y);
         }
 
-        void lineTo(@NonNull Path path, float side) {
+        void lineTo(@NonNull Path path, float side)
+        {
             path.lineTo(side * x, side * y);
         }
     }

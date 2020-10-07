@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.zeoflow.stylar.AbstractStylarPlugin;
+import com.zeoflow.stylar.StylarConfiguration;
 import com.zeoflow.stylar.StylarVisitor;
 import com.zeoflow.stylar.html.tag.BlockquoteHandler;
 import com.zeoflow.stylar.html.tag.EmphasisHandler;
@@ -21,24 +22,28 @@ import org.commonmark.node.HtmlBlock;
 import org.commonmark.node.HtmlInline;
 import org.commonmark.node.Node;
 
-import com.zeoflow.stylar.StylarConfiguration;
-
 /**
  * @since 3.0.0
  */
 public class HtmlPlugin extends AbstractStylarPlugin
 {
 
-    /**
-     * @see #create(HtmlConfigure)
-     * @since 4.0.0
-     */
-    public interface HtmlConfigure {
-        void configureHtml(@NonNull HtmlPlugin plugin);
+    public static final float SCRIPT_DEF_TEXT_SIZE_RATIO = .75F;
+    private final StylarHtmlRendererImpl.Builder builder;
+    private StylarHtmlParser htmlParser;
+    private StylarHtmlRenderer htmlRenderer;
+    // @since 4.4.0
+    private HtmlEmptyTagReplacement emptyTagReplacement = new HtmlEmptyTagReplacement();
+
+    @SuppressWarnings("WeakerAccess")
+    HtmlPlugin()
+    {
+        this.builder = new StylarHtmlRendererImpl.Builder();
     }
 
     @NonNull
-    public static HtmlPlugin create() {
+    public static HtmlPlugin create()
+    {
         return new HtmlPlugin();
     }
 
@@ -46,25 +51,11 @@ public class HtmlPlugin extends AbstractStylarPlugin
      * @since 4.0.0
      */
     @NonNull
-    public static HtmlPlugin create(@NonNull HtmlConfigure configure) {
+    public static HtmlPlugin create(@NonNull HtmlConfigure configure)
+    {
         final HtmlPlugin plugin = create();
         configure.configureHtml(plugin);
         return plugin;
-    }
-
-    public static final float SCRIPT_DEF_TEXT_SIZE_RATIO = .75F;
-
-    private final StylarHtmlRendererImpl.Builder builder;
-
-    private StylarHtmlParser htmlParser;
-    private StylarHtmlRenderer htmlRenderer;
-
-    // @since 4.4.0
-    private HtmlEmptyTagReplacement emptyTagReplacement = new HtmlEmptyTagReplacement();
-
-    @SuppressWarnings("WeakerAccess")
-    HtmlPlugin() {
-        this.builder = new StylarHtmlRendererImpl.Builder();
     }
 
     /**
@@ -73,7 +64,8 @@ public class HtmlPlugin extends AbstractStylarPlugin
      * @since 4.0.0
      */
     @NonNull
-    public HtmlPlugin allowNonClosedTags(boolean allowNonClosedTags) {
+    public HtmlPlugin allowNonClosedTags(boolean allowNonClosedTags)
+    {
         builder.allowNonClosedTags(allowNonClosedTags);
         return this;
     }
@@ -82,7 +74,8 @@ public class HtmlPlugin extends AbstractStylarPlugin
      * @since 4.0.0
      */
     @NonNull
-    public HtmlPlugin addHandler(@NonNull TagHandler tagHandler) {
+    public HtmlPlugin addHandler(@NonNull TagHandler tagHandler)
+    {
         builder.addHandler(tagHandler);
         return this;
     }
@@ -91,7 +84,8 @@ public class HtmlPlugin extends AbstractStylarPlugin
      * @since 4.0.0
      */
     @Nullable
-    public TagHandler getHandler(@NonNull String tagName) {
+    public TagHandler getHandler(@NonNull String tagName)
+    {
         return builder.getHandler(tagName);
     }
 
@@ -104,7 +98,8 @@ public class HtmlPlugin extends AbstractStylarPlugin
      * @since 4.0.0
      */
     @NonNull
-    public HtmlPlugin excludeDefaults(boolean excludeDefaults) {
+    public HtmlPlugin excludeDefaults(boolean excludeDefaults)
+    {
         builder.excludeDefaults(excludeDefaults);
         return this;
     }
@@ -114,19 +109,22 @@ public class HtmlPlugin extends AbstractStylarPlugin
      * @since 4.4.0
      */
     @NonNull
-    public HtmlPlugin emptyTagReplacement(@NonNull HtmlEmptyTagReplacement emptyTagReplacement) {
+    public HtmlPlugin emptyTagReplacement(@NonNull HtmlEmptyTagReplacement emptyTagReplacement)
+    {
         this.emptyTagReplacement = emptyTagReplacement;
         return this;
     }
 
     @Override
-    public void configureConfiguration(@NonNull StylarConfiguration.Builder configurationBuilder) {
+    public void configureConfiguration(@NonNull StylarConfiguration.Builder configurationBuilder)
+    {
 
         // @since 4.0.0 we init internal html-renderer here (marks the end of configuration)
 
         final StylarHtmlRendererImpl.Builder builder = this.builder;
 
-        if (!builder.excludeDefaults()) {
+        if (!builder.excludeDefaults())
+        {
             // please note that it's better to not checkState for
             // this method call (minor optimization), final `build` method call
             // will check for the state and throw an exception if applicable
@@ -148,35 +146,54 @@ public class HtmlPlugin extends AbstractStylarPlugin
     }
 
     @Override
-    public void afterRender(@NonNull Node node, @NonNull StylarVisitor visitor) {
+    public void afterRender(@NonNull Node node, @NonNull StylarVisitor visitor)
+    {
         final StylarHtmlRenderer htmlRenderer = this.htmlRenderer;
-        if (htmlRenderer != null) {
+        if (htmlRenderer != null)
+        {
             htmlRenderer.render(visitor, htmlParser);
-        } else {
+        } else
+        {
             throw new IllegalStateException("Unexpected state, html-renderer is not defined");
         }
     }
 
     @Override
-    public void configureVisitor(@NonNull StylarVisitor.Builder builder) {
+    public void configureVisitor(@NonNull StylarVisitor.Builder builder)
+    {
         builder
-                .on(HtmlBlock.class, new StylarVisitor.NodeVisitor<HtmlBlock>() {
-                    @Override
-                    public void visit(@NonNull StylarVisitor visitor, @NonNull HtmlBlock htmlBlock) {
-                        visitHtml(visitor, htmlBlock.getLiteral());
-                    }
-                })
-                .on(HtmlInline.class, new StylarVisitor.NodeVisitor<HtmlInline>() {
-                    @Override
-                    public void visit(@NonNull StylarVisitor visitor, @NonNull HtmlInline htmlInline) {
-                        visitHtml(visitor, htmlInline.getLiteral());
-                    }
-                });
+            .on(HtmlBlock.class, new StylarVisitor.NodeVisitor<HtmlBlock>()
+            {
+                @Override
+                public void visit(@NonNull StylarVisitor visitor, @NonNull HtmlBlock htmlBlock)
+                {
+                    visitHtml(visitor, htmlBlock.getLiteral());
+                }
+            })
+            .on(HtmlInline.class, new StylarVisitor.NodeVisitor<HtmlInline>()
+            {
+                @Override
+                public void visit(@NonNull StylarVisitor visitor, @NonNull HtmlInline htmlInline)
+                {
+                    visitHtml(visitor, htmlInline.getLiteral());
+                }
+            });
     }
 
-    private void visitHtml(@NonNull StylarVisitor visitor, @Nullable String html) {
-        if (html != null) {
+    private void visitHtml(@NonNull StylarVisitor visitor, @Nullable String html)
+    {
+        if (html != null)
+        {
             htmlParser.processFragment(visitor.builder(), html);
         }
+    }
+
+    /**
+     * @see #create(HtmlConfigure)
+     * @since 4.0.0
+     */
+    public interface HtmlConfigure
+    {
+        void configureHtml(@NonNull HtmlPlugin plugin);
     }
 }

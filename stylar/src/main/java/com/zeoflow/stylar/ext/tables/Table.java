@@ -25,17 +25,26 @@ import java.util.List;
  * @see #parse(Stylar, TableBlock)
  * @since 3.0.0
  */
-public class Table {
+public class Table
+{
+
+    private final List<Row> rows;
+
+    public Table(@NonNull List<Row> rows)
+    {
+        this.rows = rows;
+    }
 
     /**
      * Factory method to obtain an instance of {@link Table}
      *
-     * @param stylar    Markwon
+     * @param stylar     Markwon
      * @param tableBlock TableBlock to parse
      * @return parsed {@link Table} or null
      */
     @Nullable
-    public static Table parse(@NonNull Stylar stylar, @NonNull TableBlock tableBlock) {
+    public static Table parse(@NonNull Stylar stylar, @NonNull TableBlock tableBlock)
+    {
 
         final Table table;
 
@@ -43,99 +52,109 @@ public class Table {
         tableBlock.accept(visitor);
         final List<Row> rows = visitor.rows();
 
-        if (rows == null) {
+        if (rows == null)
+        {
             table = null;
-        } else {
+        } else
+        {
             table = new Table(rows);
         }
 
         return table;
     }
 
-    public static class Row {
-
-        private final boolean isHeader;
-        private final List<Column> columns;
-
-        public Row(
-                boolean isHeader,
-                @NonNull List<Column> columns) {
-            this.isHeader = isHeader;
-            this.columns = columns;
-        }
-
-        public boolean header() {
-            return isHeader;
-        }
-
-        @NonNull
-        public List<Column> columns() {
-            return columns;
-        }
-
-        @Override
-        public String toString() {
-            return "Row{" +
-                    "isHeader=" + isHeader +
-                    ", columns=" + columns +
-                    '}';
-        }
+    @NonNull
+    public List<Row> rows()
+    {
+        return rows;
     }
 
-    public static class Column {
-
-        private final Alignment alignment;
-        private final Spanned content;
-
-        public Column(@NonNull Alignment alignment, @NonNull Spanned content) {
-            this.alignment = alignment;
-            this.content = content;
-        }
-
-        @NonNull
-        public Alignment alignment() {
-            return alignment;
-        }
-
-        @NonNull
-        public Spanned content() {
-            return content;
-        }
-
-        @Override
-        public String toString() {
-            return "Column{" +
-                    "alignment=" + alignment +
-                    ", content=" + content +
-                    '}';
-        }
+    @Override
+    public String toString()
+    {
+        return "Table{" +
+            "rows=" + rows +
+            '}';
     }
 
-    public enum Alignment {
+    public enum Alignment
+    {
         LEFT,
         CENTER,
         RIGHT
     }
 
-    private final List<Row> rows;
+    public static class Row
+    {
 
-    public Table(@NonNull List<Row> rows) {
-        this.rows = rows;
-    }
+        private final boolean isHeader;
+        private final List<Column> columns;
 
-    @NonNull
-    public List<Row> rows() {
-        return rows;
-    }
+        public Row(
+            boolean isHeader,
+            @NonNull List<Column> columns)
+        {
+            this.isHeader = isHeader;
+            this.columns = columns;
+        }
 
-    @Override
-    public String toString() {
-        return "Table{" +
-                "rows=" + rows +
+        public boolean header()
+        {
+            return isHeader;
+        }
+
+        @NonNull
+        public List<Column> columns()
+        {
+            return columns;
+        }
+
+        @Override
+        public String toString()
+        {
+            return "Row{" +
+                "isHeader=" + isHeader +
+                ", columns=" + columns +
                 '}';
+        }
     }
 
-    static class ParseVisitor extends AbstractVisitor {
+    public static class Column
+    {
+
+        private final Alignment alignment;
+        private final Spanned content;
+
+        public Column(@NonNull Alignment alignment, @NonNull Spanned content)
+        {
+            this.alignment = alignment;
+            this.content = content;
+        }
+
+        @NonNull
+        public Alignment alignment()
+        {
+            return alignment;
+        }
+
+        @NonNull
+        public Spanned content()
+        {
+            return content;
+        }
+
+        @Override
+        public String toString()
+        {
+            return "Column{" +
+                "alignment=" + alignment +
+                ", content=" + content +
+                '}';
+        }
+    }
+
+    static class ParseVisitor extends AbstractVisitor
+    {
 
         private final Stylar stylar;
 
@@ -144,23 +163,45 @@ public class Table {
         private List<Column> pendingRow;
         private boolean pendingRowIsHeader;
 
-        ParseVisitor(@NonNull Stylar stylar) {
+        ParseVisitor(@NonNull Stylar stylar)
+        {
             this.stylar = stylar;
         }
 
+        @NonNull
+        private static Table.Alignment alignment(@NonNull TableCell.Alignment alignment)
+        {
+            final Table.Alignment out;
+            if (TableCell.Alignment.RIGHT == alignment)
+            {
+                out = Table.Alignment.RIGHT;
+            } else if (TableCell.Alignment.CENTER == alignment)
+            {
+                out = Table.Alignment.CENTER;
+            } else
+            {
+                out = Table.Alignment.LEFT;
+            }
+            return out;
+        }
+
         @Nullable
-        public List<Row> rows() {
+        public List<Row> rows()
+        {
             return rows;
         }
 
         @Override
-        public void visit(CustomNode customNode) {
+        public void visit(CustomNode customNode)
+        {
 
-            if (customNode instanceof TableCell) {
+            if (customNode instanceof TableCell)
+            {
 
                 final TableCell cell = (TableCell) customNode;
 
-                if (pendingRow == null) {
+                if (pendingRow == null)
+                {
                     pendingRow = new ArrayList<>(2);
                 }
 
@@ -171,14 +212,17 @@ public class Table {
             }
 
             if (customNode instanceof TableHead
-                    || customNode instanceof TableRow) {
+                || customNode instanceof TableRow)
+            {
 
                 visitChildren(customNode);
 
                 // this can happen, ignore such row
-                if (pendingRow != null && pendingRow.size() > 0) {
+                if (pendingRow != null && pendingRow.size() > 0)
+                {
 
-                    if (rows == null) {
+                    if (rows == null)
+                    {
                         rows = new ArrayList<>(2);
                     }
 
@@ -192,19 +236,6 @@ public class Table {
             }
 
             visitChildren(customNode);
-        }
-
-        @NonNull
-        private static Table.Alignment alignment(@NonNull TableCell.Alignment alignment) {
-            final Table.Alignment out;
-            if (TableCell.Alignment.RIGHT == alignment) {
-                out = Table.Alignment.RIGHT;
-            } else if (TableCell.Alignment.CENTER == alignment) {
-                out = Table.Alignment.CENTER;
-            } else {
-                out = Table.Alignment.LEFT;
-            }
-            return out;
         }
     }
 }

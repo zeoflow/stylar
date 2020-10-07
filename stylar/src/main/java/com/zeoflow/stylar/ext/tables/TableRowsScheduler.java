@@ -10,22 +10,33 @@ import androidx.annotation.Nullable;
 
 import com.zeoflow.stylar.R;
 
-abstract class TableRowsScheduler {
+abstract class TableRowsScheduler
+{
 
-    static void schedule(@NonNull final TextView view) {
+    private TableRowsScheduler()
+    {
+    }
+
+    static void schedule(@NonNull final TextView view)
+    {
         final Object[] spans = extract(view);
         if (spans != null
-                && spans.length > 0) {
+            && spans.length > 0)
+        {
 
-            if (view.getTag(R.id.stylar_tables_scheduler) == null) {
-                final View.OnAttachStateChangeListener listener = new View.OnAttachStateChangeListener() {
+            if (view.getTag(R.id.stylar_tables_scheduler) == null)
+            {
+                final View.OnAttachStateChangeListener listener = new View.OnAttachStateChangeListener()
+                {
                     @Override
-                    public void onViewAttachedToWindow(View v) {
+                    public void onViewAttachedToWindow(View v)
+                    {
 
                     }
 
                     @Override
-                    public void onViewDetachedFromWindow(View v) {
+                    public void onViewDetachedFromWindow(View v)
+                    {
                         unschedule(view);
                         view.removeOnAttachStateChangeListener(this);
                         view.setTag(R.id.stylar_tables_scheduler, null);
@@ -35,54 +46,62 @@ abstract class TableRowsScheduler {
                 view.setTag(R.id.stylar_tables_scheduler, listener);
             }
 
-            final TableRowSpan.Invalidator invalidator = new TableRowSpan.Invalidator() {
+            final TableRowSpan.Invalidator invalidator = new TableRowSpan.Invalidator()
+            {
 
                 // @since 4.1.0
                 // let's stack-up invalidation calls (so invalidation happens,
                 // but not with each table-row-span draw call)
-                final Runnable runnable = new Runnable() {
+                final Runnable runnable = new Runnable()
+                {
                     @Override
-                    public void run() {
+                    public void run()
+                    {
                         view.setText(view.getText());
                     }
                 };
 
                 @Override
-                public void invalidate() {
+                public void invalidate()
+                {
                     // @since 4.1.0 post invalidation (combine multiple calls)
                     view.removeCallbacks(runnable);
                     view.post(runnable);
                 }
             };
 
-            for (Object span : spans) {
+            for (Object span : spans)
+            {
                 ((TableRowSpan) span).invalidator(invalidator);
             }
         }
     }
 
-    static void unschedule(@NonNull TextView view) {
+    static void unschedule(@NonNull TextView view)
+    {
         final Object[] spans = extract(view);
         if (spans != null
-                && spans.length > 0) {
-            for (Object span : spans) {
+            && spans.length > 0)
+        {
+            for (Object span : spans)
+            {
                 ((TableRowSpan) span).invalidator(null);
             }
         }
     }
 
     @Nullable
-    private static Object[] extract(@NonNull TextView view) {
+    private static Object[] extract(@NonNull TextView view)
+    {
         final Object[] out;
         final CharSequence text = view.getText();
-        if (!TextUtils.isEmpty(text) && text instanceof Spanned) {
+        if (!TextUtils.isEmpty(text) && text instanceof Spanned)
+        {
             out = ((Spanned) text).getSpans(0, text.length(), TableRowSpan.class);
-        } else {
+        } else
+        {
             out = null;
         }
         return out;
-    }
-
-    private TableRowsScheduler() {
     }
 }

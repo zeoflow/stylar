@@ -15,30 +15,36 @@ import androidx.annotation.NonNull;
  *
  * @since 3.0.0
  */
-public class CustomTypefaceSpan extends MetricAffectingSpan {
-
-    @NonNull
-    public static CustomTypefaceSpan create(@NonNull Typeface typeface) {
-        return new CustomTypefaceSpan(typeface);
-    }
+public class CustomTypefaceSpan extends MetricAffectingSpan
+{
 
     private final Typeface typeface;
 
-    public CustomTypefaceSpan(@NonNull Typeface typeface) {
+    public CustomTypefaceSpan(@NonNull Typeface typeface)
+    {
         this.typeface = typeface;
     }
 
+    @NonNull
+    public static CustomTypefaceSpan create(@NonNull Typeface typeface)
+    {
+        return new CustomTypefaceSpan(typeface);
+    }
+
     @Override
-    public void updateMeasureState(@NonNull TextPaint p) {
+    public void updateMeasureState(@NonNull TextPaint p)
+    {
         updatePaint(p);
     }
 
     @Override
-    public void updateDrawState(TextPaint tp) {
+    public void updateDrawState(TextPaint tp)
+    {
         updatePaint(tp);
     }
 
-    private void updatePaint(@NonNull TextPaint paint) {
+    private void updatePaint(@NonNull TextPaint paint)
+    {
         paint.setTypeface(typeface);
     }
 }

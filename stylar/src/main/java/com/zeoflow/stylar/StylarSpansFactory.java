@@ -30,7 +30,8 @@ public interface StylarSpansFactory
     <N extends Node> SpanFactory require(@NonNull Class<N> node);
 
 
-    interface Builder {
+    interface Builder
+    {
 
         @NonNull
         <N extends Node> Builder setFactory(@NonNull Class<N> node, @Nullable SpanFactory factory);

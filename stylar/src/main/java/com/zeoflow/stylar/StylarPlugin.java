@@ -5,13 +5,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import org.commonmark.node.Node;
-import org.commonmark.parser.Parser;
-
 import com.zeoflow.stylar.core.CorePlugin;
 import com.zeoflow.stylar.core.StylarTheme;
 import com.zeoflow.stylar.image.AsyncDrawableSpan;
 import com.zeoflow.stylar.movement.MovementMethodPlugin;
+
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
 
 /**
  * Class represents a plugin (extension) to Markwon to configure how parsing and rendering
@@ -24,28 +24,6 @@ import com.zeoflow.stylar.movement.MovementMethodPlugin;
  */
 public interface StylarPlugin
 {
-
-    /**
-     * @see Registry#require(Class, Action)
-     * @since 4.0.0
-     */
-    interface Action<P extends StylarPlugin> {
-        void apply(@NonNull P p);
-    }
-
-    /**
-     * @see #configure(Registry)
-     * @since 4.0.0
-     */
-    interface Registry {
-
-        @NonNull
-        <P extends StylarPlugin> P require(@NonNull Class<P> plugin);
-
-        <P extends StylarPlugin> void require(
-                @NonNull Class<P> plugin,
-                @NonNull Action<? super P> action);
-    }
 
     /**
      * This method will be called before any other during {@link Stylar} instance construction.
@@ -147,4 +125,28 @@ public interface StylarPlugin
      * @param textView TextView to which markdown was applied
      */
     void afterSetText(@NonNull TextView textView);
+
+    /**
+     * @see Registry#require(Class, Action)
+     * @since 4.0.0
+     */
+    interface Action<P extends StylarPlugin>
+    {
+        void apply(@NonNull P p);
+    }
+
+    /**
+     * @see #configure(Registry)
+     * @since 4.0.0
+     */
+    interface Registry
+    {
+
+        @NonNull
+        <P extends StylarPlugin> P require(@NonNull Class<P> plugin);
+
+        <P extends StylarPlugin> void require(
+            @NonNull Class<P> plugin,
+            @NonNull Action<? super P> action);
+    }
 }

@@ -32,10 +32,12 @@ import java.util.List;
  * @see #setParsedMarkdown(Stylar, List)
  * @since 3.0.0
  */
-public abstract class StylarAdapter extends RecyclerView.Adapter<StylarAdapter.Holder> {
+public abstract class StylarAdapter extends RecyclerView.Adapter<StylarAdapter.Holder>
+{
 
     @NonNull
-    public static Builder builderTextViewIsRoot(@LayoutRes int defaultEntryLayoutResId) {
+    public static Builder builderTextViewIsRoot(@LayoutRes int defaultEntryLayoutResId)
+    {
         return builder(SimpleEntry.createTextViewIsRoot(defaultEntryLayoutResId));
     }
 
@@ -46,22 +48,25 @@ public abstract class StylarAdapter extends RecyclerView.Adapter<StylarAdapter.H
      */
     @NonNull
     public static Builder builder(
-            @LayoutRes int defaultEntryLayoutResId,
-            @IdRes int defaultEntryTextViewResId
-    ) {
+        @LayoutRes int defaultEntryLayoutResId,
+        @IdRes int defaultEntryTextViewResId
+    )
+    {
         return builder(SimpleEntry.create(defaultEntryLayoutResId, defaultEntryTextViewResId));
     }
 
     @NonNull
-    public static Builder builder(@NonNull Entry<? extends Node, ? extends Holder> defaultEntry) {
+    public static Builder builder(@NonNull Entry<? extends Node, ? extends Holder> defaultEntry)
+    {
         //noinspection unchecked
         return new StylarAdapterImpl.BuilderImpl((Entry<Node, Holder>) defaultEntry);
     }
 
     @NonNull
-    public static StylarAdapter createTextViewIsRoot(@LayoutRes int defaultEntryLayoutResId) {
+    public static StylarAdapter createTextViewIsRoot(@LayoutRes int defaultEntryLayoutResId)
+    {
         return builderTextViewIsRoot(defaultEntryLayoutResId)
-                .build();
+            .build();
     }
 
     /**
@@ -75,9 +80,10 @@ public abstract class StylarAdapter extends RecyclerView.Adapter<StylarAdapter.H
      */
     @NonNull
     public static StylarAdapter create(
-            @LayoutRes int defaultEntryLayoutResId,
-            @IdRes int defaultEntryTextViewResId
-    ) {
+        @LayoutRes int defaultEntryLayoutResId,
+        @IdRes int defaultEntryTextViewResId
+    )
+    {
         return builder(defaultEntryLayoutResId, defaultEntryTextViewResId).build();
     }
 
@@ -89,9 +95,18 @@ public abstract class StylarAdapter extends RecyclerView.Adapter<StylarAdapter.H
      * @see #builder(Entry)
      */
     @NonNull
-    public static StylarAdapter create(@NonNull Entry<? extends Node, ? extends Holder> defaultEntry) {
+    public static StylarAdapter create(@NonNull Entry<? extends Node, ? extends Holder> defaultEntry)
+    {
         return builder(defaultEntry).build();
     }
+
+    public abstract void setMarkdown(@NonNull Stylar stylar, @NonNull String markdown);
+
+    public abstract void setParsedMarkdown(@NonNull Stylar stylar, @NonNull Node document);
+
+    public abstract void setParsedMarkdown(@NonNull Stylar stylar, @NonNull List<Node> nodes);
+
+    public abstract int getNodeViewType(@NonNull Class<? extends Node> node);
 
     /**
      * Builder to create an instance of {@link StylarAdapter}
@@ -100,7 +115,8 @@ public abstract class StylarAdapter extends RecyclerView.Adapter<StylarAdapter.H
      * @see #reducer(StylarReducer)
      * @see #build()
      */
-    public interface Builder {
+    public interface Builder
+    {
 
         /**
          * Include a custom {@link Entry} rendering for a Node. Please note that `node` argument
@@ -114,8 +130,8 @@ public abstract class StylarAdapter extends RecyclerView.Adapter<StylarAdapter.H
          */
         @NonNull
         <N extends Node> Builder include(
-                @NonNull Class<N> node,
-                @NonNull Entry<? super N, ? extends Holder> entry);
+            @NonNull Class<N> node,
+            @NonNull Entry<? super N, ? extends Holder> entry);
 
         /**
          * Specify how root Node will be <em>reduced</em> to a list of nodes. There is a default
@@ -139,7 +155,8 @@ public abstract class StylarAdapter extends RecyclerView.Adapter<StylarAdapter.H
     /**
      * @see SimpleEntry
      */
-    public static abstract class Entry<N extends Node, H extends Holder> {
+    public static abstract class Entry<N extends Node, H extends Holder>
+    {
 
         @NonNull
         public abstract H createHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent);
@@ -149,54 +166,56 @@ public abstract class StylarAdapter extends RecyclerView.Adapter<StylarAdapter.H
         /**
          * Will be called when new content is available (clear internal cache if any)
          */
-        public void clear() {
+        public void clear()
+        {
 
         }
 
-        public long id(@NonNull N node) {
+        public long id(@NonNull N node)
+        {
             return node.hashCode();
         }
 
-        public void onViewRecycled(@NonNull H holder) {
+        public void onViewRecycled(@NonNull H holder)
+        {
 
         }
     }
 
-    public abstract void setMarkdown(@NonNull Stylar stylar, @NonNull String markdown);
-
-    public abstract void setParsedMarkdown(@NonNull Stylar stylar, @NonNull Node document);
-
-    public abstract void setParsedMarkdown(@NonNull Stylar stylar, @NonNull List<Node> nodes);
-
-    public abstract int getNodeViewType(@NonNull Class<? extends Node> node);
-
     @SuppressWarnings("WeakerAccess")
-    public static class Holder extends RecyclerView.ViewHolder {
+    public static class Holder extends RecyclerView.ViewHolder
+    {
 
-        public Holder(@NonNull View itemView) {
+        public Holder(@NonNull View itemView)
+        {
             super(itemView);
         }
 
         // please note that this method should be called after constructor
         @Nullable
-        protected <V extends View> V findView(@IdRes int id) {
+        protected <V extends View> V findView(@IdRes int id)
+        {
             return itemView.findViewById(id);
         }
 
         // please note that this method should be called after constructor
         @NonNull
-        protected <V extends View> V requireView(@IdRes int id) {
+        protected <V extends View> V requireView(@IdRes int id)
+        {
             final V v = itemView.findViewById(id);
-            if (v == null) {
+            if (v == null)
+            {
                 final String name;
                 if (id == 0
-                        || id == View.NO_ID) {
+                    || id == View.NO_ID)
+                {
                     name = String.valueOf(id);
-                } else {
+                } else
+                {
                     name = "R.id." + itemView.getResources().getResourceName(id);
                 }
                 throw new NullPointerException(String.format("No view with id(R.id.%s) is found " +
-                        "in layout: %s", name, itemView));
+                    "in layout: %s", name, itemView));
             }
             return v;
         }

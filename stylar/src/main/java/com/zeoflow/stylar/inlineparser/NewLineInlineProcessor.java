@@ -11,37 +11,45 @@ import java.util.regex.Pattern;
 /**
  * @since 4.2.0
  */
-public class NewLineInlineProcessor extends InlineProcessor {
+public class NewLineInlineProcessor extends InlineProcessor
+{
 
     private static final Pattern FINAL_SPACE = Pattern.compile(" *$");
 
     @Override
-    public char specialCharacter() {
+    public char specialCharacter()
+    {
         return '\n';
     }
 
     @Override
-    protected Node parse() {
+    protected Node parse()
+    {
         index++; // assume we're at a \n
 
         final Node previous = block.getLastChild();
 
         // Check previous text for trailing spaces.
         // The "endsWith" is an optimization to avoid an RE match in the common case.
-        if (previous instanceof Text && ((Text) previous).getLiteral().endsWith(" ")) {
+        if (previous instanceof Text && ((Text) previous).getLiteral().endsWith(" "))
+        {
             Text text = (Text) previous;
             String literal = text.getLiteral();
             Matcher matcher = FINAL_SPACE.matcher(literal);
             int spaces = matcher.find() ? matcher.end() - matcher.start() : 0;
-            if (spaces > 0) {
+            if (spaces > 0)
+            {
                 text.setLiteral(literal.substring(0, literal.length() - spaces));
             }
-            if (spaces >= 2) {
+            if (spaces >= 2)
+            {
                 return new HardLineBreak();
-            } else {
+            } else
+            {
                 return new SoftLineBreak();
             }
-        } else {
+        } else
+        {
             return new SoftLineBreak();
         }
     }

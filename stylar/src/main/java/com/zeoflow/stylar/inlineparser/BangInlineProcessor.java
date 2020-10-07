@@ -9,17 +9,21 @@ import org.commonmark.node.Text;
  *
  * @since 4.2.0
  */
-public class BangInlineProcessor extends InlineProcessor {
+public class BangInlineProcessor extends InlineProcessor
+{
     @Override
-    public char specialCharacter() {
+    public char specialCharacter()
+    {
         return '!';
     }
 
     @Override
-    protected Node parse() {
+    protected Node parse()
+    {
         int startIndex = index;
         index++;
-        if (peek() == '[') {
+        if (peek() == '[')
+        {
             index++;
 
             Text node = text("![");
@@ -28,7 +32,8 @@ public class BangInlineProcessor extends InlineProcessor {
             addBracket(Bracket.image(node, startIndex + 1, lastBracket(), lastDelimiter()));
 
             return node;
-        } else {
+        } else
+        {
             return null;
         }
     }

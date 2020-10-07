@@ -16,11 +16,6 @@ import com.zeoflow.stylar.syntax.SyntaxHighlightNoOp;
 public class StylarConfiguration
 {
 
-    @NonNull
-    public static Builder builder() {
-        return new Builder();
-    }
-
     private final StylarTheme theme;
     private final AsyncDrawableLoader asyncDrawableLoader;
     private final SyntaxHighlight syntaxHighlight;
@@ -28,11 +23,11 @@ public class StylarConfiguration
     // @since 4.4.0
     private final ImageDestinationProcessor imageDestinationProcessor;
     private final ImageSizeResolver imageSizeResolver;
-
     // @since 3.0.0
     private final StylarSpansFactory spansFactory;
 
-    private StylarConfiguration(@NonNull Builder builder) {
+    private StylarConfiguration(@NonNull Builder builder)
+    {
         this.theme = builder.theme;
         this.asyncDrawableLoader = builder.asyncDrawableLoader;
         this.syntaxHighlight = builder.syntaxHighlight;
@@ -43,22 +38,32 @@ public class StylarConfiguration
     }
 
     @NonNull
-    public StylarTheme theme() {
+    public static Builder builder()
+    {
+        return new Builder();
+    }
+
+    @NonNull
+    public StylarTheme theme()
+    {
         return theme;
     }
 
     @NonNull
-    public AsyncDrawableLoader asyncDrawableLoader() {
+    public AsyncDrawableLoader asyncDrawableLoader()
+    {
         return asyncDrawableLoader;
     }
 
     @NonNull
-    public SyntaxHighlight syntaxHighlight() {
+    public SyntaxHighlight syntaxHighlight()
+    {
         return syntaxHighlight;
     }
 
     @NonNull
-    public LinkResolver linkResolver() {
+    public LinkResolver linkResolver()
+    {
         return linkResolver;
     }
 
@@ -66,12 +71,14 @@ public class StylarConfiguration
      * @since 4.4.0
      */
     @NonNull
-    public ImageDestinationProcessor imageDestinationProcessor() {
+    public ImageDestinationProcessor imageDestinationProcessor()
+    {
         return imageDestinationProcessor;
     }
 
     @NonNull
-    public ImageSizeResolver imageSizeResolver() {
+    public ImageSizeResolver imageSizeResolver()
+    {
         return imageSizeResolver;
     }
 
@@ -79,12 +86,14 @@ public class StylarConfiguration
      * @since 3.0.0
      */
     @NonNull
-    public StylarSpansFactory spansFactory() {
+    public StylarSpansFactory spansFactory()
+    {
         return spansFactory;
     }
 
     @SuppressWarnings({"unused", "UnusedReturnValue"})
-    public static class Builder {
+    public static class Builder
+    {
 
         private StylarTheme theme;
         private AsyncDrawableLoader asyncDrawableLoader;
@@ -95,26 +104,30 @@ public class StylarConfiguration
         private ImageSizeResolver imageSizeResolver;
         private StylarSpansFactory spansFactory;
 
-        public Builder() {
+        public Builder()
+        {
         }
 
         /**
          * @since 4.0.0
          */
         @NonNull
-        public Builder asyncDrawableLoader(@NonNull AsyncDrawableLoader asyncDrawableLoader) {
+        public Builder asyncDrawableLoader(@NonNull AsyncDrawableLoader asyncDrawableLoader)
+        {
             this.asyncDrawableLoader = asyncDrawableLoader;
             return this;
         }
 
         @NonNull
-        public Builder syntaxHighlight(@NonNull SyntaxHighlight syntaxHighlight) {
+        public Builder syntaxHighlight(@NonNull SyntaxHighlight syntaxHighlight)
+        {
             this.syntaxHighlight = syntaxHighlight;
             return this;
         }
 
         @NonNull
-        public Builder linkResolver(@NonNull LinkResolver linkResolver) {
+        public Builder linkResolver(@NonNull LinkResolver linkResolver)
+        {
             this.linkResolver = linkResolver;
             return this;
         }
@@ -123,7 +136,8 @@ public class StylarConfiguration
          * @since 4.4.0
          */
         @NonNull
-        public Builder imageDestinationProcessor(@NonNull ImageDestinationProcessor imageDestinationProcessor) {
+        public Builder imageDestinationProcessor(@NonNull ImageDestinationProcessor imageDestinationProcessor)
+        {
             this.imageDestinationProcessor = imageDestinationProcessor;
             return this;
         }
@@ -132,38 +146,45 @@ public class StylarConfiguration
          * @since 1.0.1
          */
         @NonNull
-        public Builder imageSizeResolver(@NonNull ImageSizeResolver imageSizeResolver) {
+        public Builder imageSizeResolver(@NonNull ImageSizeResolver imageSizeResolver)
+        {
             this.imageSizeResolver = imageSizeResolver;
             return this;
         }
 
         @NonNull
         public StylarConfiguration build(
-                @NonNull StylarTheme theme,
-                @NonNull StylarSpansFactory spansFactory) {
+            @NonNull StylarTheme theme,
+            @NonNull StylarSpansFactory spansFactory)
+        {
 
             this.theme = theme;
             this.spansFactory = spansFactory;
 
             // @since 4.0.0
-            if (asyncDrawableLoader == null) {
+            if (asyncDrawableLoader == null)
+            {
                 asyncDrawableLoader = AsyncDrawableLoader.noOp();
             }
 
-            if (syntaxHighlight == null) {
+            if (syntaxHighlight == null)
+            {
                 syntaxHighlight = new SyntaxHighlightNoOp();
             }
 
-            if (linkResolver == null) {
+            if (linkResolver == null)
+            {
                 linkResolver = new LinkResolverDef();
             }
 
             // @since 4.4.0
-            if (imageDestinationProcessor == null) {
+            if (imageDestinationProcessor == null)
+            {
                 imageDestinationProcessor = ImageDestinationProcessor.noOp();
             }
 
-            if (imageSizeResolver == null) {
+            if (imageSizeResolver == null)
+            {
                 imageSizeResolver = new ImageSizeResolverDef();
             }
 

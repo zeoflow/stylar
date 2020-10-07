@@ -14,8 +14,16 @@ import com.zeoflow.stylar.core.spans.StrongEmphasisSpan;
 public class CodeStyleThemeDefault extends CodeStyleThemeBase
 {
 
+    private final int background;
+
+    public CodeStyleThemeDefault(@ColorInt int background)
+    {
+        this.background = background;
+    }
+
     @NonNull
-    public static CodeStyleThemeDefault create() {
+    public static CodeStyleThemeDefault create()
+    {
         return new CodeStyleThemeDefault(0xFFf5f2f0);
     }
 
@@ -23,68 +31,71 @@ public class CodeStyleThemeDefault extends CodeStyleThemeBase
      * @since 3.0.0
      */
     @NonNull
-    public static CodeStyleThemeDefault create(@ColorInt int background) {
+    public static CodeStyleThemeDefault create(@ColorInt int background)
+    {
         return new CodeStyleThemeDefault(background);
     }
 
-    private final int background;
-
-    public CodeStyleThemeDefault(@ColorInt int background) {
-        this.background = background;
-    }
-
     @Override
-    public int background() {
+    public int background()
+    {
         return background;
     }
 
     @Override
-    public int textColor() {
+    public int textColor()
+    {
         return 0xdd000000;
     }
 
     @NonNull
     @Override
-    protected ColorHashMap init() {
+    protected ColorHashMap init()
+    {
         return new ColorHashMap()
-                .add(0xFF708090, "comment", "prolog", "doctype", "cdata")
-                .add(0xFF999999, "punctuation")
-                .add(0xFF990055, "property", "tag", "boolean", "number", "constant", "symbol", "deleted")
-                .add(0xFF669900, "selector", "attr-name", "string", "char", "builtin", "inserted")
-                .add(0xFF9a6e3a, "operator", "entity", "url")
-                .add(0xFF0077aa, "atrule", "attr-value", "keyword")
-                .add(0xFFDD4A68, "function", "class-name")
-                .add(0xFFee9900, "regex", "important", "variable");
+            .add(0xFF708090, "comment", "prolog", "doctype", "cdata")
+            .add(0xFF999999, "punctuation")
+            .add(0xFF990055, "property", "tag", "boolean", "number", "constant", "symbol", "deleted")
+            .add(0xFF669900, "selector", "attr-name", "string", "char", "builtin", "inserted")
+            .add(0xFF9a6e3a, "operator", "entity", "url")
+            .add(0xFF0077aa, "atrule", "attr-value", "keyword")
+            .add(0xFFDD4A68, "function", "class-name")
+            .add(0xFFee9900, "regex", "important", "variable");
     }
 
     @Override
     protected void applyColor(
-            @NonNull String language,
-            @NonNull String type,
-            @Nullable String alias,
-            @ColorInt int color,
-            @NonNull SpannableStringBuilder builder,
-            int start,
-            int end) {
+        @NonNull String language,
+        @NonNull String type,
+        @Nullable String alias,
+        @ColorInt int color,
+        @NonNull SpannableStringBuilder builder,
+        int start,
+        int end)
+    {
 
-        if ("css".equals(language) && isOfType("string", type, alias)) {
+        if ("css".equals(language) && isOfType("string", type, alias))
+        {
             super.applyColor(language, type, alias, 0xFF9a6e3a, builder, start, end);
             builder.setSpan(new BackgroundColorSpan(0x80ffffff), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             return;
         }
 
-        if (isOfType("namespace", type, alias)) {
+        if (isOfType("namespace", type, alias))
+        {
             color = applyAlpha(.7F, color);
         }
 
         super.applyColor(language, type, alias, color, builder, start, end);
 
         if (isOfType("important", type, alias)
-                || isOfType("bold", type, alias)) {
+            || isOfType("bold", type, alias))
+        {
             builder.setSpan(new StrongEmphasisSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
-        if (isOfType("italic", type, alias)) {
+        if (isOfType("italic", type, alias))
+        {
             builder.setSpan(new EmphasisSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
     }

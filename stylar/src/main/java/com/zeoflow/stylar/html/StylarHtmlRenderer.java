@@ -12,8 +12,8 @@ public abstract class StylarHtmlRenderer
 {
 
     public abstract void render(
-            @NonNull StylarVisitor visitor,
-            @NonNull StylarHtmlParser parser
+        @NonNull StylarVisitor visitor,
+        @NonNull StylarHtmlParser parser
     );
 
     @Nullable

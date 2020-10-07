@@ -57,6 +57,12 @@ class StylarBuilderImpl implements Stylar.Builder
     }
 
     @NonNull
+    private static List<StylarPlugin> preparePlugins(@NonNull List<StylarPlugin> plugins)
+    {
+        return new RegistryImpl(plugins).process();
+    }
+
+    @NonNull
     @Override
     public Stylar.Builder bufferType(@NonNull TextView.BufferType bufferType)
     {
@@ -222,11 +228,5 @@ class StylarBuilderImpl implements Stylar.Builder
             codeStyle,
             clickEvent
         );
-    }
-
-    @NonNull
-    private static List<StylarPlugin> preparePlugins(@NonNull List<StylarPlugin> plugins)
-    {
-        return new RegistryImpl(plugins).process();
     }
 }

@@ -11,23 +11,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.zeoflow.stylar.AbstractStylarPlugin;
-import com.zeoflow.stylar.StylarSpansFactory;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
-
-import org.commonmark.node.Image;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import com.zeoflow.stylar.AbstractStylarPlugin;
 import com.zeoflow.stylar.StylarConfiguration;
+import com.zeoflow.stylar.StylarSpansFactory;
 import com.zeoflow.stylar.image.AsyncDrawable;
 import com.zeoflow.stylar.image.AsyncDrawableLoader;
 import com.zeoflow.stylar.image.AsyncDrawableScheduler;
 import com.zeoflow.stylar.image.DrawableUtils;
 import com.zeoflow.stylar.image.ImageSpanFactory;
+
+import org.commonmark.node.Image;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @since 4.0.0
@@ -35,7 +34,73 @@ import com.zeoflow.stylar.image.ImageSpanFactory;
 public class PicassoImagesPlugin extends AbstractStylarPlugin
 {
 
-    public interface PicassoStore {
+    private final PicassoAsyncDrawableLoader picassoAsyncDrawableLoader;
+
+    @SuppressWarnings("WeakerAccess")
+    PicassoImagesPlugin(@NonNull PicassoStore picassoStore)
+    {
+        this.picassoAsyncDrawableLoader = new PicassoAsyncDrawableLoader(picassoStore);
+    }
+
+    @NonNull
+    public static PicassoImagesPlugin create(@NonNull Context context)
+    {
+        return create(new Picasso.Builder(context).build());
+    }
+
+    @NonNull
+    public static PicassoImagesPlugin create(@NonNull final Picasso picasso)
+    {
+        return create(new PicassoStore()
+        {
+            @NonNull
+            @Override
+            public RequestCreator load(@NonNull AsyncDrawable drawable)
+            {
+                return picasso.load(drawable.getDestination())
+                    .tag(drawable);
+            }
+
+            @Override
+            public void cancel(@NonNull AsyncDrawable drawable)
+            {
+                picasso.cancelTag(drawable);
+            }
+        });
+    }
+
+    @NonNull
+    public static PicassoImagesPlugin create(@NonNull PicassoStore picassoStore)
+    {
+        return new PicassoImagesPlugin(picassoStore);
+    }
+
+    @Override
+    public void configureConfiguration(@NonNull StylarConfiguration.Builder builder)
+    {
+        builder.asyncDrawableLoader(picassoAsyncDrawableLoader);
+    }
+
+    @Override
+    public void configureSpansFactory(@NonNull StylarSpansFactory.Builder builder)
+    {
+        builder.setFactory(Image.class, new ImageSpanFactory());
+    }
+
+    @Override
+    public void beforeSetText(@NonNull TextView textView, @NonNull Spanned markdown)
+    {
+        AsyncDrawableScheduler.unschedule(textView);
+    }
+
+    @Override
+    public void afterSetText(@NonNull TextView textView)
+    {
+        AsyncDrawableScheduler.schedule(textView);
+    }
+
+    public interface PicassoStore
+    {
 
         @NonNull
         RequestCreator load(@NonNull AsyncDrawable drawable);
@@ -43,71 +108,20 @@ public class PicassoImagesPlugin extends AbstractStylarPlugin
         void cancel(@NonNull AsyncDrawable drawable);
     }
 
-    @NonNull
-    public static PicassoImagesPlugin create(@NonNull Context context) {
-        return create(new Picasso.Builder(context).build());
-    }
-
-    @NonNull
-    public static PicassoImagesPlugin create(@NonNull final Picasso picasso) {
-        return create(new PicassoStore() {
-            @NonNull
-            @Override
-            public RequestCreator load(@NonNull AsyncDrawable drawable) {
-                return picasso.load(drawable.getDestination())
-                        .tag(drawable);
-            }
-
-            @Override
-            public void cancel(@NonNull AsyncDrawable drawable) {
-                picasso.cancelTag(drawable);
-            }
-        });
-    }
-
-    @NonNull
-    public static PicassoImagesPlugin create(@NonNull PicassoStore picassoStore) {
-        return new PicassoImagesPlugin(picassoStore);
-    }
-
-    private final PicassoAsyncDrawableLoader picassoAsyncDrawableLoader;
-
-    @SuppressWarnings("WeakerAccess")
-    PicassoImagesPlugin(@NonNull PicassoStore picassoStore) {
-        this.picassoAsyncDrawableLoader = new PicassoAsyncDrawableLoader(picassoStore);
-    }
-
-    @Override
-    public void configureConfiguration(@NonNull StylarConfiguration.Builder builder) {
-        builder.asyncDrawableLoader(picassoAsyncDrawableLoader);
-    }
-
-    @Override
-    public void configureSpansFactory(@NonNull StylarSpansFactory.Builder builder) {
-        builder.setFactory(Image.class, new ImageSpanFactory());
-    }
-
-    @Override
-    public void beforeSetText(@NonNull TextView textView, @NonNull Spanned markdown) {
-        AsyncDrawableScheduler.unschedule(textView);
-    }
-
-    @Override
-    public void afterSetText(@NonNull TextView textView) {
-        AsyncDrawableScheduler.schedule(textView);
-    }
-
-    private static class PicassoAsyncDrawableLoader extends AsyncDrawableLoader {
+    private static class PicassoAsyncDrawableLoader extends AsyncDrawableLoader
+    {
 
         private final PicassoStore picassoStore;
         private final Map<AsyncDrawable, AsyncDrawableTarget> cache = new HashMap<>(2);
 
-        PicassoAsyncDrawableLoader(@NonNull PicassoStore picassoStore) {
+        PicassoAsyncDrawableLoader(@NonNull PicassoStore picassoStore)
+        {
             this.picassoStore = picassoStore;
         }
 
         @Override
-        public void load(@NonNull AsyncDrawable drawable) {
+        public void load(@NonNull AsyncDrawable drawable)
+        {
 
             // we must store hard-reference to target (otherwise it will be garbage-collected
             // ad picasso internally stores a target in a weak-reference)
@@ -115,11 +129,12 @@ public class PicassoImagesPlugin extends AbstractStylarPlugin
             cache.put(drawable, target);
 
             picassoStore.load(drawable)
-                    .into(target);
+                .into(target);
         }
 
         @Override
-        public void cancel(@NonNull AsyncDrawable drawable) {
+        public void cancel(@NonNull AsyncDrawable drawable)
+        {
 
             cache.remove(drawable);
 
@@ -128,22 +143,28 @@ public class PicassoImagesPlugin extends AbstractStylarPlugin
 
         @Nullable
         @Override
-        public Drawable placeholder(@NonNull AsyncDrawable drawable) {
+        public Drawable placeholder(@NonNull AsyncDrawable drawable)
+        {
             return null;
         }
 
-        private class AsyncDrawableTarget implements Target {
+        private class AsyncDrawableTarget implements Target
+        {
 
             private final AsyncDrawable drawable;
 
-            AsyncDrawableTarget(@NonNull AsyncDrawable drawable) {
+            AsyncDrawableTarget(@NonNull AsyncDrawable drawable)
+            {
                 this.drawable = drawable;
             }
 
             @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                if (cache.remove(drawable) != null) {
-                    if (drawable.isAttached() && bitmap != null) {
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
+            {
+                if (cache.remove(drawable) != null)
+                {
+                    if (drawable.isAttached() && bitmap != null)
+                    {
                         final BitmapDrawable bitmapDrawable = new BitmapDrawable(Resources.getSystem(), bitmap);
                         DrawableUtils.applyIntrinsicBounds(bitmapDrawable);
                         drawable.setResult(bitmapDrawable);
@@ -152,10 +173,13 @@ public class PicassoImagesPlugin extends AbstractStylarPlugin
             }
 
             @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                if (cache.remove(drawable) != null) {
+            public void onBitmapFailed(Exception e, Drawable errorDrawable)
+            {
+                if (cache.remove(drawable) != null)
+                {
                     if (errorDrawable != null
-                            && drawable.isAttached()) {
+                        && drawable.isAttached())
+                    {
                         DrawableUtils.applyIntrinsicBoundsIfEmpty(errorDrawable);
                         drawable.setResult(errorDrawable);
                     }
@@ -164,15 +188,18 @@ public class PicassoImagesPlugin extends AbstractStylarPlugin
             }
 
             @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            public void onPrepareLoad(Drawable placeHolderDrawable)
+            {
                 if (placeHolderDrawable != null
-                        && canDeliver()) {
+                    && canDeliver())
+                {
                     DrawableUtils.applyIntrinsicBoundsIfEmpty(placeHolderDrawable);
                     drawable.setResult(placeHolderDrawable);
                 }
             }
 
-            private boolean canDeliver() {
+            private boolean canDeliver()
+            {
                 return drawable.isAttached() && cache.containsKey(drawable);
             }
         }

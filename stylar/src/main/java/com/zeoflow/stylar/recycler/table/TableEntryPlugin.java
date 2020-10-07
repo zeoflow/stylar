@@ -5,14 +5,13 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.zeoflow.stylar.AbstractStylarPlugin;
+import com.zeoflow.stylar.ext.tables.TablePlugin;
+import com.zeoflow.stylar.ext.tables.TableTheme;
 
 import org.commonmark.ext.gfm.tables.TablesExtension;
 import org.commonmark.parser.Parser;
 
 import java.util.Collections;
-
-import com.zeoflow.stylar.ext.tables.TablePlugin;
-import com.zeoflow.stylar.ext.tables.TableTheme;
 
 /**
  * This plugin must be used instead of {@link TablePlugin} when a markdown
@@ -26,43 +25,50 @@ import com.zeoflow.stylar.ext.tables.TableTheme;
 public class TableEntryPlugin extends AbstractStylarPlugin
 {
 
+    private final TableEntryTheme theme;
+
+    @SuppressWarnings("WeakerAccess")
+    TableEntryPlugin(@NonNull TableEntryTheme tableTheme)
+    {
+        this.theme = tableTheme;
+    }
+
     @NonNull
-    public static TableEntryPlugin create(@NonNull Context context) {
+    public static TableEntryPlugin create(@NonNull Context context)
+    {
         final TableTheme tableTheme = TableTheme.create(context);
         return create(tableTheme);
     }
 
     @NonNull
-    public static TableEntryPlugin create(@NonNull TableTheme tableTheme) {
+    public static TableEntryPlugin create(@NonNull TableTheme tableTheme)
+    {
         return new TableEntryPlugin(TableEntryTheme.create(tableTheme));
     }
 
     @NonNull
-    public static TableEntryPlugin create(@NonNull TablePlugin.ThemeConfigure themeConfigure) {
+    public static TableEntryPlugin create(@NonNull TablePlugin.ThemeConfigure themeConfigure)
+    {
         final TableTheme.Builder builder = new TableTheme.Builder();
         themeConfigure.configureTheme(builder);
         return new TableEntryPlugin(new TableEntryTheme(builder));
     }
 
     @NonNull
-    public static TableEntryPlugin create(@NonNull TablePlugin plugin) {
+    public static TableEntryPlugin create(@NonNull TablePlugin plugin)
+    {
         return create(plugin.theme());
     }
 
-    private final TableEntryTheme theme;
-
-    @SuppressWarnings("WeakerAccess")
-    TableEntryPlugin(@NonNull TableEntryTheme tableTheme) {
-        this.theme = tableTheme;
-    }
-
     @NonNull
-    public TableEntryTheme theme() {
+    public TableEntryTheme theme()
+    {
         return theme;
     }
 
     @Override
-    public void configureParser(@NonNull Parser.Builder builder) {
+    public void configureParser(@NonNull Parser.Builder builder)
+    {
         builder.extensions(Collections.singleton(TablesExtension.create()));
     }
 }

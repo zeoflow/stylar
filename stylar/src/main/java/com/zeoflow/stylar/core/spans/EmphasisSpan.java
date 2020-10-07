@@ -3,15 +3,18 @@ package com.zeoflow.stylar.core.spans;
 import android.text.TextPaint;
 import android.text.style.MetricAffectingSpan;
 
-public class EmphasisSpan extends MetricAffectingSpan {
+public class EmphasisSpan extends MetricAffectingSpan
+{
 
     @Override
-    public void updateMeasureState(TextPaint p) {
+    public void updateMeasureState(TextPaint p)
+    {
         p.setTextSkewX(-0.25F);
     }
 
     @Override
-    public void updateDrawState(TextPaint tp) {
+    public void updateDrawState(TextPaint tp)
+    {
         tp.setTextSkewX(-0.25F);
     }
 }

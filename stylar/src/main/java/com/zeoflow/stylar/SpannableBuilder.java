@@ -25,17 +25,37 @@ import java.util.List;
  * @since 1.0.1
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class SpannableBuilder implements Appendable, CharSequence {
+public class SpannableBuilder implements Appendable, CharSequence
+{
+
+    private final StringBuilder builder;
+    // actually we might be just using ArrayList
+    private final Deque<Span> spans = new ArrayDeque<>(8);
+
+
+    public SpannableBuilder()
+    {
+        this("");
+    }
+
+    public SpannableBuilder(@NonNull CharSequence cs)
+    {
+        this.builder = new StringBuilder(cs);
+        copySpans(0, cs);
+    }
 
     /**
      * @since 2.0.0
      */
-    public static void setSpans(@NonNull SpannableBuilder builder, @Nullable Object spans, int start, int end) {
-        if (spans != null) {
+    public static void setSpans(@NonNull SpannableBuilder builder, @Nullable Object spans, int start, int end)
+    {
+        if (spans != null)
+        {
 
             // setting a span for an invalid position can lead to silent fail (no exception,
             // but execution is stopped)
-            if (!isPositionValid(builder.length(), start, end)) {
+            if (!isPositionValid(builder.length(), start, end))
+            {
                 return;
             }
 
@@ -47,25 +67,36 @@ public class SpannableBuilder implements Appendable, CharSequence {
 
     // @since 2.0.1 package-private visibility for testing
     @VisibleForTesting
-    static boolean isPositionValid(int length, int start, int end) {
+    static boolean isPositionValid(int length, int start, int end)
+    {
         return end > start
-                && start >= 0
-                && end <= length;
+            && start >= 0
+            && end <= length;
     }
 
-
-    private final StringBuilder builder;
-
-    // actually we might be just using ArrayList
-    private final Deque<Span> spans = new ArrayDeque<>(8);
-
-    public SpannableBuilder() {
-        this("");
-    }
-
-    public SpannableBuilder(@NonNull CharSequence cs) {
-        this.builder = new StringBuilder(cs);
-        copySpans(0, cs);
+    /**
+     * @since 3.0.1
+     */
+    private static void setSpansInternal(
+        @NonNull SpannableBuilder builder,
+        @Nullable Object spans,
+        int start,
+        int end)
+    {
+        if (spans != null)
+        {
+            if (spans.getClass().isArray())
+            {
+                for (Object o : ((Object[]) spans))
+                {
+                    // @since 3.0.1 recursively apply spans (allow array of arrays)
+                    setSpansInternal(builder, o, start, end);
+                }
+            } else
+            {
+                builder.setSpan(spans, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
     }
 
     /**
@@ -75,21 +106,24 @@ public class SpannableBuilder implements Appendable, CharSequence {
      * @return this instance
      */
     @NonNull
-    public SpannableBuilder append(@NonNull String text) {
+    public SpannableBuilder append(@NonNull String text)
+    {
         builder.append(text);
         return this;
     }
 
     @NonNull
     @Override
-    public SpannableBuilder append(char c) {
+    public SpannableBuilder append(char c)
+    {
         builder.append(c);
         return this;
     }
 
     @NonNull
     @Override
-    public SpannableBuilder append(@NonNull CharSequence cs) {
+    public SpannableBuilder append(@NonNull CharSequence cs)
+    {
 
         copySpans(length(), cs);
 
@@ -103,7 +137,8 @@ public class SpannableBuilder implements Appendable, CharSequence {
      */
     @NonNull
     @Override
-    public SpannableBuilder append(CharSequence csq, int start, int end) {
+    public SpannableBuilder append(CharSequence csq, int start, int end)
+    {
 
         final CharSequence cs = csq.subSequence(start, end);
         copySpans(length(), cs);
@@ -114,7 +149,8 @@ public class SpannableBuilder implements Appendable, CharSequence {
     }
 
     @NonNull
-    public SpannableBuilder append(@NonNull CharSequence cs, @NonNull Object span) {
+    public SpannableBuilder append(@NonNull CharSequence cs, @NonNull Object span)
+    {
         final int length = length();
         append(cs);
         setSpan(span, length);
@@ -122,7 +158,8 @@ public class SpannableBuilder implements Appendable, CharSequence {
     }
 
     @NonNull
-    public SpannableBuilder append(@NonNull CharSequence cs, @NonNull Object span, int flags) {
+    public SpannableBuilder append(@NonNull CharSequence cs, @NonNull Object span, int flags)
+    {
         final int length = length();
         append(cs);
         setSpan(span, length, length(), flags);
@@ -130,28 +167,33 @@ public class SpannableBuilder implements Appendable, CharSequence {
     }
 
     @NonNull
-    public SpannableBuilder setSpan(@NonNull Object span, int start) {
+    public SpannableBuilder setSpan(@NonNull Object span, int start)
+    {
         return setSpan(span, start, length());
     }
 
     @NonNull
-    public SpannableBuilder setSpan(@NonNull Object span, int start, int end) {
+    public SpannableBuilder setSpan(@NonNull Object span, int start, int end)
+    {
         return setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
     @NonNull
-    public SpannableBuilder setSpan(@NonNull Object span, int start, int end, int flags) {
+    public SpannableBuilder setSpan(@NonNull Object span, int start, int end, int flags)
+    {
         spans.push(new Span(span, start, end, flags));
         return this;
     }
 
     @Override
-    public int length() {
+    public int length()
+    {
         return builder.length();
     }
 
     @Override
-    public char charAt(int index) {
+    public char charAt(int index)
+    {
         return builder.charAt(index);
     }
 
@@ -159,15 +201,18 @@ public class SpannableBuilder implements Appendable, CharSequence {
      * @since 2.0.0 to follow CharSequence interface
      */
     @Override
-    public CharSequence subSequence(int start, int end) {
+    public CharSequence subSequence(int start, int end)
+    {
 
         final CharSequence out;
 
         // @since 2.0.1 we copy spans to resulting subSequence
         final List<Span> spans = getSpans(start, end);
-        if (spans.isEmpty()) {
+        if (spans.isEmpty())
+        {
             out = builder.subSequence(start, end);
-        } else {
+        } else
+        {
 
             // we should not be SpannableStringBuilderReversed here
             final SpannableStringBuilder builder = new SpannableStringBuilder(this.builder.subSequence(start, end));
@@ -177,7 +222,8 @@ public class SpannableBuilder implements Appendable, CharSequence {
             int s;
             int e;
 
-            for (Span span : spans) {
+            for (Span span : spans)
+            {
 
                 // we should limit start/end to resulting subSequence length
                 //
@@ -190,10 +236,10 @@ public class SpannableBuilder implements Appendable, CharSequence {
                 e = Math.min(length, s + (span.end - span.start));
 
                 builder.setSpan(
-                        span.what,
-                        s,
-                        e,
-                        span.flags
+                    span.what,
+                    s,
+                    e,
+                    span.flags
                 );
             }
             out = builder;
@@ -214,18 +260,21 @@ public class SpannableBuilder implements Appendable, CharSequence {
      * @since 2.0.1
      */
     @NonNull
-    public List<Span> getSpans(int start, int end) {
+    public List<Span> getSpans(int start, int end)
+    {
 
         final int length = length();
 
-        if (!isPositionValid(length, start, end)) {
+        if (!isPositionValid(length, start, end))
+        {
             // we might as well throw here
             return Collections.emptyList();
         }
 
         // all requested
         if (start == 0
-                && length == end) {
+            && length == end)
+        {
             // but also copy (do not allow external modification)
             final List<Span> list = new ArrayList<>(spans);
             Collections.reverse(list);
@@ -237,15 +286,17 @@ public class SpannableBuilder implements Appendable, CharSequence {
         final Iterator<Span> iterator = spans.descendingIterator();
         Span span;
 
-        while (iterator.hasNext()) {
+        while (iterator.hasNext())
+        {
             span = iterator.next();
             // we must execute 2 checks: if overlap with specified range or fully include it
             // if span.start is >= range.start -> check if it's before range.end
             // if span.end is <= end -> check if it's after range.start
             if (
-                    (span.start >= start && span.start < end)
-                            || (span.end <= end && span.end > start)
-                            || (span.start < start && span.end > end)) {
+                (span.start >= start && span.start < end)
+                    || (span.end <= end && span.end > start)
+                    || (span.start < start && span.end > end))
+            {
                 list.add(span);
             }
         }
@@ -253,12 +304,14 @@ public class SpannableBuilder implements Appendable, CharSequence {
         return Collections.unmodifiableList(list);
     }
 
-    public char lastChar() {
+    public char lastChar()
+    {
         return builder.charAt(length() - 1);
     }
 
     @NonNull
-    public CharSequence removeFromEnd(int start) {
+    public CharSequence removeFromEnd(int start)
+    {
 
         // this method is not intended to be used by clients
         // it's a workaround to support tables
@@ -272,8 +325,10 @@ public class SpannableBuilder implements Appendable, CharSequence {
 
         Span span;
 
-        while (iterator.hasNext() && ((span = iterator.next())) != null) {
-            if (span.start >= start && span.end <= end) {
+        while (iterator.hasNext() && ((span = iterator.next())) != null)
+        {
+            if (span.start >= start && span.end <= end)
+            {
                 impl.setSpan(span.what, span.start - start, span.end - start, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 iterator.remove();
             }
@@ -286,12 +341,14 @@ public class SpannableBuilder implements Appendable, CharSequence {
 
     @Override
     @NonNull
-    public String toString() {
+    public String toString()
+    {
         return builder.toString();
     }
 
     @NonNull
-    public CharSequence text() {
+    public CharSequence text()
+    {
         // @since 2.0.0 redirects this call to `#spannableStringBuilder()`
         return spannableStringBuilder();
     }
@@ -304,7 +361,8 @@ public class SpannableBuilder implements Appendable, CharSequence {
      * @since 2.0.0
      */
     @NonNull
-    public SpannableStringBuilder spannableStringBuilder() {
+    public SpannableStringBuilder spannableStringBuilder()
+    {
 
         // okay, in order to not allow external modification and keep our spans order
         // we should not return our builder
@@ -319,7 +377,8 @@ public class SpannableBuilder implements Appendable, CharSequence {
 
         // NB, as e are using Deque -> iteration will be started with last element
         // so, spans will be appearing in the for loop in reverse order
-        for (Span span : spans) {
+        for (Span span : spans)
+        {
             reversed.setSpan(span.what, span.start, span.end, span.flags);
         }
 
@@ -329,47 +388,55 @@ public class SpannableBuilder implements Appendable, CharSequence {
     /**
      * @since 3.0.0
      */
-    public void clear() {
+    public void clear()
+    {
         builder.setLength(0);
         spans.clear();
     }
 
-    private void copySpans(final int index, @Nullable CharSequence cs) {
+    private void copySpans(final int index, @Nullable CharSequence cs)
+    {
 
         // we must identify already reversed Spanned...
         // and (!) iterate backwards when adding (to preserve order)
 
-        if (cs instanceof Spanned) {
+        if (cs instanceof Spanned)
+        {
 
             final Spanned spanned = (Spanned) cs;
             final boolean reversed = spanned instanceof SpannableStringBuilderReversed;
 
             final Object[] spans = spanned.getSpans(0, spanned.length(), Object.class);
             final int length = spans != null
-                    ? spans.length
-                    : 0;
+                ? spans.length
+                : 0;
 
-            if (length > 0) {
-                if (reversed) {
+            if (length > 0)
+            {
+                if (reversed)
+                {
                     Object o;
-                    for (int i = length - 1; i >= 0; i--) {
+                    for (int i = length - 1; i >= 0; i--)
+                    {
                         o = spans[i];
                         setSpan(
-                                o,
-                                index + spanned.getSpanStart(o),
-                                index + spanned.getSpanEnd(o),
-                                spanned.getSpanFlags(o)
+                            o,
+                            index + spanned.getSpanStart(o),
+                            index + spanned.getSpanEnd(o),
+                            spanned.getSpanFlags(o)
                         );
                     }
-                } else {
+                } else
+                {
                     Object o;
-                    for (int i = 0; i < length; i++) {
+                    for (int i = 0; i < length; i++)
+                    {
                         o = spans[i];
                         setSpan(
-                                o,
-                                index + spanned.getSpanStart(o),
-                                index + spanned.getSpanEnd(o),
-                                spanned.getSpanFlags(o)
+                            o,
+                            index + spanned.getSpanStart(o),
+                            index + spanned.getSpanEnd(o),
+                            spanned.getSpanFlags(o)
                         );
                     }
                 }
@@ -380,14 +447,16 @@ public class SpannableBuilder implements Appendable, CharSequence {
     /**
      * @since 2.0.1 made public in order to be returned from `getSpans` method, initially added in 1.0.1
      */
-    public static class Span {
+    public static class Span
+    {
 
         public final Object what;
+        public final int flags;
         public int start;
         public int end;
-        public final int flags;
 
-        Span(@NonNull Object what, int start, int end, int flags) {
+        Span(@NonNull Object what, int start, int end, int flags)
+        {
             this.what = what;
             this.start = start;
             this.end = end;
@@ -398,29 +467,11 @@ public class SpannableBuilder implements Appendable, CharSequence {
     /**
      * @since 2.0.1 made inner class of {@link SpannableBuilder}, initially added in 1.0.1
      */
-    static class SpannableStringBuilderReversed extends SpannableStringBuilder {
-        SpannableStringBuilderReversed(CharSequence text) {
+    static class SpannableStringBuilderReversed extends SpannableStringBuilder
+    {
+        SpannableStringBuilderReversed(CharSequence text)
+        {
             super(text);
-        }
-    }
-
-    /**
-     * @since 3.0.1
-     */
-    private static void setSpansInternal(
-            @NonNull SpannableBuilder builder,
-            @Nullable Object spans,
-            int start,
-            int end) {
-        if (spans != null) {
-            if (spans.getClass().isArray()) {
-                for (Object o : ((Object[]) spans)) {
-                    // @since 3.0.1 recursively apply spans (allow array of arrays)
-                    setSpansInternal(builder, o, start, end);
-                }
-            } else {
-                builder.setSpan(spans, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }
         }
     }
 }

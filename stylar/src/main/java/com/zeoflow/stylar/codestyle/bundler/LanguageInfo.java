@@ -6,7 +6,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class LanguageInfo {
+public class LanguageInfo
+{
 
     public final String name;
     public final List<String> aliases;
@@ -15,12 +16,13 @@ public class LanguageInfo {
     public final String source;
 
     public LanguageInfo(
-            @NotNull String name,
-            @Nullable List<String> aliases,
-            @Nullable String extend,
-            @Nullable List<String> modify,
-            @NotNull String source
-    ) {
+        @NotNull String name,
+        @Nullable List<String> aliases,
+        @Nullable String extend,
+        @Nullable List<String> modify,
+        @NotNull String source
+    )
+    {
         this.name = name;
         this.aliases = aliases;
         this.extend = extend;
@@ -29,7 +31,8 @@ public class LanguageInfo {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -39,15 +42,17 @@ public class LanguageInfo {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return name.hashCode();
     }
 
     @NotNull
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "LanguageInfo{" +
-                "name='" + name + '\'' +
-                '}';
+            "name='" + name + '\'' +
+            '}';
     }
 }

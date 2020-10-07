@@ -11,7 +11,8 @@ import com.zeoflow.stylar.StylarConfiguration;
  * @see StylarConfiguration.Builder#imageSizeResolver(ImageSizeResolver)
  * @since 1.0.1
  */
-public abstract class ImageSizeResolver {
+public abstract class ImageSizeResolver
+{
 
     /**
      * @since 4.0.0

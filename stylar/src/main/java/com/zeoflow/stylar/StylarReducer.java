@@ -20,7 +20,8 @@ public abstract class StylarReducer
      * will return all BlockNodes of a Document
      */
     @NonNull
-    public static StylarReducer directChildren() {
+    public static StylarReducer directChildren()
+    {
         return new DirectChildren();
     }
 
@@ -33,7 +34,8 @@ public abstract class StylarReducer
 
         @NonNull
         @Override
-        public List<Node> reduce(@NonNull Node root) {
+        public List<Node> reduce(@NonNull Node root)
+        {
 
             final List<Node> list;
 
@@ -42,18 +44,22 @@ public abstract class StylarReducer
 
             // please note, that if there are no children -> we will return a list with
             // single element (which was supplied)
-            if (node == null) {
+            if (node == null)
+            {
                 list = Collections.singletonList(root);
-            } else {
+            } else
+            {
 
                 list = new ArrayList<>();
 
                 Node temp;
 
-                while (node != null) {
+                while (node != null)
+                {
                     // @since 4.5.0 do not include LinkReferenceDefinition node (would result
                     //  in empty textView if rendered in recycler-view)
-                    if (!(node instanceof LinkReferenceDefinition)) {
+                    if (!(node instanceof LinkReferenceDefinition))
+                    {
                         list.add(node);
                     }
                     temp = node.getNext();

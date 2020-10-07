@@ -10,33 +10,34 @@ import androidx.annotation.NonNull;
 import androidx.core.text.util.LinkifyCompat;
 
 import com.zeoflow.stylar.AbstractStylarPlugin;
+import com.zeoflow.stylar.RenderProps;
+import com.zeoflow.stylar.SpanFactory;
+import com.zeoflow.stylar.SpannableBuilder;
 import com.zeoflow.stylar.StylarVisitor;
+import com.zeoflow.stylar.core.CorePlugin;
+import com.zeoflow.stylar.core.CoreProps;
 
 import org.commonmark.node.Link;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import com.zeoflow.stylar.RenderProps;
-import com.zeoflow.stylar.SpanFactory;
-import com.zeoflow.stylar.SpannableBuilder;
-import com.zeoflow.stylar.core.CorePlugin;
-import com.zeoflow.stylar.core.CoreProps;
-
 public class LinkifyPlugin extends AbstractStylarPlugin
 {
 
-    @IntDef(flag = true, value = {
-            Linkify.EMAIL_ADDRESSES,
-            Linkify.PHONE_NUMBERS,
-            Linkify.WEB_URLS
-    })
-    @Retention(RetentionPolicy.SOURCE)
-    @interface LinkifyMask {
+    private final int mask;
+    private final boolean useCompat;
+
+    @SuppressWarnings("WeakerAccess")
+    LinkifyPlugin(@LinkifyMask int mask, boolean useCompat)
+    {
+        this.mask = mask;
+        this.useCompat = useCompat;
     }
 
     @NonNull
-    public static LinkifyPlugin create() {
+    public static LinkifyPlugin create()
+    {
         return create(false);
     }
 
@@ -47,12 +48,14 @@ public class LinkifyPlugin extends AbstractStylarPlugin
      * @since 4.3.0 `useCompat` argument
      */
     @NonNull
-    public static LinkifyPlugin create(boolean useCompat) {
+    public static LinkifyPlugin create(boolean useCompat)
+    {
         return create(Linkify.EMAIL_ADDRESSES | Linkify.PHONE_NUMBERS | Linkify.WEB_URLS, useCompat);
     }
 
     @NonNull
-    public static LinkifyPlugin create(@LinkifyMask int mask) {
+    public static LinkifyPlugin create(@LinkifyMask int mask)
+    {
         return new LinkifyPlugin(mask, false);
     }
 
@@ -63,29 +66,26 @@ public class LinkifyPlugin extends AbstractStylarPlugin
      * @since 4.3.0 `useCompat` argument
      */
     @NonNull
-    public static LinkifyPlugin create(@LinkifyMask int mask, boolean useCompat) {
+    public static LinkifyPlugin create(@LinkifyMask int mask, boolean useCompat)
+    {
         return new LinkifyPlugin(mask, useCompat);
     }
 
-    private final int mask;
-    private final boolean useCompat;
-
-    @SuppressWarnings("WeakerAccess")
-    LinkifyPlugin(@LinkifyMask int mask, boolean useCompat) {
-        this.mask = mask;
-        this.useCompat = useCompat;
-    }
-
     @Override
-    public void configure(@NonNull Registry registry) {
-        registry.require(CorePlugin.class, new Action<CorePlugin>() {
+    public void configure(@NonNull Registry registry)
+    {
+        registry.require(CorePlugin.class, new Action<CorePlugin>()
+        {
             @Override
-            public void apply(@NonNull CorePlugin corePlugin) {
+            public void apply(@NonNull CorePlugin corePlugin)
+            {
                 final LinkifyTextAddedListener listener;
                 // @since 4.3.0
-                if (useCompat) {
+                if (useCompat)
+                {
                     listener = new LinkifyCompatTextAddedListener(mask);
-                } else {
+                } else
+                {
                     listener = new LinkifyTextAddedListener(mask);
                 }
                 corePlugin.addOnTextAddedListener(listener);
@@ -93,21 +93,35 @@ public class LinkifyPlugin extends AbstractStylarPlugin
         });
     }
 
-    private static class LinkifyTextAddedListener implements CorePlugin.OnTextAddedListener {
+    @IntDef(flag = true, value = {
+        Linkify.EMAIL_ADDRESSES,
+        Linkify.PHONE_NUMBERS,
+        Linkify.WEB_URLS
+    })
+    @Retention(RetentionPolicy.SOURCE)
+    @interface LinkifyMask
+    {
+    }
+
+    private static class LinkifyTextAddedListener implements CorePlugin.OnTextAddedListener
+    {
 
         private final int mask;
 
-        LinkifyTextAddedListener(int mask) {
+        LinkifyTextAddedListener(int mask)
+        {
             this.mask = mask;
         }
 
         @Override
-        public void onTextAdded(@NonNull StylarVisitor visitor, @NonNull String text, int start) {
+        public void onTextAdded(@NonNull StylarVisitor visitor, @NonNull String text, int start)
+        {
 
             // @since 4.2.0 obtain span factory for links
             //  we will be using the link that is used by markdown (instead of directly applying URLSpan)
             final SpanFactory spanFactory = visitor.configuration().spansFactory().get(Link.class);
-            if (spanFactory == null) {
+            if (spanFactory == null)
+            {
                 return;
             }
 
@@ -115,42 +129,49 @@ public class LinkifyPlugin extends AbstractStylarPlugin
             //  render calls from different threads and ... better performance)
             final SpannableStringBuilder builder = new SpannableStringBuilder(text);
 
-            if (addLinks(builder, mask)) {
+            if (addLinks(builder, mask))
+            {
                 // target URL span specifically
                 final URLSpan[] spans = builder.getSpans(0, builder.length(), URLSpan.class);
                 if (spans != null
-                        && spans.length > 0) {
+                    && spans.length > 0)
+                {
 
                     final RenderProps renderProps = visitor.renderProps();
                     final SpannableBuilder spannableBuilder = visitor.builder();
 
-                    for (URLSpan span : spans) {
+                    for (URLSpan span : spans)
+                    {
                         CoreProps.LINK_DESTINATION.set(renderProps, span.getURL());
                         SpannableBuilder.setSpans(
-                                spannableBuilder,
-                                spanFactory.getSpans(visitor.configuration(), renderProps),
-                                start + builder.getSpanStart(span),
-                                start + builder.getSpanEnd(span)
+                            spannableBuilder,
+                            spanFactory.getSpans(visitor.configuration(), renderProps),
+                            start + builder.getSpanStart(span),
+                            start + builder.getSpanEnd(span)
                         );
                     }
                 }
             }
         }
 
-        protected boolean addLinks(@NonNull Spannable text, @LinkifyMask int mask) {
+        protected boolean addLinks(@NonNull Spannable text, @LinkifyMask int mask)
+        {
             return Linkify.addLinks(text, mask);
         }
     }
 
     // @since 4.3.0
-    private static class LinkifyCompatTextAddedListener extends LinkifyTextAddedListener {
+    private static class LinkifyCompatTextAddedListener extends LinkifyTextAddedListener
+    {
 
-        LinkifyCompatTextAddedListener(int mask) {
+        LinkifyCompatTextAddedListener(int mask)
+        {
             super(mask);
         }
 
         @Override
-        protected boolean addLinks(@NonNull Spannable text, @LinkifyMask int mask) {
+        protected boolean addLinks(@NonNull Spannable text, @LinkifyMask int mask)
+        {
             return LinkifyCompat.addLinks(text, mask);
         }
     }

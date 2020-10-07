@@ -17,19 +17,27 @@ import java.util.Map;
 public abstract class StylarEditorUtils
 {
 
+    private StylarEditorUtils()
+    {
+    }
+
     @NonNull
-    public static Map<Class<?>, List<Object>> extractSpans(@NonNull Spanned spanned, @NonNull Collection<Class<?>> types) {
+    public static Map<Class<?>, List<Object>> extractSpans(@NonNull Spanned spanned, @NonNull Collection<Class<?>> types)
+    {
 
         final Object[] spans = spanned.getSpans(0, spanned.length(), Object.class);
         final Map<Class<?>, List<Object>> map = new HashMap<>(3);
 
         Class<?> type;
 
-        for (Object span : spans) {
+        for (Object span : spans)
+        {
             type = span.getClass();
-            if (types.contains(type)) {
+            if (types.contains(type))
+            {
                 List<Object> list = map.get(type);
-                if (list == null) {
+                if (list == null)
+                {
                     list = new ArrayList<>(3);
                     map.put(type, list);
                 }
@@ -40,23 +48,16 @@ public abstract class StylarEditorUtils
         return map;
     }
 
-    public interface Match {
-
-        @NonNull
-        String delimiter();
-
-        int start();
-
-        int end();
-    }
-
     @Nullable
-    public static Match findDelimited(@NonNull String input, int startFrom, @NonNull String delimiter) {
+    public static Match findDelimited(@NonNull String input, int startFrom, @NonNull String delimiter)
+    {
         final int start = input.indexOf(delimiter, startFrom);
-        if (start > -1) {
+        if (start > -1)
+        {
             final int length = delimiter.length();
             final int end = input.indexOf(delimiter, start + length);
-            if (end > -1) {
+            if (end > -1)
+            {
                 return new MatchImpl(delimiter, start, end + length);
             }
         }
@@ -65,10 +66,11 @@ public abstract class StylarEditorUtils
 
     @Nullable
     public static Match findDelimited(
-            @NonNull String input,
-            int start,
-            @NonNull String delimiter1,
-            @NonNull String delimiter2) {
+        @NonNull String input,
+        int start,
+        @NonNull String delimiter1,
+        @NonNull String delimiter2)
+    {
 
         final int l1 = delimiter1.length();
         final int l2 = delimiter2.length();
@@ -81,22 +83,28 @@ public abstract class StylarEditorUtils
 
         Match match;
 
-        for (int i = start, length = input.length(); i < length; i++) {
+        for (int i = start, length = input.length(); i < length; i++)
+        {
             c = input.charAt(i);
 
             // if this char is the same as previous (and we obviously have no match) -> skip
-            if (c == previousC) {
+            if (c == previousC)
+            {
                 continue;
             }
 
-            if (c == c1) {
+            if (c == c1)
+            {
                 match = matchDelimiter(input, i, length, delimiter1, l1);
-                if (match != null) {
+                if (match != null)
+                {
                     return match;
                 }
-            } else if (c == c2) {
+            } else if (c == c2)
+            {
                 match = matchDelimiter(input, i, length, delimiter2, l2);
-                if (match != null) {
+                if (match != null)
+                {
                     return match;
                 }
             }
@@ -110,28 +118,34 @@ public abstract class StylarEditorUtils
     // This method assumes that first char is matched already
     @Nullable
     private static Match matchDelimiter(
-            @NonNull String input,
-            int start,
-            int length,
-            @NonNull String delimiter,
-            int delimiterLength) {
+        @NonNull String input,
+        int start,
+        int length,
+        @NonNull String delimiter,
+        int delimiterLength)
+    {
 
-        if (start + delimiterLength < length) {
+        if (start + delimiterLength < length)
+        {
 
             boolean result = true;
 
-            for (int i = 1; i < delimiterLength; i++) {
-                if (input.charAt(start + i) != delimiter.charAt(i)) {
+            for (int i = 1; i < delimiterLength; i++)
+            {
+                if (input.charAt(start + i) != delimiter.charAt(i))
+                {
                     result = false;
                     break;
                 }
             }
 
-            if (result) {
+            if (result)
+            {
                 // find end
                 final int end = input.indexOf(delimiter, start + delimiterLength);
                 // it's important to check if match has content
-                if (end > -1 && (end - start) > delimiterLength) {
+                if (end > -1 && (end - start) > delimiterLength)
+                {
                     return new MatchImpl(delimiter, start, end + delimiterLength);
                 }
             }
@@ -140,16 +154,26 @@ public abstract class StylarEditorUtils
         return null;
     }
 
-    private StylarEditorUtils() {
+    public interface Match
+    {
+
+        @NonNull
+        String delimiter();
+
+        int start();
+
+        int end();
     }
 
-    private static class MatchImpl implements Match {
+    private static class MatchImpl implements Match
+    {
 
         private final String delimiter;
         private final int start;
         private final int end;
 
-        MatchImpl(@NonNull String delimiter, int start, int end) {
+        MatchImpl(@NonNull String delimiter, int start, int end)
+        {
             this.delimiter = delimiter;
             this.start = start;
             this.end = end;
@@ -157,28 +181,32 @@ public abstract class StylarEditorUtils
 
         @NonNull
         @Override
-        public String delimiter() {
+        public String delimiter()
+        {
             return delimiter;
         }
 
         @Override
-        public int start() {
+        public int start()
+        {
             return start;
         }
 
         @Override
-        public int end() {
+        public int end()
+        {
             return end;
         }
 
         @Override
         @NonNull
-        public String toString() {
+        public String toString()
+        {
             return "MatchImpl{" +
-                    "delimiter='" + delimiter + '\'' +
-                    ", start=" + start +
-                    ", end=" + end +
-                    '}';
+                "delimiter='" + delimiter + '\'' +
+                ", start=" + start +
+                ", end=" + end +
+                '}';
         }
     }
 }

@@ -5,7 +5,8 @@ import com.zeoflow.stylar.Prop;
 /**
  * @since 3.0.0
  */
-public abstract class CoreProps {
+public abstract class CoreProps
+{
 
     public static final Prop<ListItemType> LIST_ITEM_TYPE = Prop.of("list-item-type");
 
@@ -24,11 +25,13 @@ public abstract class CoreProps {
      */
     public static final Prop<String> CODE_BLOCK_INFO = Prop.of("code-block-info");
 
-    public enum ListItemType {
-        BULLET,
-        ORDERED
+    private CoreProps()
+    {
     }
 
-    private CoreProps() {
+    public enum ListItemType
+    {
+        BULLET,
+        ORDERED
     }
 }

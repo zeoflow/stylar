@@ -21,6 +21,13 @@ import org.commonmark.parser.Parser;
 public class TaskListPlugin extends AbstractStylarPlugin
 {
 
+    private final Drawable drawable;
+
+    private TaskListPlugin(@NonNull Drawable drawable)
+    {
+        this.drawable = drawable;
+    }
+
     /**
      * Supplied Drawable must be stateful ({@link Drawable#isStateful()} returns true). If a task
      * is marked as done, then this drawable will be updated with an {@code int[] { android.R.attr.state_checked }}
@@ -30,12 +37,14 @@ public class TaskListPlugin extends AbstractStylarPlugin
      * @see TaskListDrawable
      */
     @NonNull
-    public static TaskListPlugin create(@NonNull Drawable drawable) {
+    public static TaskListPlugin create(@NonNull Drawable drawable)
+    {
         return new TaskListPlugin(drawable);
     }
 
     @NonNull
-    public static TaskListPlugin create(@NonNull Context context) {
+    public static TaskListPlugin create(@NonNull Context context)
+    {
 
         // by default we will be using link color for the checkbox color
         // & window background as a checkMark color
@@ -47,61 +56,65 @@ public class TaskListPlugin extends AbstractStylarPlugin
 
     @NonNull
     public static TaskListPlugin create(
-            @ColorInt int checkedFillColor,
-            @ColorInt int normalOutlineColor,
-            @ColorInt int checkMarkColor) {
+        @ColorInt int checkedFillColor,
+        @ColorInt int normalOutlineColor,
+        @ColorInt int checkMarkColor)
+    {
         return new TaskListPlugin(new TaskListDrawable(
-                checkedFillColor,
-                normalOutlineColor,
-                checkMarkColor));
+            checkedFillColor,
+            normalOutlineColor,
+            checkMarkColor));
     }
 
-    private final Drawable drawable;
-
-    private TaskListPlugin(@NonNull Drawable drawable) {
-        this.drawable = drawable;
+    private static int resolve(@NonNull Context context, @AttrRes int attr)
+    {
+        final TypedValue typedValue = new TypedValue();
+        final int[] attrs = new int[]{attr};
+        final TypedArray typedArray = context.obtainStyledAttributes(typedValue.data, attrs);
+        try
+        {
+            return typedArray.getColor(0, 0);
+        } finally
+        {
+            typedArray.recycle();
+        }
     }
 
     @Override
-    public void configureParser(@NonNull Parser.Builder builder) {
+    public void configureParser(@NonNull Parser.Builder builder)
+    {
         builder.postProcessor(new TaskListPostProcessor());
     }
 
     @Override
-    public void configureSpansFactory(@NonNull StylarSpansFactory.Builder builder) {
+    public void configureSpansFactory(@NonNull StylarSpansFactory.Builder builder)
+    {
         builder.setFactory(TaskListItem.class, new TaskListSpanFactory(drawable));
     }
 
     @Override
-    public void configureVisitor(@NonNull StylarVisitor.Builder builder) {
+    public void configureVisitor(@NonNull StylarVisitor.Builder builder)
+    {
         builder
-                .on(TaskListItem.class, new StylarVisitor.NodeVisitor<TaskListItem>() {
-                    @Override
-                    public void visit(@NonNull StylarVisitor visitor, @NonNull TaskListItem taskListItem) {
+            .on(TaskListItem.class, new StylarVisitor.NodeVisitor<TaskListItem>()
+            {
+                @Override
+                public void visit(@NonNull StylarVisitor visitor, @NonNull TaskListItem taskListItem)
+                {
 
-                        final int length = visitor.length();
+                    final int length = visitor.length();
 
-                        visitor.visitChildren(taskListItem);
+                    visitor.visitChildren(taskListItem);
 
-                        TaskListProps.DONE.set(visitor.renderProps(), taskListItem.isDone());
+                    TaskListProps.DONE.set(visitor.renderProps(), taskListItem.isDone());
 
-                        visitor.setSpansForNode(taskListItem, length);
+                    visitor.setSpansForNode(taskListItem, length);
 
-                        if (visitor.hasNext(taskListItem)) {
-                            visitor.ensureNewLine();
-                        }
+                    if (visitor.hasNext(taskListItem))
+                    {
+                        visitor.ensureNewLine();
                     }
-                });
-    }
-
-    private static int resolve(@NonNull Context context, @AttrRes int attr) {
-        final TypedValue typedValue = new TypedValue();
-        final int[] attrs = new int[]{attr};
-        final TypedArray typedArray = context.obtainStyledAttributes(typedValue.data, attrs);
-        try {
-            return typedArray.getColor(0, 0);
-        } finally {
-            typedArray.recycle();
-        }
+                }
+            });
     }
 }

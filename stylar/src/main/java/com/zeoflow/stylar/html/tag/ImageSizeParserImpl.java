@@ -6,22 +6,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
-import java.util.Map;
-
 import com.zeoflow.stylar.html.CssInlineStyleParser;
 import com.zeoflow.stylar.html.CssProperty;
 import com.zeoflow.stylar.image.ImageSize;
 
-class ImageSizeParserImpl implements ImageHandler.ImageSizeParser {
+import java.util.Map;
+
+class ImageSizeParserImpl implements ImageHandler.ImageSizeParser
+{
 
     private final CssInlineStyleParser inlineStyleParser;
 
-    ImageSizeParserImpl(@NonNull CssInlineStyleParser inlineStyleParser) {
+    ImageSizeParserImpl(@NonNull CssInlineStyleParser inlineStyleParser)
+    {
         this.inlineStyleParser = inlineStyleParser;
     }
 
     @Override
-    public ImageSize parse(@NonNull Map<String, String> attributes) {
+    public ImageSize parse(@NonNull Map<String, String> attributes)
+    {
 
         // strictly speaking percents when specified directly on an attribute
         // are not part of the HTML spec (I couldn't find any reference)
@@ -32,43 +35,52 @@ class ImageSizeParserImpl implements ImageHandler.ImageSizeParser {
         // okay, let's first check styles
         final String style = attributes.get("style");
 
-        if (!TextUtils.isEmpty(style)) {
+        if (!TextUtils.isEmpty(style))
+        {
 
             String key;
 
-            for (CssProperty cssProperty : inlineStyleParser.parse(style)) {
+            for (CssProperty cssProperty : inlineStyleParser.parse(style))
+            {
 
                 key = cssProperty.key();
 
-                if ("width".equals(key)) {
+                if ("width".equals(key))
+                {
                     width = dimension(cssProperty.value());
-                } else if ("height".equals(key)) {
+                } else if ("height".equals(key))
+                {
                     height = dimension(cssProperty.value());
                 }
 
                 if (width != null
-                        && height != null) {
+                    && height != null)
+                {
                     break;
                 }
             }
         }
 
         if (width != null
-                && height != null) {
+            && height != null)
+        {
             return new ImageSize(width, height);
         }
 
         // check tag attributes
-        if (width == null) {
+        if (width == null)
+        {
             width = dimension(attributes.get("width"));
         }
 
-        if (height == null) {
+        if (height == null)
+        {
             height = dimension(attributes.get("height"));
         }
 
         if (width == null
-                && height == null) {
+            && height == null)
+        {
             return null;
         }
 
@@ -77,29 +89,37 @@ class ImageSizeParserImpl implements ImageHandler.ImageSizeParser {
 
     @Nullable
     @VisibleForTesting
-    ImageSize.Dimension dimension(@Nullable String value) {
+    ImageSize.Dimension dimension(@Nullable String value)
+    {
 
-        if (TextUtils.isEmpty(value)) {
+        if (TextUtils.isEmpty(value))
+        {
             return null;
         }
 
         final int length = value.length();
 
-        for (int i = length - 1; i > -1; i--) {
+        for (int i = length - 1; i > -1; i--)
+        {
 
-            if (Character.isDigit(value.charAt(i))) {
+            if (Character.isDigit(value.charAt(i)))
+            {
 
-                try {
+                try
+                {
                     final float val = Float.parseFloat(value.substring(0, i + 1));
                     final String unit;
-                    if (i == length - 1) {
+                    if (i == length - 1)
+                    {
                         // no unit info
                         unit = null;
-                    } else {
+                    } else
+                    {
                         unit = value.substring(i + 1, length);
                     }
                     return new ImageSize.Dimension(val, unit);
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException e)
+                {
                     // value cannot not be represented as a float
                     return null;
                 }

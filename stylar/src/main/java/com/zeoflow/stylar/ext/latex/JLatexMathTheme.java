@@ -12,83 +12,31 @@ import ru.noties.jlatexmath.JLatexMathDrawable;
 /**
  * @since 4.3.0
  */
-public abstract class JLatexMathTheme {
+public abstract class JLatexMathTheme
+{
 
     @NonNull
-    public static JLatexMathTheme create(@Px float textSize) {
+    public static JLatexMathTheme create(@Px float textSize)
+    {
         return builder(textSize).build();
     }
 
     @NonNull
-    public static JLatexMathTheme create(@Px float inlineTextSize, @Px float blockTextSize) {
+    public static JLatexMathTheme create(@Px float inlineTextSize, @Px float blockTextSize)
+    {
         return builder(inlineTextSize, blockTextSize).build();
     }
 
     @NonNull
-    public static JLatexMathTheme.Builder builder(@Px float textSize) {
+    public static JLatexMathTheme.Builder builder(@Px float textSize)
+    {
         return new JLatexMathTheme.Builder(textSize, 0F, 0F);
     }
 
     @NonNull
-    public static JLatexMathTheme.Builder builder(@Px float inlineTextSize, @Px float blockTextSize) {
+    public static JLatexMathTheme.Builder builder(@Px float inlineTextSize, @Px float blockTextSize)
+    {
         return new Builder(0F, inlineTextSize, blockTextSize);
-    }
-
-    /**
-     * Moved from {@link JLatexMathPlugin} in {@code 4.3.0} version
-     *
-     * @since 4.0.0
-     */
-    public interface BackgroundProvider {
-        @NonNull
-        Drawable provide();
-    }
-
-    /**
-     * Special immutable class to hold padding information
-     */
-    @SuppressWarnings("WeakerAccess")
-    public static class Padding {
-        public final int left;
-        public final int top;
-        public final int right;
-        public final int bottom;
-
-        public Padding(int left, int top, int right, int bottom) {
-            this.left = left;
-            this.top = top;
-            this.right = right;
-            this.bottom = bottom;
-        }
-
-        @NonNull
-        @Override
-        public String toString() {
-            return "Padding{" +
-                    "left=" + left +
-                    ", top=" + top +
-                    ", right=" + right +
-                    ", bottom=" + bottom +
-                    '}';
-        }
-
-        @NonNull
-        public static Padding all(int value) {
-            return new Padding(value, value, value, value);
-        }
-
-        @NonNull
-        public static Padding symmetric(int vertical, int horizontal) {
-            return new Padding(horizontal, vertical, horizontal, vertical);
-        }
-
-        /**
-         * @since 4.5.0
-         */
-        @NonNull
-        public static Padding of(int left, int top, int right, int bottom) {
-            return new Padding(left, top, right, bottom);
-        }
     }
 
     /**
@@ -135,8 +83,73 @@ public abstract class JLatexMathTheme {
     @ColorInt
     public abstract int blockTextColor();
 
+    /**
+     * Moved from {@link JLatexMathPlugin} in {@code 4.3.0} version
+     *
+     * @since 4.0.0
+     */
+    public interface BackgroundProvider
+    {
+        @NonNull
+        Drawable provide();
+    }
+
+    /**
+     * Special immutable class to hold padding information
+     */
+    @SuppressWarnings("WeakerAccess")
+    public static class Padding
+    {
+        public final int left;
+        public final int top;
+        public final int right;
+        public final int bottom;
+
+        public Padding(int left, int top, int right, int bottom)
+        {
+            this.left = left;
+            this.top = top;
+            this.right = right;
+            this.bottom = bottom;
+        }
+
+        @NonNull
+        public static Padding all(int value)
+        {
+            return new Padding(value, value, value, value);
+        }
+
+        @NonNull
+        public static Padding symmetric(int vertical, int horizontal)
+        {
+            return new Padding(horizontal, vertical, horizontal, vertical);
+        }
+
+        /**
+         * @since 4.5.0
+         */
+        @NonNull
+        public static Padding of(int left, int top, int right, int bottom)
+        {
+            return new Padding(left, top, right, bottom);
+        }
+
+        @NonNull
+        @Override
+        public String toString()
+        {
+            return "Padding{" +
+                "left=" + left +
+                ", top=" + top +
+                ", right=" + right +
+                ", bottom=" + bottom +
+                '}';
+        }
+    }
+
     @SuppressWarnings({"unused", "UnusedReturnValue"})
-    public static class Builder {
+    public static class Builder
+    {
         private final float textSize;
         private final float inlineTextSize;
         private final float blockTextSize;
@@ -157,14 +170,16 @@ public abstract class JLatexMathTheme {
         private int inlineTextColor;
         private int blockTextColor;
 
-        Builder(float textSize, float inlineTextSize, float blockTextSize) {
+        Builder(float textSize, float inlineTextSize, float blockTextSize)
+        {
             this.textSize = textSize;
             this.inlineTextSize = inlineTextSize;
             this.blockTextSize = blockTextSize;
         }
 
         @NonNull
-        public Builder backgroundProvider(@Nullable BackgroundProvider backgroundProvider) {
+        public Builder backgroundProvider(@Nullable BackgroundProvider backgroundProvider)
+        {
             this.backgroundProvider = backgroundProvider;
             this.inlineBackgroundProvider = backgroundProvider;
             this.blockBackgroundProvider = backgroundProvider;
@@ -172,13 +187,15 @@ public abstract class JLatexMathTheme {
         }
 
         @NonNull
-        public Builder inlineBackgroundProvider(@Nullable BackgroundProvider inlineBackgroundProvider) {
+        public Builder inlineBackgroundProvider(@Nullable BackgroundProvider inlineBackgroundProvider)
+        {
             this.inlineBackgroundProvider = inlineBackgroundProvider;
             return this;
         }
 
         @NonNull
-        public Builder blockBackgroundProvider(@Nullable BackgroundProvider blockBackgroundProvider) {
+        public Builder blockBackgroundProvider(@Nullable BackgroundProvider blockBackgroundProvider)
+        {
             this.blockBackgroundProvider = blockBackgroundProvider;
             return this;
         }
@@ -188,19 +205,22 @@ public abstract class JLatexMathTheme {
          * By default - `true`
          */
         @NonNull
-        public Builder blockFitCanvas(boolean blockFitCanvas) {
+        public Builder blockFitCanvas(boolean blockFitCanvas)
+        {
             this.blockFitCanvas = blockFitCanvas;
             return this;
         }
 
         @NonNull
-        public Builder blockHorizontalAlignment(@JLatexMathDrawable.Align int blockHorizontalAlignment) {
+        public Builder blockHorizontalAlignment(@JLatexMathDrawable.Align int blockHorizontalAlignment)
+        {
             this.blockHorizontalAlignment = blockHorizontalAlignment;
             return this;
         }
 
         @NonNull
-        public Builder padding(@Nullable Padding padding) {
+        public Builder padding(@Nullable Padding padding)
+        {
             this.padding = padding;
             this.inlinePadding = padding;
             this.blockPadding = padding;
@@ -208,42 +228,49 @@ public abstract class JLatexMathTheme {
         }
 
         @NonNull
-        public Builder inlinePadding(@Nullable Padding inlinePadding) {
+        public Builder inlinePadding(@Nullable Padding inlinePadding)
+        {
             this.inlinePadding = inlinePadding;
             return this;
         }
 
         @NonNull
-        public Builder blockPadding(@Nullable Padding blockPadding) {
+        public Builder blockPadding(@Nullable Padding blockPadding)
+        {
             this.blockPadding = blockPadding;
             return this;
         }
 
         @NonNull
-        public Builder textColor(@ColorInt int textColor) {
+        public Builder textColor(@ColorInt int textColor)
+        {
             this.textColor = textColor;
             return this;
         }
 
         @NonNull
-        public Builder inlineTextColor(@ColorInt int inlineTextColor) {
+        public Builder inlineTextColor(@ColorInt int inlineTextColor)
+        {
             this.inlineTextColor = inlineTextColor;
             return this;
         }
 
         @NonNull
-        public Builder blockTextColor(@ColorInt int blockTextColor) {
+        public Builder blockTextColor(@ColorInt int blockTextColor)
+        {
             this.blockTextColor = blockTextColor;
             return this;
         }
 
         @NonNull
-        public JLatexMathTheme build() {
+        public JLatexMathTheme build()
+        {
             return new Impl(this);
         }
     }
 
-    static class Impl extends JLatexMathTheme {
+    static class Impl extends JLatexMathTheme
+    {
 
         private final float textSize;
         private final float inlineTextSize;
@@ -254,18 +281,17 @@ public abstract class JLatexMathTheme {
         private final BackgroundProvider blockBackgroundProvider;
 
         private final boolean blockFitCanvas;
-        // horizontal alignment (when there is additional horizontal space)
-        private int blockHorizontalAlignment;
-
         private final Padding padding;
         private final Padding inlinePadding;
         private final Padding blockPadding;
-
         private final int textColor;
         private final int inlineTextColor;
         private final int blockTextColor;
+        // horizontal alignment (when there is additional horizontal space)
+        private int blockHorizontalAlignment;
 
-        Impl(@NonNull Builder builder) {
+        Impl(@NonNull Builder builder)
+        {
             this.textSize = builder.textSize;
             this.inlineTextSize = builder.inlineTextSize;
             this.blockTextSize = builder.blockTextSize;
@@ -283,16 +309,20 @@ public abstract class JLatexMathTheme {
         }
 
         @Override
-        public float inlineTextSize() {
-            if (inlineTextSize > 0F) {
+        public float inlineTextSize()
+        {
+            if (inlineTextSize > 0F)
+            {
                 return inlineTextSize;
             }
             return textSize;
         }
 
         @Override
-        public float blockTextSize() {
-            if (blockTextSize > 0F) {
+        public float blockTextSize()
+        {
+            if (blockTextSize > 0F)
+            {
                 return blockTextSize;
             }
             return textSize;
@@ -300,8 +330,10 @@ public abstract class JLatexMathTheme {
 
         @Nullable
         @Override
-        public BackgroundProvider inlineBackgroundProvider() {
-            if (inlineBackgroundProvider != null) {
+        public BackgroundProvider inlineBackgroundProvider()
+        {
+            if (inlineBackgroundProvider != null)
+            {
                 return inlineBackgroundProvider;
             }
             return backgroundProvider;
@@ -309,27 +341,33 @@ public abstract class JLatexMathTheme {
 
         @Nullable
         @Override
-        public BackgroundProvider blockBackgroundProvider() {
-            if (blockBackgroundProvider != null) {
+        public BackgroundProvider blockBackgroundProvider()
+        {
+            if (blockBackgroundProvider != null)
+            {
                 return blockBackgroundProvider;
             }
             return backgroundProvider;
         }
 
         @Override
-        public boolean blockFitCanvas() {
+        public boolean blockFitCanvas()
+        {
             return blockFitCanvas;
         }
 
         @Override
-        public int blockHorizontalAlignment() {
+        public int blockHorizontalAlignment()
+        {
             return blockHorizontalAlignment;
         }
 
         @Nullable
         @Override
-        public Padding inlinePadding() {
-            if (inlinePadding != null) {
+        public Padding inlinePadding()
+        {
+            if (inlinePadding != null)
+            {
                 return inlinePadding;
             }
             return padding;
@@ -337,24 +375,30 @@ public abstract class JLatexMathTheme {
 
         @Nullable
         @Override
-        public Padding blockPadding() {
-            if (blockPadding != null) {
+        public Padding blockPadding()
+        {
+            if (blockPadding != null)
+            {
                 return blockPadding;
             }
             return padding;
         }
 
         @Override
-        public int inlineTextColor() {
-            if (inlineTextColor != 0) {
+        public int inlineTextColor()
+        {
+            if (inlineTextColor != 0)
+            {
                 return inlineTextColor;
             }
             return textColor;
         }
 
         @Override
-        public int blockTextColor() {
-            if (blockTextColor != 0) {
+        public int blockTextColor()
+        {
+            if (blockTextColor != 0)
+            {
                 return blockTextColor;
             }
             return textColor;

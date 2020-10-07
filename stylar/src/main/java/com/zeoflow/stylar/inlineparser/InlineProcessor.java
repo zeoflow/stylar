@@ -24,7 +24,13 @@ import java.util.regex.Pattern;
  * @see StylarInlineParser.FactoryBuilder#excludeInlineProcessor(Class)
  * @since 4.2.0
  */
-public abstract class InlineProcessor {
+public abstract class InlineProcessor
+{
+
+    protected StylarInlineParserContext context;
+    protected Node block;
+    protected String input;
+    protected int index;
 
     /**
      * Special character that triggers parsing attempt
@@ -37,14 +43,9 @@ public abstract class InlineProcessor {
     @Nullable
     protected abstract Node parse();
 
-
-    protected StylarInlineParserContext context;
-    protected Node block;
-    protected String input;
-    protected int index;
-
     @Nullable
-    public Node parse(@NonNull StylarInlineParserContext context) {
+    public Node parse(@NonNull StylarInlineParserContext context)
+    {
         this.context = context;
         this.block = context.block();
         this.input = context.input();
@@ -58,30 +59,36 @@ public abstract class InlineProcessor {
         return result;
     }
 
-    protected Bracket lastBracket() {
+    protected Bracket lastBracket()
+    {
         return context.lastBracket();
     }
 
-    protected Delimiter lastDelimiter() {
+    protected Delimiter lastDelimiter()
+    {
         return context.lastDelimiter();
     }
 
-    protected void addBracket(Bracket bracket) {
+    protected void addBracket(Bracket bracket)
+    {
         context.addBracket(bracket);
     }
 
-    protected void removeLastBracket() {
+    protected void removeLastBracket()
+    {
         context.removeLastBracket();
     }
 
-    protected void spnl() {
+    protected void spnl()
+    {
         context.setIndex(index);
         context.spnl();
         index = context.index();
     }
 
     @Nullable
-    protected String match(@NonNull Pattern re) {
+    protected String match(@NonNull Pattern re)
+    {
         // before trying to match, we must notify context about our index (which we store additionally here)
         context.setIndex(index);
 
@@ -94,7 +101,8 @@ public abstract class InlineProcessor {
     }
 
     @Nullable
-    protected String parseLinkDestination() {
+    protected String parseLinkDestination()
+    {
         context.setIndex(index);
         final String result = context.parseLinkDestination();
         this.index = context.index();
@@ -102,37 +110,43 @@ public abstract class InlineProcessor {
     }
 
     @Nullable
-    protected String parseLinkTitle() {
+    protected String parseLinkTitle()
+    {
         context.setIndex(index);
         final String result = context.parseLinkTitle();
         this.index = context.index();
         return result;
     }
 
-    protected int parseLinkLabel() {
+    protected int parseLinkLabel()
+    {
         context.setIndex(index);
         final int result = context.parseLinkLabel();
         this.index = context.index();
         return result;
     }
 
-    protected void processDelimiters(Delimiter stackBottom) {
+    protected void processDelimiters(Delimiter stackBottom)
+    {
         context.setIndex(index);
         context.processDelimiters(stackBottom);
         this.index = context.index();
     }
 
     @NonNull
-    protected Text text(@NonNull String text) {
+    protected Text text(@NonNull String text)
+    {
         return context.text(text);
     }
 
     @NonNull
-    protected Text text(@NonNull String text, int start, int end) {
+    protected Text text(@NonNull String text, int start, int end)
+    {
         return context.text(text, start, end);
     }
 
-    protected char peek() {
+    protected char peek()
+    {
         context.setIndex(index);
         return context.peek();
     }

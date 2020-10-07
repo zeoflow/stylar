@@ -15,47 +15,56 @@ import com.zeoflow.stylar.core.StylarTheme;
 /**
  * @since 3.0.0 split inline and block spans
  */
-public class CodeBlockSpan extends MetricAffectingSpan implements LeadingMarginSpan {
+public class CodeBlockSpan extends MetricAffectingSpan implements LeadingMarginSpan
+{
 
     private final StylarTheme theme;
     private final Rect rect = ObjectsPool.rect();
     private final Paint paint = ObjectsPool.paint();
 
-    public CodeBlockSpan(@NonNull StylarTheme theme) {
+    public CodeBlockSpan(@NonNull StylarTheme theme)
+    {
         this.theme = theme;
     }
 
     @Override
-    public void updateMeasureState(TextPaint p) {
+    public void updateMeasureState(TextPaint p)
+    {
         apply(p);
     }
 
     @Override
-    public void updateDrawState(TextPaint ds) {
+    public void updateDrawState(TextPaint ds)
+    {
         apply(ds);
     }
 
-    private void apply(TextPaint p) {
+    private void apply(TextPaint p)
+    {
         theme.applyCodeBlockTextStyle(p);
     }
 
     @Override
-    public int getLeadingMargin(boolean first) {
+    public int getLeadingMargin(boolean first)
+    {
         return theme.getCodeBlockMargin();
     }
 
     @Override
-    public void drawLeadingMargin(Canvas c, Paint p, int x, int dir, int top, int baseline, int bottom, CharSequence text, int start, int end, boolean first, Layout layout) {
+    public void drawLeadingMargin(Canvas c, Paint p, int x, int dir, int top, int baseline, int bottom, CharSequence text, int start, int end, boolean first, Layout layout)
+    {
 
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(theme.getCodeBlockBackgroundColor(p));
 
         final int left;
         final int right;
-        if (dir > 0) {
+        if (dir > 0)
+        {
             left = x;
             right = c.getWidth();
-        } else {
+        } else
+        {
             left = x - c.getWidth();
             right = x;
         }

@@ -10,23 +10,27 @@ import androidx.annotation.NonNull;
 
 import com.zeoflow.stylar.core.StylarTheme;
 
-public class ThematicBreakSpan implements LeadingMarginSpan {
+public class ThematicBreakSpan implements LeadingMarginSpan
+{
 
     private final StylarTheme theme;
     private final Rect rect = ObjectsPool.rect();
     private final Paint paint = ObjectsPool.paint();
 
-    public ThematicBreakSpan(@NonNull StylarTheme theme) {
+    public ThematicBreakSpan(@NonNull StylarTheme theme)
+    {
         this.theme = theme;
     }
 
     @Override
-    public int getLeadingMargin(boolean first) {
+    public int getLeadingMargin(boolean first)
+    {
         return 0;
     }
 
     @Override
-    public void drawLeadingMargin(Canvas c, Paint p, int x, int dir, int top, int baseline, int bottom, CharSequence text, int start, int end, boolean first, Layout layout) {
+    public void drawLeadingMargin(Canvas c, Paint p, int x, int dir, int top, int baseline, int bottom, CharSequence text, int start, int end, boolean first, Layout layout)
+    {
 
         final int middle = top + ((bottom - top) / 2);
 
@@ -38,10 +42,12 @@ public class ThematicBreakSpan implements LeadingMarginSpan {
 
         final int left;
         final int right;
-        if (dir > 0) {
+        if (dir > 0)
+        {
             left = x;
             right = c.getWidth();
-        } else {
+        } else
+        {
             left = x - c.getWidth();
             right = x;
         }

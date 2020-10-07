@@ -8,39 +8,47 @@ import androidx.annotation.Nullable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public abstract class CssInlineStyleParser {
+public abstract class CssInlineStyleParser
+{
+
+    @NonNull
+    public static CssInlineStyleParser create()
+    {
+        return new Impl();
+    }
 
     @NonNull
     public abstract Iterable<CssProperty> parse(@NonNull String inlineStyle);
 
-    @NonNull
-    public static CssInlineStyleParser create() {
-        return new Impl();
-    }
-
-    static class Impl extends CssInlineStyleParser {
+    static class Impl extends CssInlineStyleParser
+    {
 
         @NonNull
         @Override
-        public Iterable<CssProperty> parse(@NonNull String inlineStyle) {
+        public Iterable<CssProperty> parse(@NonNull String inlineStyle)
+        {
             return new CssIterable(inlineStyle);
         }
 
-        private static class CssIterable implements Iterable<CssProperty> {
+        private static class CssIterable implements Iterable<CssProperty>
+        {
 
             private final String input;
 
-            CssIterable(@NonNull String input) {
+            CssIterable(@NonNull String input)
+            {
                 this.input = input;
             }
 
             @NonNull
             @Override
-            public Iterator<CssProperty> iterator() {
+            public Iterator<CssProperty> iterator()
+            {
                 return new CssIterator();
             }
 
-            private class CssIterator implements Iterator<CssProperty> {
+            private class CssIterator implements Iterator<CssProperty>
+            {
 
                 private final CssProperty cssProperty = new CssProperty();
 
@@ -51,7 +59,8 @@ public abstract class CssInlineStyleParser {
                 private int index;
 
                 @Override
-                public boolean hasNext() {
+                public boolean hasNext()
+                {
 
                     prepareNext();
 
@@ -59,14 +68,17 @@ public abstract class CssInlineStyleParser {
                 }
 
                 @Override
-                public CssProperty next() {
-                    if (!hasNextPrepared()) {
+                public CssProperty next()
+                {
+                    if (!hasNextPrepared())
+                    {
                         throw new NoSuchElementException();
                     }
                     return cssProperty;
                 }
 
-                private void prepareNext() {
+                private void prepareNext()
+                {
 
                     // clear first
                     cssProperty.set("", "");
@@ -80,7 +92,8 @@ public abstract class CssInlineStyleParser {
 
                     boolean keyHasWhiteSpace = false;
 
-                    for (int i = index; i < length; i++) {
+                    for (int i = index; i < length; i++)
+                    {
 
                         c = input.charAt(i);
 
@@ -88,62 +101,79 @@ public abstract class CssInlineStyleParser {
                         // KEY and wait for the ':', if we do not find it and we find EOF or ';'
                         // we start creating KEY again after the ';'
 
-                        if (key == null) {
+                        if (key == null)
+                        {
 
-                            if (':' == c) {
+                            if (':' == c)
+                            {
 
                                 // we have no key yet, but we might have started creating it already
-                                if (builder.length() > 0) {
+                                if (builder.length() > 0)
+                                {
                                     key = builder.toString().trim();
                                 }
 
                                 builder.setLength(0);
 
-                            } else {
+                            } else
+                            {
                                 // if by any chance we have here the ';' -> reset key and try to match next
-                                if (';' == c) {
+                                if (';' == c)
+                                {
                                     builder.setLength(0);
-                                } else {
+                                } else
+                                {
 
                                     // key cannot have WS gaps (but leading and trailing are OK)
-                                    if (Character.isWhitespace(c)) {
-                                        if (builder.length() > 0) {
+                                    if (Character.isWhitespace(c))
+                                    {
+                                        if (builder.length() > 0)
+                                        {
                                             keyHasWhiteSpace = true;
                                         }
-                                    } else {
+                                    } else
+                                    {
                                         // if not a WS and we have found WS before, start a-new
                                         // else append
-                                        if (keyHasWhiteSpace) {
+                                        if (keyHasWhiteSpace)
+                                        {
                                             // start new filling
                                             builder.setLength(0);
                                             builder.append(c);
                                             // clear this flag
                                             keyHasWhiteSpace = false;
-                                        } else {
+                                        } else
+                                        {
                                             builder.append(c);
                                         }
                                     }
                                 }
                             }
-                        } else if (value == null) {
+                        } else if (value == null)
+                        {
 
-                            if (Character.isWhitespace(c)) {
-                                if (builder.length() > 0) {
+                            if (Character.isWhitespace(c))
+                            {
+                                if (builder.length() > 0)
+                                {
                                     builder.append(c);
                                 }
-                            } else if (';' == c) {
+                            } else if (';' == c)
+                            {
 
                                 value = builder.toString().trim();
                                 builder.setLength(0);
 
                                 // check if we have valid values -> if yes -> return it
-                                if (hasValues(key, value)) {
+                                if (hasValues(key, value))
+                                {
                                     index = i + 1;
                                     cssProperty.set(key, value);
                                     return;
                                 }
 
-                            } else {
+                            } else
+                            {
                                 builder.append(c);
                             }
                         }
@@ -151,20 +181,23 @@ public abstract class CssInlineStyleParser {
 
                     // here we must additionally check for EOF (we might be tracking value here)
                     if (key != null
-                            && builder.length() > 0) {
+                        && builder.length() > 0)
+                    {
                         value = builder.toString().trim();
                         cssProperty.set(key, value);
                         index = length;
                     }
                 }
 
-                private boolean hasNextPrepared() {
+                private boolean hasNextPrepared()
+                {
                     return hasValues(cssProperty.key(), cssProperty.value());
                 }
 
-                private boolean hasValues(@Nullable String key, @Nullable String value) {
+                private boolean hasValues(@Nullable String key, @Nullable String value)
+                {
                     return !TextUtils.isEmpty(key)
-                            && !TextUtils.isEmpty(value);
+                        && !TextUtils.isEmpty(value);
                 }
             }
         }

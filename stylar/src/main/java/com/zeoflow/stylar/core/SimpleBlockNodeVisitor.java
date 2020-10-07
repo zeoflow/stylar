@@ -13,9 +13,11 @@ import org.commonmark.node.Node;
  *
  * @since 3.0.0
  */
-public class SimpleBlockNodeVisitor implements StylarVisitor.NodeVisitor<Node> {
+public class SimpleBlockNodeVisitor implements StylarVisitor.NodeVisitor<Node>
+{
     @Override
-    public void visit(@NonNull StylarVisitor visitor, @NonNull Node node) {
+    public void visit(@NonNull StylarVisitor visitor, @NonNull Node node)
+    {
 
         visitor.blockStart(node);
 

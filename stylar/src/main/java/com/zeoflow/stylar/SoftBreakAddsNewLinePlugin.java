@@ -11,15 +11,19 @@ public class SoftBreakAddsNewLinePlugin extends AbstractStylarPlugin
 {
 
     @NonNull
-    public static SoftBreakAddsNewLinePlugin create() {
+    public static SoftBreakAddsNewLinePlugin create()
+    {
         return new SoftBreakAddsNewLinePlugin();
     }
 
     @Override
-    public void configureVisitor(@NonNull StylarVisitor.Builder builder) {
-        builder.on(SoftLineBreak.class, new StylarVisitor.NodeVisitor<SoftLineBreak>() {
+    public void configureVisitor(@NonNull StylarVisitor.Builder builder)
+    {
+        builder.on(SoftLineBreak.class, new StylarVisitor.NodeVisitor<SoftLineBreak>()
+        {
             @Override
-            public void visit(@NonNull StylarVisitor visitor, @NonNull SoftLineBreak softLineBreak) {
+            public void visit(@NonNull StylarVisitor visitor, @NonNull SoftLineBreak softLineBreak)
+            {
                 visitor.ensureNewLine();
             }
         });

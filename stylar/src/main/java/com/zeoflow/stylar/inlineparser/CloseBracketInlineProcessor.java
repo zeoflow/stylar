@@ -15,28 +15,33 @@ import java.util.regex.Pattern;
  *
  * @since 4.2.0
  */
-public class CloseBracketInlineProcessor extends InlineProcessor {
+public class CloseBracketInlineProcessor extends InlineProcessor
+{
 
     private static final Pattern WHITESPACE = StylarInlineParser.WHITESPACE;
 
     @Override
-    public char specialCharacter() {
+    public char specialCharacter()
+    {
         return ']';
     }
 
     @Override
-    protected Node parse() {
+    protected Node parse()
+    {
         index++;
         int startIndex = index;
 
         // Get previous `[` or `![`
         Bracket opener = lastBracket();
-        if (opener == null) {
+        if (opener == null)
+        {
             // No matching opener, just return a literal.
             return text("]");
         }
 
-        if (!opener.allowed) {
+        if (!opener.allowed)
+        {
             // Matching opener but it's not allowed, just return a literal.
             removeLastBracket();
             return text("]");
@@ -49,46 +54,56 @@ public class CloseBracketInlineProcessor extends InlineProcessor {
         boolean isLinkOrImage = false;
 
         // Maybe a inline link like `[foo](/uri "title")`
-        if (peek() == '(') {
+        if (peek() == '(')
+        {
             index++;
             spnl();
-            if ((dest = parseLinkDestination()) != null) {
+            if ((dest = parseLinkDestination()) != null)
+            {
                 spnl();
                 // title needs a whitespace before
-                if (WHITESPACE.matcher(input.substring(index - 1, index)).matches()) {
+                if (WHITESPACE.matcher(input.substring(index - 1, index)).matches())
+                {
                     title = parseLinkTitle();
                     spnl();
                 }
-                if (peek() == ')') {
+                if (peek() == ')')
+                {
                     index++;
                     isLinkOrImage = true;
-                } else {
+                } else
+                {
                     index = startIndex;
                 }
             }
         }
 
         // Maybe a reference link like `[foo][bar]`, `[foo][]` or `[foo]`
-        if (!isLinkOrImage) {
+        if (!isLinkOrImage)
+        {
 
             // See if there's a link label like `[bar]` or `[]`
             int beforeLabel = index;
             parseLinkLabel();
             int labelLength = index - beforeLabel;
             String ref = null;
-            if (labelLength > 2) {
+            if (labelLength > 2)
+            {
                 ref = input.substring(beforeLabel, beforeLabel + labelLength);
-            } else if (!opener.bracketAfter) {
+            } else if (!opener.bracketAfter)
+            {
                 // If the second label is empty `[foo][]` or missing `[foo]`, then the first label is the reference.
                 // But it can only be a reference when there's no (unescaped) bracket in it.
                 // If there is, we don't even need to try to look up the reference. This is an optimization.
                 ref = input.substring(opener.index, startIndex);
             }
 
-            if (ref != null) {
+            if (ref != null)
+            {
                 String label = Escaping.normalizeReference(ref);
                 LinkReferenceDefinition definition = context.getLinkReferenceDefinition(label);
-                if (definition != null) {
+                if (definition != null)
+                {
                     dest = definition.getDestination();
                     title = definition.getTitle();
                     isLinkOrImage = true;
@@ -96,12 +111,14 @@ public class CloseBracketInlineProcessor extends InlineProcessor {
             }
         }
 
-        if (isLinkOrImage) {
+        if (isLinkOrImage)
+        {
             // If we got here, open is a potential opener
             Node linkOrImage = opener.image ? new Image(dest, title) : new Link(dest, title);
 
             Node node = opener.node.getNext();
-            while (node != null) {
+            while (node != null)
+            {
                 Node next = node.getNext();
                 linkOrImage.appendChild(node);
                 node = next;
@@ -115,10 +132,13 @@ public class CloseBracketInlineProcessor extends InlineProcessor {
             removeLastBracket();
 
             // Links within links are not allowed. We found this link, so there can be no other link around it.
-            if (!opener.image) {
+            if (!opener.image)
+            {
                 Bracket bracket = lastBracket();
-                while (bracket != null) {
-                    if (!bracket.image) {
+                while (bracket != null)
+                {
+                    if (!bracket.image)
+                    {
                         // Disallow link opener. It will still get matched, but will not result in a link.
                         bracket.allowed = false;
                     }
@@ -128,7 +148,8 @@ public class CloseBracketInlineProcessor extends InlineProcessor {
 
             return linkOrImage;
 
-        } else { // no link or image
+        } else
+        { // no link or image
             index = startIndex;
             removeLastBracket();
 

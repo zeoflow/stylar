@@ -10,10 +10,28 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.zeoflow.stylar.utils.LeadingMarginUtils;
 import com.zeoflow.stylar.core.StylarTheme;
+import com.zeoflow.stylar.utils.LeadingMarginUtils;
 
-public class OrderedListItemSpan implements LeadingMarginSpan {
+public class OrderedListItemSpan implements LeadingMarginSpan
+{
+
+    private final StylarTheme theme;
+    private final String number;
+    private final Paint paint = ObjectsPool.paint();
+    // we will use this variable to check if our order number text exceeds block margin,
+    // so we will use it instead of block margin
+    // @since 1.0.3
+    private int margin;
+
+    public OrderedListItemSpan(
+        @NonNull StylarTheme theme,
+        @NonNull String number
+    )
+    {
+        this.theme = theme;
+        this.number = number;
+    }
 
     /**
      * Process supplied `text` argument and supply TextView paint to all OrderedListItemSpans
@@ -26,55 +44,45 @@ public class OrderedListItemSpan implements LeadingMarginSpan {
      * @param text     parsed markdown to process
      * @since 2.0.1
      */
-    public static void measure(@NonNull TextView textView, @NonNull CharSequence text) {
+    public static void measure(@NonNull TextView textView, @NonNull CharSequence text)
+    {
 
-        if (!(text instanceof Spanned)) {
+        if (!(text instanceof Spanned))
+        {
             // nothing to do here
             return;
         }
 
         final OrderedListItemSpan[] spans = ((Spanned) text).getSpans(
-                0,
-                text.length(),
-                OrderedListItemSpan.class);
+            0,
+            text.length(),
+            OrderedListItemSpan.class);
 
-        if (spans != null) {
+        if (spans != null)
+        {
             final TextPaint paint = textView.getPaint();
-            for (OrderedListItemSpan span : spans) {
+            for (OrderedListItemSpan span : spans)
+            {
                 span.margin = (int) (paint.measureText(span.number) + .5F);
             }
         }
     }
 
-    private final StylarTheme theme;
-    private final String number;
-    private final Paint paint = ObjectsPool.paint();
-
-    // we will use this variable to check if our order number text exceeds block margin,
-    // so we will use it instead of block margin
-    // @since 1.0.3
-    private int margin;
-
-    public OrderedListItemSpan(
-            @NonNull StylarTheme theme,
-            @NonNull String number
-    ) {
-        this.theme = theme;
-        this.number = number;
-    }
-
     @Override
-    public int getLeadingMargin(boolean first) {
+    public int getLeadingMargin(boolean first)
+    {
         // @since 2.0.1 we return maximum value of both (now we should measure number before)
         return Math.max(margin, theme.getBlockMargin());
     }
 
     @Override
-    public void drawLeadingMargin(Canvas c, Paint p, int x, int dir, int top, int baseline, int bottom, CharSequence text, int start, int end, boolean first, Layout layout) {
+    public void drawLeadingMargin(Canvas c, Paint p, int x, int dir, int top, int baseline, int bottom, CharSequence text, int start, int end, boolean first, Layout layout)
+    {
 
         // if there was a line break, we don't need to draw anything
         if (!first
-                || !LeadingMarginUtils.selfStart(start, text, this)) {
+            || !LeadingMarginUtils.selfStart(start, text, this))
+        {
             return;
         }
 
@@ -89,19 +97,23 @@ public class OrderedListItemSpan implements LeadingMarginSpan {
 
         // @since 1.0.3
         int width = theme.getBlockMargin();
-        if (numberWidth > width) {
+        if (numberWidth > width)
+        {
             // let's keep this logic here in case a user decided not to call #measure and is fine
             // with current implementation
             width = numberWidth;
             margin = numberWidth;
-        } else {
+        } else
+        {
             margin = 0;
         }
 
         final int left;
-        if (dir > 0) {
+        if (dir > 0)
+        {
             left = x + (width * dir) - numberWidth;
-        } else {
+        } else
+        {
             left = x + (width * dir) + (width - numberWidth);
         }
 

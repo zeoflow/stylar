@@ -1,7 +1,7 @@
 package com.zeoflow.stylar.codestyle.languages;
 
-import com.zeoflow.stylar.codestyle.GrammarUtils;
 import com.zeoflow.stylar.codestyle.CodeStyle;
+import com.zeoflow.stylar.codestyle.GrammarUtils;
 import com.zeoflow.stylar.codestyle.annotations.Extend;
 
 import org.jetbrains.annotations.NotNull;

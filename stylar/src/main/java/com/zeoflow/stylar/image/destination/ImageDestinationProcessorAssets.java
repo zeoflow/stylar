@@ -17,40 +17,47 @@ import androidx.annotation.Nullable;
  *
  * @since 4.4.0
  */
-public class ImageDestinationProcessorAssets extends ImageDestinationProcessor {
-
-    @NonNull
-    public static ImageDestinationProcessorAssets create(@Nullable ImageDestinationProcessor parent) {
-        return new ImageDestinationProcessorAssets(parent);
-    }
+public class ImageDestinationProcessorAssets extends ImageDestinationProcessor
+{
 
     static final String MOCK = "https://android.asset/";
     static final String BASE = "file:///android_asset/";
-
     private final ImageDestinationProcessorRelativeToAbsolute assetsProcessor
-            = new ImageDestinationProcessorRelativeToAbsolute(MOCK);
-
+        = new ImageDestinationProcessorRelativeToAbsolute(MOCK);
     private final ImageDestinationProcessor processor;
 
-    public ImageDestinationProcessorAssets() {
+    public ImageDestinationProcessorAssets()
+    {
         this(null);
     }
 
-    public ImageDestinationProcessorAssets(@Nullable ImageDestinationProcessor parent) {
+    public ImageDestinationProcessorAssets(@Nullable ImageDestinationProcessor parent)
+    {
         this.processor = parent;
     }
 
     @NonNull
+    public static ImageDestinationProcessorAssets create(@Nullable ImageDestinationProcessor parent)
+    {
+        return new ImageDestinationProcessorAssets(parent);
+    }
+
+    @NonNull
     @Override
-    public String process(@NonNull String destination) {
+    public String process(@NonNull String destination)
+    {
         final String out;
         final Uri uri = Uri.parse(destination);
-        if (TextUtils.isEmpty(uri.getScheme())) {
+        if (TextUtils.isEmpty(uri.getScheme()))
+        {
             out = assetsProcessor.process(destination).replace(MOCK, BASE);
-        } else {
-            if (processor != null) {
+        } else
+        {
+            if (processor != null)
+            {
                 out = processor.process(destination);
-            } else {
+            } else
+            {
                 out = destination;
             }
         }

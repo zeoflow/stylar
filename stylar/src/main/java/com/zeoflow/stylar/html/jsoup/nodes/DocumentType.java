@@ -3,7 +3,8 @@ package com.zeoflow.stylar.html.jsoup.nodes;
 /**
  * A {@code <!DOCTYPE>} node.
  */
-public class DocumentType /*extends LeafNode*/ {
+public class DocumentType /*extends LeafNode*/
+{
     // todo needs a bit of a chunky cleanup. this level of detail isn't needed
     public static final String PUBLIC_KEY = "PUBLIC";
     public static final String SYSTEM_KEY = "SYSTEM";

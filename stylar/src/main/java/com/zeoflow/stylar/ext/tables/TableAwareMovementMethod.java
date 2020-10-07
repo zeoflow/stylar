@@ -15,10 +15,19 @@ import androidx.annotation.NonNull;
 /**
  * @since 4.6.0
  */
-public class TableAwareMovementMethod implements MovementMethod {
+public class TableAwareMovementMethod implements MovementMethod
+{
+
+    private final MovementMethod wrapped;
+
+    public TableAwareMovementMethod(@NonNull MovementMethod wrapped)
+    {
+        this.wrapped = wrapped;
+    }
 
     @NonNull
-    public static TableAwareMovementMethod wrap(@NonNull MovementMethod movementMethod) {
+    public static TableAwareMovementMethod wrap(@NonNull MovementMethod movementMethod)
+    {
         return new TableAwareMovementMethod(movementMethod);
     }
 
@@ -26,17 +35,20 @@ public class TableAwareMovementMethod implements MovementMethod {
      * Wraps LinkMovementMethod
      */
     @NonNull
-    public static TableAwareMovementMethod create() {
+    public static TableAwareMovementMethod create()
+    {
         return new TableAwareMovementMethod(LinkMovementMethod.getInstance());
     }
 
     public static boolean handleTableRowTouchEvent(
-            @NonNull TextView widget,
-            @NonNull Spannable buffer,
-            @NonNull MotionEvent event) {
+        @NonNull TextView widget,
+        @NonNull Spannable buffer,
+        @NonNull MotionEvent event)
+    {
         // handle only action up (originally action down is used in order to handle selection,
         //  which tables do no have)
-        if (event.getAction() != MotionEvent.ACTION_UP) {
+        if (event.getAction() != MotionEvent.ACTION_UP)
+        {
             return false;
         }
 
@@ -52,7 +64,8 @@ public class TableAwareMovementMethod implements MovementMethod {
         final int off = layout.getOffsetForHorizontal(line, x);
 
         final TableRowSpan[] spans = buffer.getSpans(off, off, TableRowSpan.class);
-        if (spans.length == 0) {
+        if (spans.length == 0)
+        {
             return false;
         }
 
@@ -60,14 +73,16 @@ public class TableAwareMovementMethod implements MovementMethod {
 
         // okay, we can calculate the x to obtain span, but what about y?
         final Layout rowLayout = span.findLayoutForHorizontalOffset(x);
-        if (rowLayout != null) {
+        if (rowLayout != null)
+        {
             // line top as basis
             final int rowY = layout.getLineTop(line);
             final int rowLine = rowLayout.getLineForVertical(y - rowY);
             final int rowOffset = rowLayout.getOffsetForHorizontal(rowLine, x % span.cellWidth());
             final ClickableSpan[] rowClickableSpans = ((Spanned) rowLayout.getText())
-                    .getSpans(rowOffset, rowOffset, ClickableSpan.class);
-            if (rowClickableSpans.length > 0) {
+                .getSpans(rowOffset, rowOffset, ClickableSpan.class);
+            if (rowClickableSpans.length > 0)
+            {
                 rowClickableSpans[0].onClick(widget);
                 return true;
             }
@@ -76,56 +91,59 @@ public class TableAwareMovementMethod implements MovementMethod {
         return false;
     }
 
-    private final MovementMethod wrapped;
-
-    public TableAwareMovementMethod(@NonNull MovementMethod wrapped) {
-        this.wrapped = wrapped;
-    }
-
     @Override
-    public void initialize(TextView widget, Spannable text) {
+    public void initialize(TextView widget, Spannable text)
+    {
         wrapped.initialize(widget, text);
     }
 
     @Override
-    public boolean onKeyDown(TextView widget, Spannable text, int keyCode, KeyEvent event) {
+    public boolean onKeyDown(TextView widget, Spannable text, int keyCode, KeyEvent event)
+    {
         return wrapped.onKeyDown(widget, text, keyCode, event);
     }
 
     @Override
-    public boolean onKeyUp(TextView widget, Spannable text, int keyCode, KeyEvent event) {
+    public boolean onKeyUp(TextView widget, Spannable text, int keyCode, KeyEvent event)
+    {
         return wrapped.onKeyUp(widget, text, keyCode, event);
     }
 
     @Override
-    public boolean onKeyOther(TextView view, Spannable text, KeyEvent event) {
+    public boolean onKeyOther(TextView view, Spannable text, KeyEvent event)
+    {
         return wrapped.onKeyOther(view, text, event);
     }
 
     @Override
-    public void onTakeFocus(TextView widget, Spannable text, int direction) {
+    public void onTakeFocus(TextView widget, Spannable text, int direction)
+    {
         wrapped.onTakeFocus(widget, text, direction);
     }
 
     @Override
-    public boolean onTrackballEvent(TextView widget, Spannable text, MotionEvent event) {
+    public boolean onTrackballEvent(TextView widget, Spannable text, MotionEvent event)
+    {
         return wrapped.onTrackballEvent(widget, text, event);
     }
 
     @Override
-    public boolean onTouchEvent(TextView widget, Spannable buffer, MotionEvent event) {
+    public boolean onTouchEvent(TextView widget, Spannable buffer, MotionEvent event)
+    {
         // let wrapped handle first, then if super handles nothing, search for table row spans
         return wrapped.onTouchEvent(widget, buffer, event)
-                || handleTableRowTouchEvent(widget, buffer, event);
+            || handleTableRowTouchEvent(widget, buffer, event);
     }
 
     @Override
-    public boolean onGenericMotionEvent(TextView widget, Spannable text, MotionEvent event) {
+    public boolean onGenericMotionEvent(TextView widget, Spannable text, MotionEvent event)
+    {
         return wrapped.onGenericMotionEvent(widget, text, event);
     }
 
     @Override
-    public boolean canSelectArbitrarily() {
+    public boolean canSelectArbitrarily()
+    {
         return wrapped.canSelectArbitrarily();
     }
 }

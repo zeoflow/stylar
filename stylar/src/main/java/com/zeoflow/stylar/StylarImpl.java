@@ -28,18 +28,16 @@ public class StylarImpl extends Stylar
     private final StylarVisitorFactory visitorFactory; // @since 4.1.1
     private final StylarConfiguration configuration;
     private final List<StylarPlugin> plugins;
+    // @since 4.1.0
+    @Nullable
+    private final TextSetter textSetter;
+    // @since 4.4.0
+    private final boolean fallbackToRawInputWhenEmpty;
     private StylarView stylarView;
     private boolean anchoredHeadings;
     private boolean imagePlugins;
     private boolean codeStyle;
     private ClickEvent clickEvent;
-
-    // @since 4.1.0
-    @Nullable
-    private final TextSetter textSetter;
-
-    // @since 4.4.0
-    private final boolean fallbackToRawInputWhenEmpty;
 
     public StylarImpl(
         @NonNull TextView.BufferType bufferType,

@@ -11,33 +11,39 @@ import java.util.regex.Pattern;
  *
  * @since 4.2.0
  */
-public class AutolinkInlineProcessor extends InlineProcessor {
+public class AutolinkInlineProcessor extends InlineProcessor
+{
 
     private static final Pattern EMAIL_AUTOLINK = Pattern
-            .compile("^<([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)>");
+        .compile("^<([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)>");
 
     private static final Pattern AUTOLINK = Pattern
-            .compile("^<[a-zA-Z][a-zA-Z0-9.+-]{1,31}:[^<>\u0000-\u0020]*>");
+        .compile("^<[a-zA-Z][a-zA-Z0-9.+-]{1,31}:[^<>\u0000-\u0020]*>");
 
     @Override
-    public char specialCharacter() {
+    public char specialCharacter()
+    {
         return '<';
     }
 
     @Override
-    protected Node parse() {
+    protected Node parse()
+    {
         String m;
-        if ((m = match(EMAIL_AUTOLINK)) != null) {
+        if ((m = match(EMAIL_AUTOLINK)) != null)
+        {
             String dest = m.substring(1, m.length() - 1);
             Link node = new Link("mailto:" + dest, null);
             node.appendChild(new Text(dest));
             return node;
-        } else if ((m = match(AUTOLINK)) != null) {
+        } else if ((m = match(AUTOLINK)) != null)
+        {
             String dest = m.substring(1, m.length() - 1);
             Link node = new Link(dest, null);
             node.appendChild(new Text(dest));
             return node;
-        } else {
+        } else
+        {
             return null;
         }
     }

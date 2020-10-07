@@ -5,13 +5,15 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public abstract class AsyncDrawableLoader {
+public abstract class AsyncDrawableLoader
+{
 
     /**
      * @since 3.0.0
      */
     @NonNull
-    public static AsyncDrawableLoader noOp() {
+    public static AsyncDrawableLoader noOp()
+    {
         return new AsyncDrawableLoaderNoOp();
     }
 

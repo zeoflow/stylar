@@ -17,7 +17,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-class AsyncDrawableLoaderImpl extends AsyncDrawableLoader {
+class AsyncDrawableLoaderImpl extends AsyncDrawableLoader
+{
 
     private final ExecutorService executorService;
     private final Map<String, SchemeHandler> schemeHandlers;
@@ -32,13 +33,15 @@ class AsyncDrawableLoaderImpl extends AsyncDrawableLoader {
     //  for the same destination
     private final Map<AsyncDrawable, Future<?>> requests = new HashMap<>(2);
 
-    AsyncDrawableLoaderImpl(@NonNull AsyncDrawableLoaderBuilder builder) {
+    AsyncDrawableLoaderImpl(@NonNull AsyncDrawableLoaderBuilder builder)
+    {
         this(builder, new Handler(Looper.getMainLooper()));
     }
 
     // @since 4.0.0
     @VisibleForTesting
-    AsyncDrawableLoaderImpl(@NonNull AsyncDrawableLoaderBuilder builder, @NonNull Handler handler) {
+    AsyncDrawableLoaderImpl(@NonNull AsyncDrawableLoaderBuilder builder, @NonNull Handler handler)
+    {
         this.executorService = builder.executorService;
         this.schemeHandlers = builder.schemeHandlers;
         this.mediaDecoders = builder.mediaDecoders;
@@ -49,18 +52,22 @@ class AsyncDrawableLoaderImpl extends AsyncDrawableLoader {
     }
 
     @Override
-    public void load(@NonNull final AsyncDrawable drawable) {
+    public void load(@NonNull final AsyncDrawable drawable)
+    {
         final Future<?> future = requests.get(drawable);
-        if (future == null) {
+        if (future == null)
+        {
             requests.put(drawable, execute(drawable));
         }
     }
 
     @Override
-    public void cancel(@NonNull final AsyncDrawable drawable) {
+    public void cancel(@NonNull final AsyncDrawable drawable)
+    {
 
         final Future<?> future = requests.remove(drawable);
-        if (future != null) {
+        if (future != null)
+        {
             future.cancel(true);
         }
 
@@ -69,23 +76,27 @@ class AsyncDrawableLoaderImpl extends AsyncDrawableLoader {
 
     @Nullable
     @Override
-    public Drawable placeholder(@NonNull AsyncDrawable drawable) {
+    public Drawable placeholder(@NonNull AsyncDrawable drawable)
+    {
         return placeholderProvider != null
-                ? placeholderProvider.providePlaceholder(drawable)
-                : null;
+            ? placeholderProvider.providePlaceholder(drawable)
+            : null;
     }
 
     @NonNull
-    private Future<?> execute(@NonNull final AsyncDrawable asyncDrawable) {
+    private Future<?> execute(@NonNull final AsyncDrawable asyncDrawable)
+    {
 
         // todo: more efficient DefaultMediaDecoder... BitmapFactory.decodeStream is a bit not optimal
         //      for big images for sure. We _could_ introduce internal Drawable that will check for
         //      image bounds (but we will need to cache inputStream in order to inspect and optimize
         //      input image...)
 
-        return executorService.submit(new Runnable() {
+        return executorService.submit(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
 
                 final String destination = asyncDrawable.getDestination();
 
@@ -93,50 +104,62 @@ class AsyncDrawableLoaderImpl extends AsyncDrawableLoader {
 
                 Drawable drawable = null;
 
-                try {
+                try
+                {
 
                     final String scheme = uri.getScheme();
                     if (scheme == null
-                            || scheme.length() == 0) {
+                        || scheme.length() == 0)
+                    {
                         throw new IllegalStateException("No scheme is found: " + destination);
                     }
 
                     // obtain scheme handler
                     final SchemeHandler schemeHandler = schemeHandlers.get(scheme);
-                    if (schemeHandler != null) {
+                    if (schemeHandler != null)
+                    {
 
                         // handle scheme
                         final ImageItem imageItem = schemeHandler.handle(destination, uri);
 
                         // if resulting imageItem needs further decoding -> proceed
-                        if (imageItem.hasDecodingNeeded()) {
+                        if (imageItem.hasDecodingNeeded())
+                        {
 
                             final ImageItem.WithDecodingNeeded withDecodingNeeded = imageItem.getAsWithDecodingNeeded();
 
                             MediaDecoder mediaDecoder = mediaDecoders.get(withDecodingNeeded.contentType());
 
-                            if (mediaDecoder == null) {
+                            if (mediaDecoder == null)
+                            {
                                 mediaDecoder = defaultMediaDecoder;
                             }
 
-                            if (mediaDecoder != null) {
+                            if (mediaDecoder != null)
+                            {
                                 drawable = mediaDecoder.decode(withDecodingNeeded.contentType(), withDecodingNeeded.inputStream());
-                            } else {
+                            } else
+                            {
                                 // throw that no media decoder is found
                                 throw new IllegalStateException("No media-decoder is found: " + destination);
                             }
-                        } else {
+                        } else
+                        {
                             drawable = imageItem.getAsWithResult().result();
                         }
-                    } else {
+                    } else
+                    {
                         // throw no scheme handler is available
                         throw new IllegalStateException("No scheme-handler is found: " + destination);
                     }
 
-                } catch (Throwable t) {
-                    if (errorHandler != null) {
+                } catch (Throwable t)
+                {
+                    if (errorHandler != null)
+                    {
                         drawable = errorHandler.handleError(destination, t);
-                    } else {
+                    } else
+                    {
                         // else simply log the error
                         Log.e("MARKWON-IMAGE", "Error loading image: " + destination, t);
                     }
@@ -145,26 +168,31 @@ class AsyncDrawableLoaderImpl extends AsyncDrawableLoader {
                 final Drawable out = drawable;
 
                 // @since 4.0.0 apply intrinsic bounds (but only if they are empty)
-                if (out != null) {
+                if (out != null)
+                {
                     final Rect bounds = out.getBounds();
                     //noinspection ConstantConditions
                     if (bounds == null
-                            || bounds.isEmpty()) {
+                        || bounds.isEmpty())
+                    {
                         DrawableUtils.applyIntrinsicBounds(out);
                     }
                 }
 
-                handler.postAtTime(new Runnable() {
+                handler.postAtTime(new Runnable()
+                {
                     @Override
-                    public void run() {
+                    public void run()
+                    {
                         // validate that
                         // * request was not cancelled
                         // * out-result is present
                         // * async-drawable is attached
                         final Future<?> future = requests.remove(asyncDrawable);
                         if (future != null
-                                && out != null
-                                && asyncDrawable.isAttached()) {
+                            && out != null
+                            && asyncDrawable.isAttached())
+                        {
                             asyncDrawable.setResult(out);
                         }
                     }

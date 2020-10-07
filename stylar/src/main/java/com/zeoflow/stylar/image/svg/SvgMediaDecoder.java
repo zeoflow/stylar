@@ -11,52 +11,65 @@ import androidx.annotation.Nullable;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
+import com.zeoflow.stylar.image.MediaDecoder;
 
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Collections;
 
-import com.zeoflow.stylar.image.MediaDecoder;
-
 /**
  * @since 1.1.0
  */
-public class SvgMediaDecoder extends MediaDecoder {
+public class SvgMediaDecoder extends MediaDecoder
+{
 
     public static final String CONTENT_TYPE = "image/svg+xml";
-
-    /**
-     * @see #create(Resources)
-     * @since 4.0.0
-     */
-    @NonNull
-    public static SvgMediaDecoder create() {
-        return create(Resources.getSystem());
-    }
-
-    @NonNull
-    public static SvgMediaDecoder create(@NonNull Resources resources) {
-        return new SvgMediaDecoder(resources);
-    }
-
     private final Resources resources;
 
     @SuppressWarnings("WeakerAccess")
-    SvgMediaDecoder(Resources resources) {
+    SvgMediaDecoder(Resources resources)
+    {
         this.resources = resources;
 
         // @since 4.0.0
         validate();
     }
 
+    /**
+     * @see #create(Resources)
+     * @since 4.0.0
+     */
+    @NonNull
+    public static SvgMediaDecoder create()
+    {
+        return create(Resources.getSystem());
+    }
+
+    @NonNull
+    public static SvgMediaDecoder create(@NonNull Resources resources)
+    {
+        return new SvgMediaDecoder(resources);
+    }
+
+    private static void validate()
+    {
+        if (!SvgSupport.hasSvgSupport())
+        {
+            throw new IllegalStateException(SvgSupport.missingMessage());
+        }
+    }
+
     @NonNull
     @Override
-    public Drawable decode(@Nullable String contentType, @NonNull InputStream inputStream) {
+    public Drawable decode(@Nullable String contentType, @NonNull InputStream inputStream)
+    {
 
         final SVG svg;
-        try {
+        try
+        {
             svg = SVG.getFromInputStream(inputStream);
-        } catch (SVGParseException e) {
+        } catch (SVGParseException e)
+        {
             throw new IllegalStateException("Exception decoding SVG", e);
         }
 
@@ -77,13 +90,8 @@ public class SvgMediaDecoder extends MediaDecoder {
 
     @NonNull
     @Override
-    public Collection<String> supportedTypes() {
+    public Collection<String> supportedTypes()
+    {
         return Collections.singleton(CONTENT_TYPE);
-    }
-
-    private static void validate() {
-        if (!SvgSupport.hasSvgSupport()) {
-            throw new IllegalStateException(SvgSupport.missingMessage());
-        }
     }
 }

@@ -15,7 +15,14 @@ import androidx.annotation.Px;
 import androidx.annotation.VisibleForTesting;
 
 import com.zeoflow.stylar.AbstractStylarPlugin;
+import com.zeoflow.stylar.StylarConfiguration;
 import com.zeoflow.stylar.StylarVisitor;
+import com.zeoflow.stylar.image.AsyncDrawable;
+import com.zeoflow.stylar.image.AsyncDrawableLoader;
+import com.zeoflow.stylar.image.AsyncDrawableScheduler;
+import com.zeoflow.stylar.image.AsyncDrawableSpan;
+import com.zeoflow.stylar.image.DrawableUtils;
+import com.zeoflow.stylar.image.ImageSizeResolver;
 import com.zeoflow.stylar.inlineparser.StylarInlineParserPlugin;
 
 import org.commonmark.parser.Parser;
@@ -26,14 +33,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import com.zeoflow.stylar.StylarConfiguration;
-import com.zeoflow.stylar.image.AsyncDrawable;
-import com.zeoflow.stylar.image.AsyncDrawableLoader;
-import com.zeoflow.stylar.image.AsyncDrawableScheduler;
-import com.zeoflow.stylar.image.AsyncDrawableSpan;
-import com.zeoflow.stylar.image.DrawableUtils;
-import com.zeoflow.stylar.image.ImageSizeResolver;
-
 import ru.noties.jlatexmath.JLatexMathDrawable;
 
 /**
@@ -42,27 +41,24 @@ import ru.noties.jlatexmath.JLatexMathDrawable;
 public class JLatexMathPlugin extends AbstractStylarPlugin
 {
 
-    /**
-     * @since 4.3.0
-     */
-    public interface ErrorHandler {
+    @VisibleForTesting
+    final Config config;
+    private final JLatextAsyncDrawableLoader jLatextAsyncDrawableLoader;
+    private final JLatexBlockImageSizeResolver jLatexBlockImageSizeResolver;
+    private final ImageSizeResolver inlineImageSizeResolver;
 
-        /**
-         * @param latex that caused the error
-         * @param error occurred
-         * @return (optional) error drawable that will be used instead (if drawable will have bounds
-         * it will be used, if not intrinsic bounds will be set)
-         */
-        @Nullable
-        Drawable handleError(@NonNull String latex, @NonNull Throwable error);
-    }
-
-    public interface BuilderConfigure {
-        void configureBuilder(@NonNull Builder builder);
+    @SuppressWarnings("WeakerAccess")
+    JLatexMathPlugin(@NonNull Config config)
+    {
+        this.config = config;
+        this.jLatextAsyncDrawableLoader = new JLatextAsyncDrawableLoader(config);
+        this.jLatexBlockImageSizeResolver = new JLatexBlockImageSizeResolver(config.theme.blockFitCanvas());
+        this.inlineImageSizeResolver = new InlineImageSizeResolver();
     }
 
     @NonNull
-    public static JLatexMathPlugin create(float textSize) {
+    public static JLatexMathPlugin create(float textSize)
+    {
         return new JLatexMathPlugin(builder(textSize).build());
     }
 
@@ -70,17 +66,20 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
      * @since 4.3.0
      */
     @NonNull
-    public static JLatexMathPlugin create(@Px float inlineTextSize, @Px float blockTextSize) {
+    public static JLatexMathPlugin create(@Px float inlineTextSize, @Px float blockTextSize)
+    {
         return new JLatexMathPlugin(builder(inlineTextSize, blockTextSize).build());
     }
 
     @NonNull
-    public static JLatexMathPlugin create(@NonNull Config config) {
+    public static JLatexMathPlugin create(@NonNull Config config)
+    {
         return new JLatexMathPlugin(config);
     }
 
     @NonNull
-    public static JLatexMathPlugin create(@Px float textSize, @NonNull BuilderConfigure builderConfigure) {
+    public static JLatexMathPlugin create(@Px float textSize, @NonNull BuilderConfigure builderConfigure)
+    {
         final Builder builder = builder(textSize);
         builderConfigure.configureBuilder(builder);
         return new JLatexMathPlugin(builder.build());
@@ -91,16 +90,18 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
      */
     @NonNull
     public static JLatexMathPlugin create(
-            @Px float inlineTextSize,
-            @Px float blockTextSize,
-            @NonNull BuilderConfigure builderConfigure) {
+        @Px float inlineTextSize,
+        @Px float blockTextSize,
+        @NonNull BuilderConfigure builderConfigure)
+    {
         final Builder builder = builder(inlineTextSize, blockTextSize);
         builderConfigure.configureBuilder(builder);
         return new JLatexMathPlugin(builder.build());
     }
 
     @NonNull
-    public static JLatexMathPlugin.Builder builder(@Px float textSize) {
+    public static JLatexMathPlugin.Builder builder(@Px float textSize)
+    {
         return new Builder(JLatexMathTheme.builder(textSize));
     }
 
@@ -108,91 +109,65 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
      * @since 4.3.0
      */
     @NonNull
-    public static JLatexMathPlugin.Builder builder(@Px float inlineTextSize, @Px float blockTextSize) {
+    public static JLatexMathPlugin.Builder builder(@Px float inlineTextSize, @Px float blockTextSize)
+    {
         return new Builder(JLatexMathTheme.builder(inlineTextSize, blockTextSize));
     }
 
+    // @since 4.0.2
     @VisibleForTesting
-    static class Config {
-
-        // @since 4.3.0
-        final JLatexMathTheme theme;
-
-        // @since 4.3.0
-        final boolean blocksEnabled;
-        final boolean blocksLegacy;
-        final boolean inlinesEnabled;
-
-        // @since 4.3.0
-        final ErrorHandler errorHandler;
-
-        final ExecutorService executorService;
-
-        Config(@NonNull Builder builder) {
-            this.theme = builder.theme.build();
-            this.blocksEnabled = builder.blocksEnabled;
-            this.blocksLegacy = builder.blocksLegacy;
-            this.inlinesEnabled = builder.inlinesEnabled;
-            this.errorHandler = builder.errorHandler;
-            // @since 4.0.0
-            ExecutorService executorService = builder.executorService;
-            if (executorService == null) {
-                executorService = Executors.newCachedThreadPool();
-            }
-            this.executorService = executorService;
-        }
-    }
-
-    @VisibleForTesting
-    final Config config;
-
-    private final JLatextAsyncDrawableLoader jLatextAsyncDrawableLoader;
-    private final JLatexBlockImageSizeResolver jLatexBlockImageSizeResolver;
-    private final ImageSizeResolver inlineImageSizeResolver;
-
-    @SuppressWarnings("WeakerAccess")
-    JLatexMathPlugin(@NonNull Config config) {
-        this.config = config;
-        this.jLatextAsyncDrawableLoader = new JLatextAsyncDrawableLoader(config);
-        this.jLatexBlockImageSizeResolver = new JLatexBlockImageSizeResolver(config.theme.blockFitCanvas());
-        this.inlineImageSizeResolver = new InlineImageSizeResolver();
+    @NonNull
+    static String prepareLatexTextPlaceholder(@NonNull String latex)
+    {
+        return latex.replace('\n', ' ').trim();
     }
 
     @Override
-    public void configure(@NonNull Registry registry) {
-        if (config.inlinesEnabled) {
+    public void configure(@NonNull Registry registry)
+    {
+        if (config.inlinesEnabled)
+        {
             registry.require(StylarInlineParserPlugin.class)
-                    .factoryBuilder()
-                    .addInlineProcessor(new JLatexMathInlineProcessor());
+                .factoryBuilder()
+                .addInlineProcessor(new JLatexMathInlineProcessor());
         }
     }
 
     @Override
-    public void configureParser(@NonNull Parser.Builder builder) {
+    public void configureParser(@NonNull Parser.Builder builder)
+    {
         // @since 4.3.0
-        if (config.blocksEnabled) {
-            if (config.blocksLegacy) {
+        if (config.blocksEnabled)
+        {
+            if (config.blocksLegacy)
+            {
                 builder.customBlockParserFactory(new JLatexMathBlockParserLegacy.Factory());
-            } else {
+            } else
+            {
                 builder.customBlockParserFactory(new JLatexMathBlockParser.Factory());
             }
         }
     }
 
     @Override
-    public void configureVisitor(@NonNull StylarVisitor.Builder builder) {
+    public void configureVisitor(@NonNull StylarVisitor.Builder builder)
+    {
         addBlockVisitor(builder);
         addInlineVisitor(builder);
     }
 
-    private void addBlockVisitor(@NonNull StylarVisitor.Builder builder) {
-        if (!config.blocksEnabled) {
+    private void addBlockVisitor(@NonNull StylarVisitor.Builder builder)
+    {
+        if (!config.blocksEnabled)
+        {
             return;
         }
 
-        builder.on(JLatexMathBlock.class, new StylarVisitor.NodeVisitor<JLatexMathBlock>() {
+        builder.on(JLatexMathBlock.class, new StylarVisitor.NodeVisitor<JLatexMathBlock>()
+        {
             @Override
-            public void visit(@NonNull StylarVisitor visitor, @NonNull JLatexMathBlock jLatexMathBlock) {
+            public void visit(@NonNull StylarVisitor visitor, @NonNull JLatexMathBlock jLatexMathBlock)
+            {
 
                 visitor.blockStart(jLatexMathBlock);
 
@@ -208,14 +183,14 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
                 final StylarConfiguration configuration = visitor.configuration();
 
                 final AsyncDrawableSpan span = new JLatexAsyncDrawableSpan(
-                        configuration.theme(),
-                        new JLatextAsyncDrawable(
-                                latex,
-                                jLatextAsyncDrawableLoader,
-                                jLatexBlockImageSizeResolver,
-                                null,
-                                true),
-                        config.theme.blockTextColor()
+                    configuration.theme(),
+                    new JLatextAsyncDrawable(
+                        latex,
+                        jLatextAsyncDrawableLoader,
+                        jLatexBlockImageSizeResolver,
+                        null,
+                        true),
+                    config.theme.blockTextColor()
                 );
 
                 visitor.setSpans(length, span);
@@ -225,15 +200,19 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
         });
     }
 
-    private void addInlineVisitor(@NonNull StylarVisitor.Builder builder) {
+    private void addInlineVisitor(@NonNull StylarVisitor.Builder builder)
+    {
 
-        if (!config.inlinesEnabled) {
+        if (!config.inlinesEnabled)
+        {
             return;
         }
 
-        builder.on(JLatexMathNode.class, new StylarVisitor.NodeVisitor<JLatexMathNode>() {
+        builder.on(JLatexMathNode.class, new StylarVisitor.NodeVisitor<JLatexMathNode>()
+        {
             @Override
-            public void visit(@NonNull StylarVisitor visitor, @NonNull JLatexMathNode jLatexMathNode) {
+            public void visit(@NonNull StylarVisitor visitor, @NonNull JLatexMathNode jLatexMathNode)
+            {
                 final String latex = jLatexMathNode.latex();
 
                 final int length = visitor.length();
@@ -246,14 +225,14 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
                 final StylarConfiguration configuration = visitor.configuration();
 
                 final AsyncDrawableSpan span = new JLatexInlineAsyncDrawableSpan(
-                        configuration.theme(),
-                        new JLatextAsyncDrawable(
-                                latex,
-                                jLatextAsyncDrawableLoader,
-                                inlineImageSizeResolver,
-                                null,
-                                false),
-                        config.theme.inlineTextColor()
+                    configuration.theme(),
+                    new JLatextAsyncDrawable(
+                        latex,
+                        jLatextAsyncDrawableLoader,
+                        inlineImageSizeResolver,
+                        null,
+                        false),
+                    config.theme.inlineTextColor()
                 );
 
                 visitor.setSpans(length, span);
@@ -262,24 +241,75 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
     }
 
     @Override
-    public void beforeSetText(@NonNull TextView textView, @NonNull Spanned markdown) {
+    public void beforeSetText(@NonNull TextView textView, @NonNull Spanned markdown)
+    {
         AsyncDrawableScheduler.unschedule(textView);
     }
 
     @Override
-    public void afterSetText(@NonNull TextView textView) {
+    public void afterSetText(@NonNull TextView textView)
+    {
         AsyncDrawableScheduler.schedule(textView);
     }
 
-    // @since 4.0.2
+    /**
+     * @since 4.3.0
+     */
+    public interface ErrorHandler
+    {
+
+        /**
+         * @param latex that caused the error
+         * @param error occurred
+         * @return (optional) error drawable that will be used instead (if drawable will have bounds
+         * it will be used, if not intrinsic bounds will be set)
+         */
+        @Nullable
+        Drawable handleError(@NonNull String latex, @NonNull Throwable error);
+    }
+
+    public interface BuilderConfigure
+    {
+        void configureBuilder(@NonNull Builder builder);
+    }
+
     @VisibleForTesting
-    @NonNull
-    static String prepareLatexTextPlaceholder(@NonNull String latex) {
-        return latex.replace('\n', ' ').trim();
+    static class Config
+    {
+
+        // @since 4.3.0
+        final JLatexMathTheme theme;
+
+        // @since 4.3.0
+        final boolean blocksEnabled;
+        final boolean blocksLegacy;
+        final boolean inlinesEnabled;
+
+        // @since 4.3.0
+        final ErrorHandler errorHandler;
+
+        final ExecutorService executorService;
+
+        Config(@NonNull Builder builder)
+        {
+            this.theme = builder.theme.build();
+            this.blocksEnabled = builder.blocksEnabled;
+            this.blocksLegacy = builder.blocksLegacy;
+            this.inlinesEnabled = builder.inlinesEnabled;
+            this.errorHandler = builder.errorHandler;
+            // @since 4.0.0
+            ExecutorService executorService = builder.executorService;
+            if (executorService == null)
+            {
+                executorService = Executors.newCachedThreadPool();
+            }
+            this.executorService = executorService;
+        }
     }
 
     @SuppressWarnings({"unused", "UnusedReturnValue"})
-    public static class Builder {
+    public static class Builder
+    {
 
         // @since 4.3.0
         private final JLatexMathTheme.Builder theme;
@@ -295,12 +325,14 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
         // @since 4.0.0
         private ExecutorService executorService;
 
-        Builder(@NonNull JLatexMathTheme.Builder builder) {
+        Builder(@NonNull JLatexMathTheme.Builder builder)
+        {
             this.theme = builder;
         }
 
         @NonNull
-        public JLatexMathTheme.Builder theme() {
+        public JLatexMathTheme.Builder theme()
+        {
             return theme;
         }
 
@@ -308,7 +340,8 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
          * @since 4.3.0
          */
         @NonNull
-        public Builder blocksEnabled(boolean blocksEnabled) {
+        public Builder blocksEnabled(boolean blocksEnabled)
+        {
             this.blocksEnabled = blocksEnabled;
             return this;
         }
@@ -318,7 +351,8 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
          * @since 4.3.0
          */
         @NonNull
-        public Builder blocksLegacy(boolean blocksLegacy) {
+        public Builder blocksLegacy(boolean blocksLegacy)
+        {
             this.blocksLegacy = blocksLegacy;
             return this;
         }
@@ -329,13 +363,15 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
          * @since 4.3.0
          */
         @NonNull
-        public Builder inlinesEnabled(boolean inlinesEnabled) {
+        public Builder inlinesEnabled(boolean inlinesEnabled)
+        {
             this.inlinesEnabled = inlinesEnabled;
             return this;
         }
 
         @NonNull
-        public Builder errorHandler(@Nullable ErrorHandler errorHandler) {
+        public Builder errorHandler(@Nullable ErrorHandler errorHandler)
+        {
             this.errorHandler = errorHandler;
             return this;
         }
@@ -345,30 +381,35 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
          */
         @SuppressWarnings("WeakerAccess")
         @NonNull
-        public Builder executorService(@NonNull ExecutorService executorService) {
+        public Builder executorService(@NonNull ExecutorService executorService)
+        {
             this.executorService = executorService;
             return this;
         }
 
         @NonNull
-        public Config build() {
+        public Config build()
+        {
             return new Config(this);
         }
     }
 
     // @since 4.0.0
-    static class JLatextAsyncDrawableLoader extends AsyncDrawableLoader {
+    static class JLatextAsyncDrawableLoader extends AsyncDrawableLoader
+    {
 
         private final Config config;
         private final Handler handler = new Handler(Looper.getMainLooper());
         private final Map<AsyncDrawable, Future<?>> cache = new HashMap<>(3);
 
-        JLatextAsyncDrawableLoader(@NonNull Config config) {
+        JLatextAsyncDrawableLoader(@NonNull Config config)
+        {
             this.config = config;
         }
 
         @Override
-        public void load(@NonNull final AsyncDrawable drawable) {
+        public void load(@NonNull final AsyncDrawable drawable)
+        {
 
             // this method must be called from main-thread only (thus synchronization can be skipped)
 
@@ -378,30 +419,38 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
             // if it's present -> proceed with new execution
             // as asyncDrawable is immutable, it won't have destination changed (so there is no need
             // to cancel any started tasks)
-            if (future == null) {
+            if (future == null)
+            {
 
-                cache.put(drawable, config.executorService.submit(new Runnable() {
+                cache.put(drawable, config.executorService.submit(new Runnable()
+                {
                     @Override
-                    public void run() {
+                    public void run()
+                    {
                         // @since 4.0.1 wrap in try-catch block and add error logging
-                        try {
+                        try
+                        {
                             execute();
-                        } catch (Throwable t) {
+                        } catch (Throwable t)
+                        {
                             // @since 4.3.0 add error handling
                             final ErrorHandler errorHandler = config.errorHandler;
-                            if (errorHandler == null) {
+                            if (errorHandler == null)
+                            {
                                 // as before
                                 Log.e(
-                                        "JLatexMathPlugin",
-                                        "Error displaying latex: `" + drawable.getDestination() + "`",
-                                        t);
-                            } else {
+                                    "JLatexMathPlugin",
+                                    "Error displaying latex: `" + drawable.getDestination() + "`",
+                                    t);
+                            } else
+                            {
                                 // just call `getDestination` without casts and checks
                                 final Drawable errorDrawable = errorHandler.handleError(
-                                        drawable.getDestination(),
-                                        t
+                                    drawable.getDestination(),
+                                    t
                                 );
-                                if (errorDrawable != null) {
+                                if (errorDrawable != null)
+                                {
                                     DrawableUtils.applyIntrinsicBoundsIfEmpty(errorDrawable);
                                     setResult(drawable, errorDrawable);
                                 }
@@ -409,15 +458,18 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
                         }
                     }
 
-                    private void execute() {
+                    private void execute()
+                    {
 
                         final JLatexMathDrawable jLatexMathDrawable;
 
                         final JLatextAsyncDrawable jLatextAsyncDrawable = (JLatextAsyncDrawable) drawable;
 
-                        if (jLatextAsyncDrawable.isBlock()) {
+                        if (jLatextAsyncDrawable.isBlock())
+                        {
                             jLatexMathDrawable = createBlockDrawable(jLatextAsyncDrawable);
-                        } else {
+                        } else
+                        {
                             jLatexMathDrawable = createInlineDrawable(jLatextAsyncDrawable);
                         }
 
@@ -428,12 +480,14 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
         }
 
         @Override
-        public void cancel(@NonNull AsyncDrawable drawable) {
+        public void cancel(@NonNull AsyncDrawable drawable)
+        {
 
             // this method also must be called from main thread only
 
             final Future<?> future = cache.remove(drawable);
-            if (future != null) {
+            if (future != null)
+            {
                 future.cancel(true);
             }
 
@@ -443,13 +497,15 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
 
         @Nullable
         @Override
-        public Drawable placeholder(@NonNull AsyncDrawable drawable) {
+        public Drawable placeholder(@NonNull AsyncDrawable drawable)
+        {
             return null;
         }
 
         // @since 4.3.0
         @NonNull
-        private JLatexMathDrawable createBlockDrawable(@NonNull JLatextAsyncDrawable drawable) {
+        private JLatexMathDrawable createBlockDrawable(@NonNull JLatextAsyncDrawable drawable)
+        {
 
             final String latex = drawable.getDestination();
 
@@ -460,18 +516,21 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
             final int color = theme.blockTextColor();
 
             final JLatexMathDrawable.Builder builder = JLatexMathDrawable.builder(latex)
-                    .textSize(theme.blockTextSize())
-                    .align(theme.blockHorizontalAlignment());
+                .textSize(theme.blockTextSize())
+                .align(theme.blockHorizontalAlignment());
 
-            if (backgroundProvider != null) {
+            if (backgroundProvider != null)
+            {
                 builder.background(backgroundProvider.provide());
             }
 
-            if (padding != null) {
+            if (padding != null)
+            {
                 builder.padding(padding.left, padding.top, padding.right, padding.bottom);
             }
 
-            if (color != 0) {
+            if (color != 0)
+            {
                 builder.color(color);
             }
 
@@ -480,7 +539,8 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
 
         // @since 4.3.0
         @NonNull
-        private JLatexMathDrawable createInlineDrawable(@NonNull JLatextAsyncDrawable drawable) {
+        private JLatexMathDrawable createInlineDrawable(@NonNull JLatextAsyncDrawable drawable)
+        {
 
             final String latex = drawable.getDestination();
 
@@ -491,17 +551,20 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
             final int color = theme.inlineTextColor();
 
             final JLatexMathDrawable.Builder builder = JLatexMathDrawable.builder(latex)
-                    .textSize(theme.inlineTextSize());
+                .textSize(theme.inlineTextSize());
 
-            if (backgroundProvider != null) {
+            if (backgroundProvider != null)
+            {
                 builder.background(backgroundProvider.provide());
             }
 
-            if (padding != null) {
+            if (padding != null)
+            {
                 builder.padding(padding.left, padding.top, padding.right, padding.bottom);
             }
 
-            if (color != 0) {
+            if (color != 0)
+            {
                 builder.color(color);
             }
 
@@ -509,15 +572,19 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
         }
 
         // @since 4.3.0
-        private void setResult(@NonNull final AsyncDrawable drawable, @NonNull final Drawable result) {
+        private void setResult(@NonNull final AsyncDrawable drawable, @NonNull final Drawable result)
+        {
             // we must post to handler, but also have a way to identify the drawable
             // for which we are posting (in case of cancellation)
-            handler.postAtTime(new Runnable() {
+            handler.postAtTime(new Runnable()
+            {
                 @Override
-                public void run() {
+                public void run()
+                {
                     // remove entry from cache (it will be present if task is not cancelled)
                     if (cache.remove(drawable) != null
-                            && drawable.isAttached()) {
+                        && drawable.isAttached())
+                    {
                         drawable.setResult(result);
                     }
 
@@ -526,18 +593,21 @@ public class JLatexMathPlugin extends AbstractStylarPlugin
         }
     }
 
-    private static class InlineImageSizeResolver extends ImageSizeResolver {
+    private static class InlineImageSizeResolver extends ImageSizeResolver
+    {
 
         @NonNull
         @Override
-        public Rect resolveImageSize(@NonNull AsyncDrawable drawable) {
+        public Rect resolveImageSize(@NonNull AsyncDrawable drawable)
+        {
 
             // @since 4.4.0 resolve inline size (scale down if exceed available width)
             final Rect imageBounds = drawable.getResult().getBounds();
             final int canvasWidth = drawable.getLastKnownCanvasWidth();
             final int w = imageBounds.width();
 
-            if (w > canvasWidth) {
+            if (w > canvasWidth)
+            {
                 // here we must scale it down (keeping the ratio)
                 final float ratio = (float) w / imageBounds.height();
                 final int h = (int) (canvasWidth / ratio + .5F);

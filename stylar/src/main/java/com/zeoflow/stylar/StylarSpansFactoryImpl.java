@@ -19,37 +19,45 @@ public class StylarSpansFactoryImpl implements StylarSpansFactory
 
     private final Map<Class<? extends Node>, SpanFactory> factories;
 
-    StylarSpansFactoryImpl(@NonNull Map<Class<? extends Node>, SpanFactory> factories) {
+    StylarSpansFactoryImpl(@NonNull Map<Class<? extends Node>, SpanFactory> factories)
+    {
         this.factories = factories;
     }
 
     @Nullable
     @Override
-    public <N extends Node> SpanFactory get(@NonNull Class<N> node) {
+    public <N extends Node> SpanFactory get(@NonNull Class<N> node)
+    {
         return factories.get(node);
     }
 
     @NonNull
     @Override
-    public <N extends Node> SpanFactory require(@NonNull Class<N> node) {
+    public <N extends Node> SpanFactory require(@NonNull Class<N> node)
+    {
         final SpanFactory f = get(node);
-        if (f == null) {
+        if (f == null)
+        {
             throw new NullPointerException(node.getName());
         }
         return f;
     }
 
-    public static class BuilderImpl implements Builder {
+    public static class BuilderImpl implements Builder
+    {
 
         private final Map<Class<? extends Node>, SpanFactory> factories =
-                new HashMap<>(3);
+            new HashMap<>(3);
 
         @NonNull
         @Override
-        public <N extends Node> Builder setFactory(@NonNull Class<N> node, @Nullable SpanFactory factory) {
-            if (factory == null) {
+        public <N extends Node> Builder setFactory(@NonNull Class<N> node, @Nullable SpanFactory factory)
+        {
+            if (factory == null)
+            {
                 factories.remove(node);
-            } else {
+            } else
+            {
                 factories.put(node, factory);
             }
             return this;
@@ -58,22 +66,28 @@ public class StylarSpansFactoryImpl implements StylarSpansFactory
         @NonNull
         @Override
         @Deprecated
-        public <N extends Node> Builder addFactory(@NonNull Class<N> node, @NonNull SpanFactory factory) {
+        public <N extends Node> Builder addFactory(@NonNull Class<N> node, @NonNull SpanFactory factory)
+        {
             return prependFactory(node, factory);
         }
 
         @NonNull
         @Override
-        public <N extends Node> Builder appendFactory(@NonNull Class<N> node, @NonNull SpanFactory factory) {
+        public <N extends Node> Builder appendFactory(@NonNull Class<N> node, @NonNull SpanFactory factory)
+        {
             final SpanFactory existing = factories.get(node);
-            if (existing == null) {
+            if (existing == null)
+            {
                 factories.put(node, factory);
-            } else {
-                if (existing instanceof CompositeSpanFactory) {
+            } else
+            {
+                if (existing instanceof CompositeSpanFactory)
+                {
                     ((CompositeSpanFactory) existing).factories.add(0, factory);
-                } else {
+                } else
+                {
                     final CompositeSpanFactory compositeSpanFactory =
-                            new CompositeSpanFactory(factory, existing);
+                        new CompositeSpanFactory(factory, existing);
                     factories.put(node, compositeSpanFactory);
                 }
             }
@@ -82,19 +96,24 @@ public class StylarSpansFactoryImpl implements StylarSpansFactory
 
         @NonNull
         @Override
-        public <N extends Node> Builder prependFactory(@NonNull Class<N> node, @NonNull SpanFactory factory) {
+        public <N extends Node> Builder prependFactory(@NonNull Class<N> node, @NonNull SpanFactory factory)
+        {
             // if there is no factory registered for this node -> just add it
             final SpanFactory existing = factories.get(node);
-            if (existing == null) {
+            if (existing == null)
+            {
                 factories.put(node, factory);
-            } else {
+            } else
+            {
                 // existing span factory can be of CompositeSpanFactory at this point -> append to it
-                if (existing instanceof CompositeSpanFactory) {
+                if (existing instanceof CompositeSpanFactory)
+                {
                     ((CompositeSpanFactory) existing).factories.add(factory);
-                } else {
+                } else
+                {
                     // if it's not composite at this point -> make it
                     final CompositeSpanFactory compositeSpanFactory =
-                            new CompositeSpanFactory(existing, factory);
+                        new CompositeSpanFactory(existing, factory);
                     factories.put(node, compositeSpanFactory);
                 }
             }
@@ -103,15 +122,18 @@ public class StylarSpansFactoryImpl implements StylarSpansFactory
 
         @Nullable
         @Override
-        public <N extends Node> SpanFactory getFactory(@NonNull Class<N> node) {
+        public <N extends Node> SpanFactory getFactory(@NonNull Class<N> node)
+        {
             return factories.get(node);
         }
 
         @NonNull
         @Override
-        public <N extends Node> SpanFactory requireFactory(@NonNull Class<N> node) {
+        public <N extends Node> SpanFactory requireFactory(@NonNull Class<N> node)
+        {
             final SpanFactory factory = getFactory(node);
-            if (factory == null) {
+            if (factory == null)
+            {
                 throw new NullPointerException(node.getName());
             }
             return factory;
@@ -119,16 +141,19 @@ public class StylarSpansFactoryImpl implements StylarSpansFactory
 
         @NonNull
         @Override
-        public StylarSpansFactory build() {
+        public StylarSpansFactory build()
+        {
             return new StylarSpansFactoryImpl(Collections.unmodifiableMap(factories));
         }
     }
 
-    static class CompositeSpanFactory implements SpanFactory {
+    static class CompositeSpanFactory implements SpanFactory
+    {
 
         final List<SpanFactory> factories;
 
-        CompositeSpanFactory(@NonNull SpanFactory first, @NonNull SpanFactory second) {
+        CompositeSpanFactory(@NonNull SpanFactory first, @NonNull SpanFactory second)
+        {
             this.factories = new ArrayList<>(3);
             this.factories.add(first);
             this.factories.add(second);
@@ -136,12 +161,14 @@ public class StylarSpansFactoryImpl implements StylarSpansFactory
 
         @Nullable
         @Override
-        public Object getSpans(@NonNull StylarConfiguration configuration, @NonNull RenderProps props) {
+        public Object getSpans(@NonNull StylarConfiguration configuration, @NonNull RenderProps props)
+        {
             // please note that we do not check it factory itself returns an array of spans,
             // as this behaviour is supported now (previously we supported only a single-level array)
             final int length = factories.size();
             final Object[] out = new Object[length];
-            for (int i = 0; i < length; i++) {
+            for (int i = 0; i < length; i++)
+            {
                 out[i] = factories.get(i).getSpans(configuration, props);
             }
             return out;

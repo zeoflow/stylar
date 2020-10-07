@@ -9,13 +9,15 @@ class StylarHtmlRendererNoOp extends StylarHtmlRenderer
 {
 
     @Override
-    public void render(@NonNull StylarVisitor visitor, @NonNull StylarHtmlParser parser) {
+    public void render(@NonNull StylarVisitor visitor, @NonNull StylarHtmlParser parser)
+    {
         parser.reset();
     }
 
     @Nullable
     @Override
-    public TagHandler tagHandler(@NonNull String tagName) {
+    public TagHandler tagHandler(@NonNull String tagName)
+    {
         return null;
     }
 }

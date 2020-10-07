@@ -5,10 +5,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.zeoflow.stylar.core.StylarTheme;
+
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
-
-import com.zeoflow.stylar.core.StylarTheme;
 
 /**
  * Class that extends {@link StylarPlugin} with all methods implemented (empty body)
@@ -21,58 +21,69 @@ public abstract class AbstractStylarPlugin implements StylarPlugin
 {
 
     @Override
-    public void configure(@NonNull Registry registry) {
+    public void configure(@NonNull Registry registry)
+    {
 
     }
 
     @Override
-    public void configureParser(@NonNull Parser.Builder builder) {
+    public void configureParser(@NonNull Parser.Builder builder)
+    {
 
     }
 
     @Override
-    public void configureTheme(@NonNull StylarTheme.Builder builder) {
+    public void configureTheme(@NonNull StylarTheme.Builder builder)
+    {
 
     }
 
     @Override
-    public void configureConfiguration(@NonNull StylarConfiguration.Builder builder) {
+    public void configureConfiguration(@NonNull StylarConfiguration.Builder builder)
+    {
 
     }
 
     @Override
-    public void configureVisitor(@NonNull StylarVisitor.Builder builder) {
+    public void configureVisitor(@NonNull StylarVisitor.Builder builder)
+    {
 
     }
 
     @Override
-    public void configureSpansFactory(@NonNull StylarSpansFactory.Builder builder) {
+    public void configureSpansFactory(@NonNull StylarSpansFactory.Builder builder)
+    {
 
     }
 
     @NonNull
     @Override
-    public String processMarkdown(@NonNull String markdown) {
+    public String processMarkdown(@NonNull String markdown)
+    {
         return markdown;
     }
 
     @Override
-    public void beforeRender(@NonNull Node node) {
+    public void beforeRender(@NonNull Node node)
+    {
 
     }
 
     @Override
-    public void afterRender(@NonNull Node node, @NonNull StylarVisitor visitor) {
+    public void afterRender(@NonNull Node node, @NonNull StylarVisitor visitor)
+    {
 
     }
 
     @Override
-    public void beforeSetText(@NonNull TextView textView, @NonNull Spanned markdown) {
+    public void beforeSetText(@NonNull TextView textView, @NonNull Spanned markdown)
+    {
 
     }
 
     @Override
-    public void afterSetText(@NonNull TextView textView) {
+    public void afterSetText(@NonNull TextView textView)
+    {
 
     }
 }

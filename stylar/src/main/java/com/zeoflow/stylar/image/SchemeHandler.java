@@ -9,7 +9,8 @@ import java.util.Collection;
 /**
  * @since 3.0.0
  */
-public abstract class SchemeHandler {
+public abstract class SchemeHandler
+{
 
     /**
      * Changes since 4.0.0:

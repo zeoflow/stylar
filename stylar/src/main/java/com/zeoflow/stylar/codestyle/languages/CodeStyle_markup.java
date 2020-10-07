@@ -16,8 +16,13 @@ import static java.util.regex.Pattern.compile;
 public abstract class CodeStyle_markup
 {
 
+  private CodeStyle_markup()
+  {
+  }
+
   @NotNull
-  public static CodeStyle.Grammar create(@NotNull CodeStyle codeStyle) {
+  public static CodeStyle.Grammar create(@NotNull CodeStyle codeStyle)
+  {
     final CodeStyle.Token entity = token("entity", pattern(compile("&#?[\\da-z]{1,8};", Pattern.CASE_INSENSITIVE)));
     return grammar(
       "markup",
@@ -85,8 +90,5 @@ public abstract class CodeStyle_markup
       ),
       entity
     );
-  }
-
-  private CodeStyle_markup() {
   }
 }

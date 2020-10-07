@@ -50,11 +50,12 @@ public class StylarVisitorImpl implements StylarVisitor
     private final BlockHandler blockHandler;
 
     StylarVisitorImpl(
-            @NonNull StylarConfiguration configuration,
-            @NonNull RenderProps renderProps,
-            @NonNull SpannableBuilder builder,
-            @NonNull Map<Class<? extends Node>, NodeVisitor<? extends Node>> nodes,
-            @NonNull BlockHandler blockHandler) {
+        @NonNull StylarConfiguration configuration,
+        @NonNull RenderProps renderProps,
+        @NonNull SpannableBuilder builder,
+        @NonNull Map<Class<? extends Node>, NodeVisitor<? extends Node>> nodes,
+        @NonNull BlockHandler blockHandler)
+    {
         this.configuration = configuration;
         this.renderProps = renderProps;
         this.builder = builder;
@@ -63,152 +64,183 @@ public class StylarVisitorImpl implements StylarVisitor
     }
 
     @Override
-    public void visit(BlockQuote blockQuote) {
+    public void visit(BlockQuote blockQuote)
+    {
         visit((Node) blockQuote);
     }
 
     @Override
-    public void visit(BulletList bulletList) {
+    public void visit(BulletList bulletList)
+    {
         visit((Node) bulletList);
     }
 
     @Override
-    public void visit(Code code) {
+    public void visit(Code code)
+    {
         visit((Node) code);
     }
 
     @Override
-    public void visit(Document document) {
+    public void visit(Document document)
+    {
         visit((Node) document);
     }
 
     @Override
-    public void visit(Emphasis emphasis) {
+    public void visit(Emphasis emphasis)
+    {
         visit((Node) emphasis);
     }
 
     @Override
-    public void visit(FencedCodeBlock fencedCodeBlock) {
+    public void visit(FencedCodeBlock fencedCodeBlock)
+    {
         visit((Node) fencedCodeBlock);
     }
 
     @Override
-    public void visit(HardLineBreak hardLineBreak) {
+    public void visit(HardLineBreak hardLineBreak)
+    {
         visit((Node) hardLineBreak);
     }
 
     @Override
-    public void visit(Heading heading) {
+    public void visit(Heading heading)
+    {
         visit((Node) heading);
     }
 
     @Override
-    public void visit(ThematicBreak thematicBreak) {
+    public void visit(ThematicBreak thematicBreak)
+    {
         visit((Node) thematicBreak);
     }
 
     @Override
-    public void visit(HtmlInline htmlInline) {
+    public void visit(HtmlInline htmlInline)
+    {
         visit((Node) htmlInline);
     }
 
     @Override
-    public void visit(HtmlBlock htmlBlock) {
+    public void visit(HtmlBlock htmlBlock)
+    {
         visit((Node) htmlBlock);
     }
 
     @Override
-    public void visit(Image image) {
+    public void visit(Image image)
+    {
         visit((Node) image);
     }
 
     @Override
-    public void visit(IndentedCodeBlock indentedCodeBlock) {
+    public void visit(IndentedCodeBlock indentedCodeBlock)
+    {
         visit((Node) indentedCodeBlock);
     }
 
     @Override
-    public void visit(Link link) {
+    public void visit(Link link)
+    {
         visit((Node) link);
     }
 
     @Override
-    public void visit(ListItem listItem) {
+    public void visit(ListItem listItem)
+    {
         visit((Node) listItem);
     }
 
     @Override
-    public void visit(OrderedList orderedList) {
+    public void visit(OrderedList orderedList)
+    {
         visit((Node) orderedList);
     }
 
     @Override
-    public void visit(Paragraph paragraph) {
+    public void visit(Paragraph paragraph)
+    {
         visit((Node) paragraph);
     }
 
     @Override
-    public void visit(SoftLineBreak softLineBreak) {
+    public void visit(SoftLineBreak softLineBreak)
+    {
         visit((Node) softLineBreak);
     }
 
     @Override
-    public void visit(StrongEmphasis strongEmphasis) {
+    public void visit(StrongEmphasis strongEmphasis)
+    {
         visit((Node) strongEmphasis);
     }
 
     @Override
-    public void visit(Text text) {
+    public void visit(Text text)
+    {
         visit((Node) text);
     }
 
     @Override
-    public void visit(LinkReferenceDefinition linkReferenceDefinition) {
+    public void visit(LinkReferenceDefinition linkReferenceDefinition)
+    {
         visit((Node) linkReferenceDefinition);
     }
 
     @Override
-    public void visit(CustomBlock customBlock) {
+    public void visit(CustomBlock customBlock)
+    {
         visit((Node) customBlock);
     }
 
     @Override
-    public void visit(CustomNode customNode) {
+    public void visit(CustomNode customNode)
+    {
         visit((Node) customNode);
     }
 
-    private void visit(@NonNull Node node) {
+    private void visit(@NonNull Node node)
+    {
         //noinspection unchecked
         final NodeVisitor<Node> nodeVisitor = (NodeVisitor<Node>) nodes.get(node.getClass());
-        if (nodeVisitor != null) {
+        if (nodeVisitor != null)
+        {
             nodeVisitor.visit(this, node);
-        } else {
+        } else
+        {
             visitChildren(node);
         }
     }
 
     @NonNull
     @Override
-    public StylarConfiguration configuration() {
+    public StylarConfiguration configuration()
+    {
         return configuration;
     }
 
     @NonNull
     @Override
-    public RenderProps renderProps() {
+    public RenderProps renderProps()
+    {
         return renderProps;
     }
 
     @NonNull
     @Override
-    public SpannableBuilder builder() {
+    public SpannableBuilder builder()
+    {
         return builder;
     }
 
     @Override
-    public void visitChildren(@NonNull Node parent) {
+    public void visitChildren(@NonNull Node parent)
+    {
         Node node = parent.getFirstChild();
-        while (node != null) {
+        while (node != null)
+        {
             // A subclass of this visitor might modify the node, resulting in getNext returning a different node or no
             // node after visiting it. So get the next node before visiting.
             Node next = node.getNext();
@@ -218,80 +250,96 @@ public class StylarVisitorImpl implements StylarVisitor
     }
 
     @Override
-    public boolean hasNext(@NonNull Node node) {
+    public boolean hasNext(@NonNull Node node)
+    {
         return node.getNext() != null;
     }
 
     @Override
-    public void ensureNewLine() {
+    public void ensureNewLine()
+    {
         if (builder.length() > 0
-                && '\n' != builder.lastChar()) {
+            && '\n' != builder.lastChar())
+        {
             builder.append('\n');
         }
     }
 
     @Override
-    public void forceNewLine() {
+    public void forceNewLine()
+    {
         builder.append('\n');
     }
 
     @Override
-    public int length() {
+    public int length()
+    {
         return builder.length();
     }
 
     @Override
-    public void setSpans(int start, @Nullable Object spans) {
+    public void setSpans(int start, @Nullable Object spans)
+    {
         SpannableBuilder.setSpans(builder, spans, start, builder.length());
     }
 
     @Override
-    public void clear() {
+    public void clear()
+    {
         renderProps.clearAll();
         builder.clear();
     }
 
     @Override
-    public <N extends Node> void setSpansForNode(@NonNull N node, int start) {
+    public <N extends Node> void setSpansForNode(@NonNull N node, int start)
+    {
         setSpansForNode(node.getClass(), start);
     }
 
     @Override
-    public <N extends Node> void setSpansForNode(@NonNull Class<N> node, int start) {
+    public <N extends Node> void setSpansForNode(@NonNull Class<N> node, int start)
+    {
         setSpans(start, configuration.spansFactory().require(node).getSpans(configuration, renderProps));
     }
 
     @Override
-    public <N extends Node> void setSpansForNodeOptional(@NonNull N node, int start) {
+    public <N extends Node> void setSpansForNodeOptional(@NonNull N node, int start)
+    {
         setSpansForNodeOptional(node.getClass(), start);
     }
 
     @Override
-    public <N extends Node> void setSpansForNodeOptional(@NonNull Class<N> node, int start) {
+    public <N extends Node> void setSpansForNodeOptional(@NonNull Class<N> node, int start)
+    {
         final SpanFactory factory = configuration.spansFactory().get(node);
-        if (factory != null) {
+        if (factory != null)
+        {
             setSpans(start, factory.getSpans(configuration, renderProps));
         }
     }
 
     @Override
-    public void blockStart(@NonNull Node node) {
+    public void blockStart(@NonNull Node node)
+    {
         blockHandler.blockStart(this, node);
     }
 
     @Override
-    public void blockEnd(@NonNull Node node) {
+    public void blockEnd(@NonNull Node node)
+    {
         blockHandler.blockEnd(this, node);
     }
 
-    public static class BuilderImpl implements Builder {
+    public static class BuilderImpl implements Builder
+    {
 
         private final Map<Class<? extends Node>, NodeVisitor<? extends Node>> nodes = new HashMap<>();
         private BlockHandler blockHandler;
 
         @NonNull
         @Override
-        public <N extends Node> Builder on(@NonNull Class<N> node, @Nullable NodeVisitor<? super N> nodeVisitor) {
+        public <N extends Node> Builder on(@NonNull Class<N> node, @Nullable NodeVisitor<? super N> nodeVisitor)
+        {
 
             // @since 4.1.1 we might actually introduce a local flag to check if it's been built
             //  and throw an exception here if some modification is requested
@@ -299,9 +347,11 @@ public class StylarVisitorImpl implements StylarVisitor
 
             // we should allow `null` to exclude node from being visited (for example to disable
             // some functionality)
-            if (nodeVisitor == null) {
+            if (nodeVisitor == null)
+            {
                 nodes.remove(node);
-            } else {
+            } else
+            {
                 nodes.put(node, nodeVisitor);
             }
             return this;
@@ -309,26 +359,29 @@ public class StylarVisitorImpl implements StylarVisitor
 
         @NonNull
         @Override
-        public Builder blockHandler(@NonNull BlockHandler blockHandler) {
+        public Builder blockHandler(@NonNull BlockHandler blockHandler)
+        {
             this.blockHandler = blockHandler;
             return this;
         }
 
         @NonNull
         @Override
-        public StylarVisitor build(@NonNull StylarConfiguration configuration, @NonNull RenderProps renderProps) {
+        public StylarVisitor build(@NonNull StylarConfiguration configuration, @NonNull RenderProps renderProps)
+        {
             // @since 4.3.0
             BlockHandler blockHandler = this.blockHandler;
-            if (blockHandler == null) {
+            if (blockHandler == null)
+            {
                 blockHandler = new BlockHandlerDef();
             }
 
             return new StylarVisitorImpl(
-                    configuration,
-                    renderProps,
-                    new SpannableBuilder(),
-                    Collections.unmodifiableMap(nodes),
-                    blockHandler);
+                configuration,
+                renderProps,
+                new SpannableBuilder(),
+                Collections.unmodifiableMap(nodes),
+                blockHandler);
         }
     }
 }

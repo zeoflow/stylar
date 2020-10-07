@@ -9,7 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.zeoflow.stylar.AbstractStylarPlugin;
+import com.zeoflow.stylar.StylarConfiguration;
 import com.zeoflow.stylar.StylarSpansFactory;
+import com.zeoflow.stylar.image.AsyncDrawable;
+import com.zeoflow.stylar.image.AsyncDrawableLoader;
+import com.zeoflow.stylar.image.AsyncDrawableScheduler;
+import com.zeoflow.stylar.image.DrawableUtils;
+import com.zeoflow.stylar.image.ImageSpanFactory;
 
 import org.commonmark.node.Image;
 
@@ -19,16 +25,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import coil.Coil;
 import coil.ImageLoader;
-import coil.request.ImageRequest;
 import coil.request.Disposable;
+import coil.request.ImageRequest;
 import coil.target.Target;
-
-import com.zeoflow.stylar.StylarConfiguration;
-import com.zeoflow.stylar.image.AsyncDrawable;
-import com.zeoflow.stylar.image.AsyncDrawableLoader;
-import com.zeoflow.stylar.image.AsyncDrawableScheduler;
-import com.zeoflow.stylar.image.DrawableUtils;
-import com.zeoflow.stylar.image.ImageSpanFactory;
 
 /**
  * @author Tyler Wong
@@ -37,27 +36,31 @@ import com.zeoflow.stylar.image.ImageSpanFactory;
 public class CoilImagesPlugin extends AbstractStylarPlugin
 {
 
-    public interface CoilStore {
+    private final CoilAsyncDrawableLoader coilAsyncDrawableLoader;
 
-        @NonNull
-        ImageRequest load(@NonNull AsyncDrawable drawable);
-
-        void cancel(@NonNull Disposable disposable);
+    @SuppressWarnings("WeakerAccess")
+    CoilImagesPlugin(@NonNull CoilStore coilStore, @NonNull ImageLoader imageLoader)
+    {
+        this.coilAsyncDrawableLoader = new CoilAsyncDrawableLoader(coilStore, imageLoader);
     }
 
     @NonNull
-    public static CoilImagesPlugin create(@NonNull final Context context) {
-        return create(new CoilStore() {
+    public static CoilImagesPlugin create(@NonNull final Context context)
+    {
+        return create(new CoilStore()
+        {
             @NonNull
             @Override
-            public ImageRequest load(@NonNull AsyncDrawable drawable) {
+            public ImageRequest load(@NonNull AsyncDrawable drawable)
+            {
                 return new ImageRequest.Builder(context)
-                        .data(drawable.getDestination())
-                        .build();
+                    .data(drawable.getDestination())
+                    .build();
             }
 
             @Override
-            public void cancel(@NonNull Disposable disposable) {
+            public void cancel(@NonNull Disposable disposable)
+            {
                 disposable.dispose();
             }
         }, Coil.imageLoader(context));
@@ -65,18 +68,22 @@ public class CoilImagesPlugin extends AbstractStylarPlugin
 
     @NonNull
     public static CoilImagesPlugin create(@NonNull final Context context,
-                                          @NonNull final ImageLoader imageLoader) {
-        return create(new CoilStore() {
+                                          @NonNull final ImageLoader imageLoader)
+    {
+        return create(new CoilStore()
+        {
             @NonNull
             @Override
-            public ImageRequest load(@NonNull AsyncDrawable drawable) {
+            public ImageRequest load(@NonNull AsyncDrawable drawable)
+            {
                 return new ImageRequest.Builder(context)
-                        .data(drawable.getDestination())
-                        .build();
+                    .data(drawable.getDestination())
+                    .build();
             }
 
             @Override
-            public void cancel(@NonNull Disposable disposable) {
+            public void cancel(@NonNull Disposable disposable)
+            {
                 disposable.dispose();
             }
         }, imageLoader);
@@ -84,61 +91,72 @@ public class CoilImagesPlugin extends AbstractStylarPlugin
 
     @NonNull
     public static CoilImagesPlugin create(@NonNull final CoilStore coilStore,
-                                          @NonNull final ImageLoader imageLoader) {
+                                          @NonNull final ImageLoader imageLoader)
+    {
         return new CoilImagesPlugin(coilStore, imageLoader);
     }
 
-    private final CoilAsyncDrawableLoader coilAsyncDrawableLoader;
-
-    @SuppressWarnings("WeakerAccess")
-    CoilImagesPlugin(@NonNull CoilStore coilStore, @NonNull ImageLoader imageLoader) {
-        this.coilAsyncDrawableLoader = new CoilAsyncDrawableLoader(coilStore, imageLoader);
-    }
-
     @Override
-    public void configureSpansFactory(@NonNull StylarSpansFactory.Builder builder) {
+    public void configureSpansFactory(@NonNull StylarSpansFactory.Builder builder)
+    {
         builder.setFactory(Image.class, new ImageSpanFactory());
     }
 
     @Override
-    public void configureConfiguration(@NonNull StylarConfiguration.Builder builder) {
+    public void configureConfiguration(@NonNull StylarConfiguration.Builder builder)
+    {
         builder.asyncDrawableLoader(coilAsyncDrawableLoader);
     }
 
     @Override
-    public void beforeSetText(@NonNull TextView textView, @NonNull Spanned markdown) {
+    public void beforeSetText(@NonNull TextView textView, @NonNull Spanned markdown)
+    {
         AsyncDrawableScheduler.unschedule(textView);
     }
 
     @Override
-    public void afterSetText(@NonNull TextView textView) {
+    public void afterSetText(@NonNull TextView textView)
+    {
         AsyncDrawableScheduler.schedule(textView);
     }
 
-    private static class CoilAsyncDrawableLoader extends AsyncDrawableLoader {
+    public interface CoilStore
+    {
+
+        @NonNull
+        ImageRequest load(@NonNull AsyncDrawable drawable);
+
+        void cancel(@NonNull Disposable disposable);
+    }
+
+    private static class CoilAsyncDrawableLoader extends AsyncDrawableLoader
+    {
 
         private final CoilStore coilStore;
         private final ImageLoader imageLoader;
         private final Map<AsyncDrawable, Disposable> cache = new HashMap<>(2);
 
-        CoilAsyncDrawableLoader(@NonNull CoilStore coilStore, @NonNull ImageLoader imageLoader) {
+        CoilAsyncDrawableLoader(@NonNull CoilStore coilStore, @NonNull ImageLoader imageLoader)
+        {
             this.coilStore = coilStore;
             this.imageLoader = imageLoader;
         }
 
         @Override
-        public void load(@NonNull AsyncDrawable drawable) {
+        public void load(@NonNull AsyncDrawable drawable)
+        {
             final AtomicBoolean loaded = new AtomicBoolean(false);
             final Target target = new AsyncDrawableTarget(drawable, loaded);
             final ImageRequest request = coilStore.load(drawable).newBuilder()
-                    .target(target)
-                    .build();
+                .target(target)
+                .build();
             // @since 4.5.1 execute can return result _before_ disposable is created,
             //  thus `execute` would finish before we put disposable in cache (and thus result is
             //  not delivered)
             final Disposable disposable = imageLoader.enqueue(request);
             // if flag was not set, then job is running (else - finished before we got here)
-            if (!loaded.get()) {
+            if (!loaded.get())
+            {
                 // mark flag
                 loaded.set(true);
                 cache.put(drawable, disposable);
@@ -146,37 +164,45 @@ public class CoilImagesPlugin extends AbstractStylarPlugin
         }
 
         @Override
-        public void cancel(@NonNull AsyncDrawable drawable) {
+        public void cancel(@NonNull AsyncDrawable drawable)
+        {
             final Disposable disposable = cache.remove(drawable);
-            if (disposable != null) {
+            if (disposable != null)
+            {
                 coilStore.cancel(disposable);
             }
         }
 
         @Nullable
         @Override
-        public Drawable placeholder(@NonNull AsyncDrawable drawable) {
+        public Drawable placeholder(@NonNull AsyncDrawable drawable)
+        {
             return null;
         }
 
-        private class AsyncDrawableTarget implements Target {
+        private class AsyncDrawableTarget implements Target
+        {
 
             private final AsyncDrawable drawable;
             private final AtomicBoolean loaded;
 
-            private AsyncDrawableTarget(@NonNull AsyncDrawable drawable, @NonNull AtomicBoolean loaded) {
+            private AsyncDrawableTarget(@NonNull AsyncDrawable drawable, @NonNull AtomicBoolean loaded)
+            {
                 this.drawable = drawable;
                 this.loaded = loaded;
             }
 
             @Override
-            public void onSuccess(@NonNull Drawable loadedDrawable) {
+            public void onSuccess(@NonNull Drawable loadedDrawable)
+            {
                 // @since 4.5.1 check finished flag (result can be delivered _before_ disposable is created)
                 if (cache.remove(drawable) != null
-                        || !loaded.get()) {
+                    || !loaded.get())
+                {
                     // mark
                     loaded.set(true);
-                    if (drawable.isAttached()) {
+                    if (drawable.isAttached())
+                    {
                         DrawableUtils.applyIntrinsicBoundsIfEmpty(loadedDrawable);
                         drawable.setResult(loadedDrawable);
                     }
@@ -184,17 +210,22 @@ public class CoilImagesPlugin extends AbstractStylarPlugin
             }
 
             @Override
-            public void onStart(@Nullable Drawable placeholder) {
-                if (placeholder != null && drawable.isAttached()) {
+            public void onStart(@Nullable Drawable placeholder)
+            {
+                if (placeholder != null && drawable.isAttached())
+                {
                     DrawableUtils.applyIntrinsicBoundsIfEmpty(placeholder);
                     drawable.setResult(placeholder);
                 }
             }
 
             @Override
-            public void onError(@Nullable Drawable errorDrawable) {
-                if (cache.remove(drawable) != null) {
-                    if (errorDrawable != null && drawable.isAttached()) {
+            public void onError(@Nullable Drawable errorDrawable)
+            {
+                if (cache.remove(drawable) != null)
+                {
+                    if (errorDrawable != null && drawable.isAttached())
+                    {
                         DrawableUtils.applyIntrinsicBoundsIfEmpty(errorDrawable);
                         drawable.setResult(errorDrawable);
                     }

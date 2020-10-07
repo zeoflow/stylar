@@ -24,10 +24,11 @@ class StylarEditorImpl extends StylarEditor
     private final SpansHandler spansHandler;
 
     StylarEditorImpl(
-            @NonNull Stylar stylar,
-            @NonNull PersistedSpans.Provider persistedSpansProvider,
-            @NonNull Class<?> punctuationSpanType,
-            @Nullable SpansHandler spansHandler) {
+        @NonNull Stylar stylar,
+        @NonNull PersistedSpans.Provider persistedSpansProvider,
+        @NonNull Class<?> punctuationSpanType,
+        @Nullable SpansHandler spansHandler)
+    {
         this.stylar = stylar;
         this.persistedSpansProvider = persistedSpansProvider;
         this.punctuationSpanType = punctuationSpanType;
@@ -35,7 +36,8 @@ class StylarEditorImpl extends StylarEditor
     }
 
     @Override
-    public void process(@NonNull Editable editable) {
+    public void process(@NonNull Editable editable)
+    {
 
         final String input = editable.toString();
 
@@ -50,16 +52,19 @@ class StylarEditorImpl extends StylarEditor
         final boolean hasAdditionalSpans = spansHandler != null;
 
         final PersistedSpans persistedSpans = persistedSpansProvider.provide(editable);
-        try {
+        try
+        {
 
             final List<diff_match_patch.Diff> diffs = diff_match_patch.diff_main(input, markdown);
 
             int inputLength = 0;
             int markdownLength = 0;
 
-            for (diff_match_patch.Diff diff : diffs) {
+            for (diff_match_patch.Diff diff : diffs)
+            {
 
-                switch (diff.operation) {
+                switch (diff.operation)
+                {
 
                     case DELETE:
 
@@ -67,28 +72,31 @@ class StylarEditorImpl extends StylarEditor
                         inputLength += diff.text.length();
 
                         editable.setSpan(
-                                persistedSpans.get(punctuationSpanType),
-                                start,
-                                inputLength,
-                                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                            persistedSpans.get(punctuationSpanType),
+                            start,
+                            inputLength,
+                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                         );
 
-                        if (hasAdditionalSpans) {
+                        if (hasAdditionalSpans)
+                        {
                             // obtain spans for a single character of renderedMarkdown
                             //  editable here should return all spans that are contained in specified
                             //  region. Later we match if span starts at current position
                             //  and notify additional span handler about it
                             final Object[] spans = renderedMarkdown.getSpans(markdownLength, markdownLength + 1, Object.class);
-                            for (Object span : spans) {
-                                if (markdownLength == renderedMarkdown.getSpanStart(span)) {
+                            for (Object span : spans)
+                            {
+                                if (markdownLength == renderedMarkdown.getSpanStart(span))
+                                {
 
                                     spansHandler.handle(
-                                            persistedSpans,
-                                            editable,
-                                            input,
-                                            span,
-                                            start,
-                                            renderedMarkdown.getSpanEnd(span) - markdownLength);
+                                        persistedSpans,
+                                        editable,
+                                        input,
+                                        span,
+                                        start,
+                                        renderedMarkdown.getSpanEnd(span) - markdownLength);
                                     // NB, we do not break here in case of SpanFactory
                                     // returns multiple spans for a markdown node, this way
                                     // we will handle all of them
@@ -116,22 +124,26 @@ class StylarEditorImpl extends StylarEditor
                         // it is possible that there are spans for the text that is the same
                         //  for example, if some links were _autolinked_ (text is the same,
                         //  but there is an additional URLSpan)
-                        if (hasAdditionalSpans) {
+                        if (hasAdditionalSpans)
+                        {
                             final Object[] spans = renderedMarkdown.getSpans(markdownStart, markdownLength, Object.class);
-                            for (Object span : spans) {
+                            for (Object span : spans)
+                            {
                                 final int spanStart = renderedMarkdown.getSpanStart(span);
-                                if (spanStart >= markdownStart) {
+                                if (spanStart >= markdownStart)
+                                {
                                     final int end = renderedMarkdown.getSpanEnd(span);
-                                    if (end <= markdownLength) {
+                                    if (end <= markdownLength)
+                                    {
 
                                         spansHandler.handle(
-                                                persistedSpans,
-                                                editable,
-                                                input,
-                                                span,
-                                                // shift span to input position (can be different from the text itself)
-                                                inputStart + (spanStart - markdownStart),
-                                                end - spanStart
+                                            persistedSpans,
+                                            editable,
+                                            input,
+                                            span,
+                                            // shift span to input position (can be different from the text itself)
+                                            inputStart + (spanStart - markdownStart),
+                                            end - spanStart
                                         );
 
                                         renderedMarkdown.removeSpan(span);
@@ -146,42 +158,51 @@ class StylarEditorImpl extends StylarEditor
                 }
             }
 
-        } finally {
+        } finally
+        {
             persistedSpans.removeUnused();
         }
     }
 
     @Override
-    public void preRender(@NonNull final Editable editable, @NonNull PreRenderResultListener listener) {
+    public void preRender(@NonNull final Editable editable, @NonNull PreRenderResultListener listener)
+    {
         final RecordingSpannableStringBuilder builder = new RecordingSpannableStringBuilder(editable);
         process(builder);
-        listener.onPreRenderResult(new PreRenderResult() {
+        listener.onPreRenderResult(new PreRenderResult()
+        {
             @NonNull
             @Override
-            public Editable resultEditable() {
+            public Editable resultEditable()
+            {
                 // if they are the same, they should be equals then (what about additional spans?? like cursor? it should not interfere....)
                 return builder;
             }
 
             @Override
-            public void dispatchTo(@NonNull Editable e) {
-                for (Span span : builder.applied) {
+            public void dispatchTo(@NonNull Editable e)
+            {
+                for (Span span : builder.applied)
+                {
                     e.setSpan(span.what, span.start, span.end, span.flags);
                 }
-                for (Object span : builder.removed) {
+                for (Object span : builder.removed)
+                {
                     e.removeSpan(span);
                 }
             }
         });
     }
 
-    private static class Span {
+    private static class Span
+    {
         final Object what;
         final int start;
         final int end;
         final int flags;
 
-        Span(Object what, int start, int end, int flags) {
+        Span(Object what, int start, int end, int flags)
+        {
             this.what = what;
             this.start = start;
             this.end = end;
@@ -189,23 +210,27 @@ class StylarEditorImpl extends StylarEditor
         }
     }
 
-    private static class RecordingSpannableStringBuilder extends SpannableStringBuilder {
+    private static class RecordingSpannableStringBuilder extends SpannableStringBuilder
+    {
 
         final List<Span> applied = new ArrayList<>(3);
         final List<Object> removed = new ArrayList<>(0);
 
-        RecordingSpannableStringBuilder(CharSequence text) {
+        RecordingSpannableStringBuilder(CharSequence text)
+        {
             super(text);
         }
 
         @Override
-        public void setSpan(Object what, int start, int end, int flags) {
+        public void setSpan(Object what, int start, int end, int flags)
+        {
             super.setSpan(what, start, end, flags);
             applied.add(new Span(what, start, end, flags));
         }
 
         @Override
-        public void removeSpan(Object what) {
+        public void removeSpan(Object what)
+        {
             super.removeSpan(what);
             removed.add(what);
         }

@@ -11,27 +11,33 @@ import java.util.regex.Pattern;
  *
  * @since 4.2.0
  */
-public class BackticksInlineProcessor extends InlineProcessor {
+public class BackticksInlineProcessor extends InlineProcessor
+{
 
     private static final Pattern TICKS = Pattern.compile("`+");
 
     private static final Pattern TICKS_HERE = Pattern.compile("^`+");
 
     @Override
-    public char specialCharacter() {
+    public char specialCharacter()
+    {
         return '`';
     }
 
     @Override
-    protected Node parse() {
+    protected Node parse()
+    {
         String ticks = match(TICKS_HERE);
-        if (ticks == null) {
+        if (ticks == null)
+        {
             return null;
         }
         int afterOpenTicks = index;
         String matched;
-        while ((matched = match(TICKS)) != null) {
-            if (matched.equals(ticks)) {
+        while ((matched = match(TICKS)) != null)
+        {
+            if (matched.equals(ticks))
+            {
                 Code node = new Code();
                 String content = input.substring(afterOpenTicks, index - ticks.length());
                 content = content.replace('\n', ' ');
@@ -39,9 +45,10 @@ public class BackticksInlineProcessor extends InlineProcessor {
                 // spec: If the resulting string both begins and ends with a space character, but does not consist
                 // entirely of space characters, a single space character is removed from the front and back.
                 if (content.length() >= 3 &&
-                        content.charAt(0) == ' ' &&
-                        content.charAt(content.length() - 1) == ' ' &&
-                        Parsing.hasNonSpace(content)) {
+                    content.charAt(0) == ' ' &&
+                    content.charAt(content.length() - 1) == ' ' &&
+                    Parsing.hasNonSpace(content))
+                {
                     content = content.substring(1, content.length() - 1);
                 }
 

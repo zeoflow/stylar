@@ -10,13 +10,9 @@ import java.util.List;
 public abstract class StylarHtmlParser
 {
 
-    public interface FlushAction<T> {
-        void apply(@NonNull List<T> tags);
-    }
-
     public abstract <T extends Appendable & CharSequence> void processFragment(
-            @NonNull T output,
-            @NonNull String htmlFragment);
+        @NonNull T output,
+        @NonNull String htmlFragment);
 
     /**
      * After this method exists a {@link StylarHtmlParser} will clear internal state for stored tags.
@@ -30,8 +26,8 @@ public abstract class StylarHtmlParser
      * @param action         {@link FlushAction} to be called with resulting tags ({@link HtmlTag.Inline})
      */
     public abstract void flushInlineTags(
-            int documentLength,
-            @NonNull FlushAction<HtmlTag.Inline> action);
+        int documentLength,
+        @NonNull FlushAction<HtmlTag.Inline> action);
 
     /**
      * After this method exists a {@link StylarHtmlParser} will clear internal state for stored tags.
@@ -45,9 +41,14 @@ public abstract class StylarHtmlParser
      * @param action         {@link FlushAction} to be called with resulting tags ({@link HtmlTag.Block})
      */
     public abstract void flushBlockTags(
-            int documentLength,
-            @NonNull FlushAction<HtmlTag.Block> action);
+        int documentLength,
+        @NonNull FlushAction<HtmlTag.Block> action);
 
     public abstract void reset();
+
+    public interface FlushAction<T>
+    {
+        void apply(@NonNull List<T> tags);
+    }
 
 }
