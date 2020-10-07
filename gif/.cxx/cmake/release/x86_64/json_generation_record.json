@@ -1,0 +1,458 @@
+[
+  {
+    "level": "INFO",
+    "message": "Start JSON generation. Platform version: 16 min SDK version: x86_64",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "No CMake version was specified in build.gradle. Using default version 3.10.2.",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Trying to locate CMake in local SDK repository.",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "- CMake found in SDK at \u0027E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\u0027 had version \u00273.10.2\u0027",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "rebuilding JSON C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\release\\x86_64\\android_gradle_build.json due to:",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "- expected json C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\release\\x86_64\\android_gradle_build.json file is not present, will remove stale json folder",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "- missing previous command file C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\release\\x86_64\\build_command.txt, will remove stale json folder",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "- command changed from previous, will remove stale json folder",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "removing stale contents from \u0027C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\release\\x86_64\u0027",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "created folder \u0027C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\release\\x86_64\u0027",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "executing cmake Executable : E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\cmake.exe\narguments : \n-HC:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\n-DCMAKE_C_FLAGS\u003d-std\u003dc11 -Weverything -Wall -DDEBUG -g\n-DCMAKE_FIND_ROOT_PATH\u003dC:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\release\\prefab\\x86_64\\prefab\n-DCMAKE_BUILD_TYPE\u003dRelease\n-DCMAKE_TOOLCHAIN_FILE\u003dE:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\build\\cmake\\android.toolchain.cmake\n-DANDROID_ABI\u003dx86_64\n-DANDROID_NDK\u003dE:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\n-DCMAKE_ANDROID_ARCH_ABI\u003dx86_64\n-DCMAKE_ANDROID_NDK\u003dE:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003dC:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\build\\intermediates\\cmake\\release\\obj\\x86_64\n-DCMAKE_MAKE_PROGRAM\u003dE:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_SYSTEM_VERSION\u003d16\n-DANDROID_PLATFORM\u003dandroid-14\n-DANDROID_STL\u003dnone\n-BC:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\release\\x86_64\n-GNinja\njvmArgs : \n\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "[\u003d\u003d \"CMake Server\" \u003d\u003d[\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"supportedProtocolVersions\":[{\"isExperimental\":true,\"major\":1,\"minor\":1}],\"type\":\"hello\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "]\u003d\u003d \"CMake Server\" \u003d\u003d]\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\n  \"type\": \"handshake\",\n  \"cookie\": \"gradle-cmake-cookie\",\n  \"protocolVersion\": {\n    \"isExperimental\": true,\n    \"major\": 1,\n    \"minor\": 1\n  },\n  \"sourceDirectory\": \"C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/src/main/c\",\n  \"buildDirectory\": \"C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86_64\",\n  \"generator\": \"Ninja\"\n}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"gradle-cmake-cookie\",\"inReplyTo\":\"handshake\",\"type\":\"reply\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\n  \"type\": \"configure\",\n  \"cacheArguments\": [\n    \"\",\n    \"-DCMAKE_C_FLAGS\\u003d-std\\u003dc11 -Weverything -Wall -DDEBUG -g\",\n    \"-DCMAKE_FIND_ROOT_PATH\\u003dC:\\\\Users\\\\teo\\\\Downloads\\\\android-gif-drawable-dev\\\\android-gif-drawable-dev\\\\android-gif-drawable\\\\.cxx\\\\cmake\\\\release\\\\prefab\\\\x86_64\\\\prefab\",\n    \"-DCMAKE_BUILD_TYPE\\u003dRelease\",\n    \"-DCMAKE_TOOLCHAIN_FILE\\u003dE:\\\\Data\\\\Android\\\\Sdk\\\\ndk\\\\21.3.6528147\\\\build\\\\cmake\\\\android.toolchain.cmake\",\n    \"-DANDROID_ABI\\u003dx86_64\",\n    \"-DANDROID_NDK\\u003dE:\\\\Data\\\\Android\\\\Sdk\\\\ndk\\\\21.3.6528147\",\n    \"-DCMAKE_ANDROID_ARCH_ABI\\u003dx86_64\",\n    \"-DCMAKE_ANDROID_NDK\\u003dE:\\\\Data\\\\Android\\\\Sdk\\\\ndk\\\\21.3.6528147\",\n    \"-DCMAKE_EXPORT_COMPILE_COMMANDS\\u003dON\",\n    \"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\\u003dC:\\\\Users\\\\teo\\\\Downloads\\\\android-gif-drawable-dev\\\\android-gif-drawable-dev\\\\android-gif-drawable\\\\build\\\\intermediates\\\\cmake\\\\release\\\\obj\\\\x86_64\",\n    \"-DCMAKE_MAKE_PROGRAM\\u003dE:\\\\Data\\\\Android\\\\Sdk\\\\cmake\\\\3.10.2.4988404\\\\bin\\\\ninja.exe\",\n    \"-DCMAKE_SYSTEM_NAME\\u003dAndroid\",\n    \"-DCMAKE_SYSTEM_VERSION\\u003d16\",\n    \"-DANDROID_PLATFORM\\u003dandroid-14\",\n    \"-DANDROID_STL\\u003dnone\"\n  ]\n}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"android-14 is unsupported. Using minimum supported version 16.\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "android-14 is unsupported. Using minimum supported version 16.",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Check for working C compiler: E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Check for working C compiler: E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":33,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Check for working C compiler: E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe -- works\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Check for working C compiler: E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe -- works",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Detecting C compiler ABI info\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Detecting C compiler ABI info",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":65,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Detecting C compiler ABI info - done\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Detecting C compiler ABI info - done",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Detecting C compile features\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Detecting C compile features",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":96,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":126,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":155,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Detecting C compile features - done\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Detecting C compile features - done",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Check for working CXX compiler: E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Check for working CXX compiler: E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":184,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Check for working CXX compiler: E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe -- works\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Check for working CXX compiler: E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe -- works",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Detecting CXX compiler ABI info\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Detecting CXX compiler ABI info",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":211,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Detecting CXX compiler ABI info - done\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Detecting CXX compiler ABI info - done",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Detecting CXX compile features\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Detecting CXX compile features",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":237,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":262,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":287,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":311,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Detecting CXX compile features - done\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Detecting CXX compile features - done",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"The ASM compiler identification is Clang\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "The ASM compiler identification is Clang",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Found assembler: E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Found assembler: E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":1000,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Configuring done\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Configuring done",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"type\":\"reply\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"type\":\"compute\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"compute\",\"progressCurrent\":1000,\"progressMaximum\":1000,\"progressMessage\":\"Generating\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"compute\",\"message\":\"Generating done\",\"type\":\"message\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "Generating done",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"compute\",\"type\":\"reply\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"type\":\"cmakeInputs\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"buildFiles\":[{\"isCMake\":true,\"isTemporary\":false,\"sources\":[\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystem.cmake.in\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInitialize.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Initialize.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCCompiler.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompiler.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine-C.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android/Determine-Compiler.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindBinUtils.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-FindBinUtils.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompiler.cmake.in\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCXXCompiler.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompiler.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine-CXX.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android/Determine-Compiler.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindBinUtils.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-FindBinUtils.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompiler.cmake.in\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInformation.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeGenericSystem.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Linux.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/UnixPaths.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCInformation.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/GNU.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-C.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCCompiler.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCompilerCommon.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompilerABI.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeParseImplicitLinkInfo.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompilerABI.c\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompileFeatures.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Internal/FeatureTesting.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C-FeatureTests.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C-FeatureTests.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C-FeatureTests.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompiler.cmake.in\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXInformation.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-CXX.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCXXCompiler.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCompilerCommon.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompilerABI.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeParseImplicitLinkInfo.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompileFeatures.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Internal/FeatureTesting.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompiler.cmake.in\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineASMCompiler.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompiler.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindBinUtils.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-FindBinUtils.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeASMCompiler.cmake.in\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeASMInformation.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-ASM.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-ASM.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang.cmake\",\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestASMCompiler.cmake\"]},{\"isCMake\":false,\"isTemporary\":false,\"sources\":[\"CMakeLists.txt\",\"E:/Data/Android/Sdk/ndk/21.3.6528147/build/cmake/android.toolchain.cmake\",\"E:/Data/Android/Sdk/ndk/21.3.6528147/build/cmake/platforms.cmake\",\"E:/Data/Android/Sdk/ndk/21.3.6528147/build/cmake/android.toolchain.cmake\"]},{\"isCMake\":false,\"isTemporary\":true,\"sources\":[\"../../../.cxx/cmake/release/x86_64/CMakeFiles/3.10.2/CMakeSystem.cmake\",\"../../../.cxx/cmake/release/x86_64/CMakeFiles/3.10.2/CMakeCCompiler.cmake\",\"../../../.cxx/cmake/release/x86_64/CMakeFiles/3.10.2/CMakeCXXCompiler.cmake\",\"../../../.cxx/cmake/release/x86_64/CMakeFiles/feature_tests.c\",\"../../../.cxx/cmake/release/x86_64/CMakeFiles/feature_tests.c\",\"../../../.cxx/cmake/release/x86_64/CMakeFiles/feature_tests.c\",\"../../../.cxx/cmake/release/x86_64/CMakeFiles/3.10.2/CMakeCCompiler.cmake\",\"../../../.cxx/cmake/release/x86_64/CMakeFiles/feature_tests.cxx\",\"../../../.cxx/cmake/release/x86_64/CMakeFiles/feature_tests.cxx\",\"../../../.cxx/cmake/release/x86_64/CMakeFiles/feature_tests.cxx\",\"../../../.cxx/cmake/release/x86_64/CMakeFiles/feature_tests.cxx\",\"../../../.cxx/cmake/release/x86_64/CMakeFiles/3.10.2/CMakeCXXCompiler.cmake\",\"../../../.cxx/cmake/release/x86_64/CMakeFiles/3.10.2/CMakeASMCompiler.cmake\"]}],\"cmakeRootDirectory\":\"E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10\",\"cookie\":\"\",\"inReplyTo\":\"cmakeInputs\",\"sourceDirectory\":\"C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/src/main/c\",\"type\":\"reply\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"type\":\"codemodel\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"configurations\":[{\"name\":\"Release\",\"projects\":[{\"buildDirectory\":\"C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86_64\",\"name\":\"Project\",\"sourceDirectory\":\"C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/src/main/c\",\"targets\":[{\"artifacts\":[\"C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/build/intermediates/cmake/release/obj/x86_64/libpl_droidsonroids_gif.so\"],\"buildDirectory\":\"C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86_64\",\"fileGroups\":[{\"compileFlags\":\"-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE\u003d2 -Wformat -Werror\u003dformat-security -std\u003dc11 -Weverything -Wall -DDEBUG -g -O2 -DNDEBUG  -fPIC  \",\"defines\":[\"pl_droidsonroids_gif_EXPORTS\"],\"isGenerated\":false,\"language\":\"C\",\"sources\":[\"bitmap.c\",\"control.c\",\"decoding.c\",\"dispose.c\",\"drawing.c\",\"exception.c\",\"gif.c\",\"giflib/dgif_lib.c\",\"giflib/gifalloc.c\",\"giflib/openbsd-reallocarray.c\",\"init.c\",\"jni.c\",\"metadata.c\",\"opengl.c\",\"surface.c\",\"time.c\"]}],\"fullName\":\"libpl_droidsonroids_gif.so\",\"linkFlags\":\"-Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libgcc_real.a -Wl,--exclude-libs,libatomic.a -nostdlib++ -Wl,--build-id -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments\",\"linkLibraries\":\"-ljnigraphics -landroid -lGLESv2 -llog -latomic -lm\",\"linkerLanguage\":\"C\",\"name\":\"pl_droidsonroids_gif\",\"sourceDirectory\":\"C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/src/main/c\",\"sysroot\":\"E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot\",\"type\":\"SHARED_LIBRARY\"}]}]}],\"cookie\":\"\",\"inReplyTo\":\"codemodel\",\"type\":\"reply\"}\n",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "done executing cmake",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "write build output C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\release\\x86_64\\build_output.txt",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "write command file C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\release\\x86_64\\build_command.txt",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  },
+  {
+    "level": "INFO",
+    "message": "JSON generation completed without problems",
+    "file": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "tag": "release|x86_64"
+  }
+]

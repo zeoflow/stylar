@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
+import com.zeoflow.numericaltx.TeXIcon;
 import com.zeoflow.stylar.core.StylarTheme;
 import com.zeoflow.stylar.image.AsyncDrawableSpan;
 import com.zeoflow.numericaltx.JLatexMathDrawable;

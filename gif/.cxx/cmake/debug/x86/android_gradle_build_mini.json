@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\CMakeLists.txt",
+    "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\build\\cmake\\android.toolchain.cmake",
+    "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\build\\cmake\\platforms.cmake"
+  ],
+  "cleanCommands": [
+    "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cmake\\debug\\x86\" clean"
+  ],
+  "buildTargetsCommand": "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cmake\\debug\\x86\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "pl_droidsonroids_gif-Debug-x86": {
+      "artifactName": "pl_droidsonroids_gif",
+      "buildCommand": "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cmake\\debug\\x86\" pl_droidsonroids_gif",
+      "abi": "x86",
+      "output": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\build\\intermediates\\cmake\\debug\\obj\\x86\\libpl_droidsonroids_gif.so",
+      "runtimeFiles": []
+    }
+  }
+}

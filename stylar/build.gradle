@@ -35,7 +35,7 @@ configurations.all {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':numericaltx')
-    implementation project(':numericaltx')
+    implementation project(':gif')
 
     implementation 'com.zeoflow:zson:1.2.1'
     implementation 'com.zeoflow:material-elements:2.1.0'
@@ -54,20 +54,12 @@ dependencies {
     implementation 'junit:junit:4.13'
 
     implementation 'com.github.akarnokd:ixjava:1.0.0'
-
-//    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.20'
     implementation 'com.caverock:androidsvg:1.4'
-
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
-
     implementation 'com.github.akarnokd:ixjava:1.0.0'
-
     implementation 'commons-io:commons-io:2.6'
-
     implementation 'org.jetbrains:annotations-java5:17.0.0'
-
     implementation 'com.google.googlejavaformat:google-java-format:1.6'
-
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
 
 }

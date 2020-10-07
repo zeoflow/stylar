@@ -1,0 +1,118 @@
+{
+  "stringTable": {
+    "0": "C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86_64",
+    "1": "--target=x86_64-none-linux-android21 --gcc-toolchain=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dpl_droidsonroids_gif_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -std=c11 -Weverything -Wall -DDEBUG -g -O2 -DNDEBUG -fPIC"
+  },
+  "buildFiles": [
+    "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\build\\cmake\\android.toolchain.cmake",
+    "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\build\\cmake\\platforms.cmake"
+  ],
+  "cleanCommands": [
+    "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\release\\x86_64\" clean"
+  ],
+  "buildTargetsCommand": "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\release\\x86_64\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "pl_droidsonroids_gif-Release-x86_64": {
+      "buildCommand": "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\release\\x86_64\" pl_droidsonroids_gif",
+      "buildType": "release",
+      "toolchain": "2363285133",
+      "abi": "x86_64",
+      "artifactName": "pl_droidsonroids_gif",
+      "files": [
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\bitmap.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\control.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\decoding.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\dispose.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\drawing.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\exception.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\gif.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\giflib\\dgif_lib.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\giflib\\gifalloc.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\giflib\\openbsd-reallocarray.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\init.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\jni.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\metadata.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\opengl.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\surface.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\time.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [],
+      "output": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\build\\intermediates\\cmake\\release\\obj\\x86_64\\libpl_droidsonroids_gif.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {
+    "2363285133": {
+      "cCompilerExecutable": "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": []
+}

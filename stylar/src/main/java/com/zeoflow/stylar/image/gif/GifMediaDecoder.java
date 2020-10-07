@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.zeoflow.gif.GifDrawable;
 import com.zeoflow.stylar.image.MediaDecoder;
 
 import java.io.ByteArrayOutputStream;
@@ -12,8 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Collections;
-
-import pl.droidsonroids.gif.GifDrawable;
 
 /**
  * @since 1.1.0

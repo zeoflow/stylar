@@ -1,0 +1,23 @@
+Executable : E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\cmake.exe
+arguments : 
+-HC:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\src\main\c
+-DCMAKE_C_FLAGS=-std=c11 -Weverything -Wall -DDEBUG -g
+-DCMAKE_FIND_ROOT_PATH=C:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\.cxx\cmake\release\prefab\x86\prefab
+-DCMAKE_BUILD_TYPE=Release
+-DCMAKE_TOOLCHAIN_FILE=E:\Data\Android\Sdk\ndk\21.3.6528147\build\cmake\android.toolchain.cmake
+-DANDROID_ABI=x86
+-DANDROID_NDK=E:\Data\Android\Sdk\ndk\21.3.6528147
+-DCMAKE_ANDROID_ARCH_ABI=x86
+-DCMAKE_ANDROID_NDK=E:\Data\Android\Sdk\ndk\21.3.6528147
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\build\intermediates\cmake\release\obj\x86
+-DCMAKE_MAKE_PROGRAM=E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_SYSTEM_VERSION=16
+-DANDROID_PLATFORM=android-14
+-DANDROID_STL=none
+-BC:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\.cxx\cmake\release\x86
+-GNinja
+jvmArgs : 
+
+Build command args:

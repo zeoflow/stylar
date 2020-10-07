@@ -1,0 +1,223 @@
+{
+  "abi": "X86",
+  "abiPlatformVersion": 16,
+  "buildSettings": {
+    "environmentVariables": []
+  },
+  "cmake": {
+    "cmakeArtifactsBaseFolder": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cmake\\debug\\x86",
+    "cmakeServerLogFile": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cmake\\debug\\x86\\cmake_server_log.txt",
+    "cmakeWrappingBaseFolder": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cxx\\debug\\x86",
+    "effectiveConfiguration": {
+      "name": "traditional-android-studio-cmake-environment",
+      "description": "Composite reified CMakeSettings configuration",
+      "generator": "Ninja",
+      "inheritEnvironments": [
+        "ndk"
+      ],
+      "buildRoot": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cmake\\debug\\x86",
+      "cmakeToolchain": "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\build\\cmake\\android.toolchain.cmake",
+      "cmakeExecutable": "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\cmake.exe",
+      "variables": [
+        {
+          "name": "CMAKE_C_FLAGS",
+          "value": "-std\u003dc11 -Weverything -Wall -DNDEBUG -Os -g0 -fvisibility\u003dhidden"
+        },
+        {
+          "name": "CMAKE_FIND_ROOT_PATH",
+          "value": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cmake\\debug\\prefab\\x86\\prefab"
+        },
+        {
+          "name": "CMAKE_BUILD_TYPE",
+          "value": "Debug"
+        },
+        {
+          "name": "CMAKE_TOOLCHAIN_FILE",
+          "value": "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\build\\cmake\\android.toolchain.cmake"
+        },
+        {
+          "name": "ANDROID_ABI",
+          "value": "x86"
+        },
+        {
+          "name": "ANDROID_NDK",
+          "value": "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147"
+        },
+        {
+          "name": "CMAKE_ANDROID_ARCH_ABI",
+          "value": "x86"
+        },
+        {
+          "name": "CMAKE_ANDROID_NDK",
+          "value": "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147"
+        },
+        {
+          "name": "CMAKE_EXPORT_COMPILE_COMMANDS",
+          "value": "ON"
+        },
+        {
+          "name": "CMAKE_LIBRARY_OUTPUT_DIRECTORY",
+          "value": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\build\\intermediates\\cmake\\debug\\obj\\x86"
+        },
+        {
+          "name": "CMAKE_MAKE_PROGRAM",
+          "value": "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe"
+        },
+        {
+          "name": "CMAKE_SYSTEM_NAME",
+          "value": "Android"
+        },
+        {
+          "name": "CMAKE_SYSTEM_VERSION",
+          "value": "16"
+        },
+        {
+          "name": "ANDROID_PLATFORM",
+          "value": "android-14"
+        },
+        {
+          "name": "ANDROID_STL",
+          "value": "none"
+        }
+      ]
+    }
+  },
+  "cxxBuildFolder": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cmake\\debug\\x86",
+  "info": {
+    "abi": "X86",
+    "bitness": 32,
+    "deprecated": false,
+    "default": true
+  },
+  "originalCxxBuildFolder": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cmake\\debug\\x86",
+  "variant": {
+    "buildSystemArgumentList": [
+      "-DANDROID_PLATFORM\u003dandroid-14",
+      "-DANDROID_STL\u003dnone"
+    ],
+    "buildTargetSet": [],
+    "cFlagsList": [
+      "-std\u003dc11",
+      "-Weverything",
+      "-Wall",
+      "-DNDEBUG",
+      "-Os",
+      "-g0",
+      "-fvisibility\u003dhidden"
+    ],
+    "cmakeSettingsConfiguration": "android-gradle-plugin-predetermined-name",
+    "cppFlagsList": [],
+    "isDebuggableEnabled": true,
+    "module": {
+      "buildSystem": "CMAKE",
+      "cmake": {
+        "cmakeExe": "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\cmake.exe",
+        "minimumCmakeVersion": "3.10.2",
+        "ninjaExe": "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe"
+      },
+      "cmakeToolchainFile": "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\build\\cmake\\android.toolchain.cmake",
+      "cxxFolder": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx",
+      "gradleModulePathName": ":gif",
+      "intermediatesFolder": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\build\\intermediates",
+      "makeFile": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\CMakeLists.txt",
+      "moduleBuildFile": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\build.gradle",
+      "moduleRootFolder": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif",
+      "ndkDefaultAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkFolder": "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147",
+      "ndkMetaAbiList": [
+        {
+          "abi": "ARMEABI_V7A",
+          "bitness": 32,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "ARM64_V8A",
+          "bitness": 64,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "X86",
+          "bitness": 32,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "X86_64",
+          "bitness": 64,
+          "deprecated": false,
+          "default": true
+        }
+      ],
+      "ndkMetaPlatforms": {
+        "min": 16,
+        "max": 30,
+        "aliases": {
+          "20": 19,
+          "25": 24,
+          "J": 16,
+          "J-MR1": 17,
+          "J-MR2": 18,
+          "K": 19,
+          "L": 21,
+          "L-MR1": 22,
+          "M": 23,
+          "N": 24,
+          "N-MR1": 24,
+          "O": 26,
+          "O-MR1": 27,
+          "P": 28,
+          "Q": 29,
+          "R": 30
+        }
+      },
+      "ndkSupportedAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkDefaultStl": "LIBCXX_STATIC",
+      "ndkVersion": "21.3.6528147",
+      "project": {
+        "compilerSettingsCacheFolder": "C:\\Users\\teo\\Documents\\Github\\stylar\\.cxx",
+        "cxxFolder": "C:\\Users\\teo\\Documents\\Github\\stylar\\.cxx",
+        "isBuildOnlyTargetAbiEnabled": true,
+        "isCmakeBuildCohabitationEnabled": false,
+        "isNativeCompilerSettingsCacheEnabled": false,
+        "rootBuildGradleFolder": "C:\\Users\\teo\\Documents\\Github\\stylar",
+        "sdkFolder": "E:\\Data\\Android\\Sdk",
+        "isPrefabEnabled": false
+      },
+      "splitsAbiFilterSet": [],
+      "stlSharedObjectMap": {
+        "LIBCXX_SHARED": {
+          "ARMEABI_V7A": "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\arm-linux-androideabi\\libc++_shared.so",
+          "ARM64_V8A": "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\aarch64-linux-android\\libc++_shared.so",
+          "X86": "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\i686-linux-android\\libc++_shared.so",
+          "X86_64": "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\x86_64-linux-android\\libc++_shared.so"
+        },
+        "LIBCXX_STATIC": {},
+        "NONE": {},
+        "SYSTEM": {}
+      }
+    },
+    "objFolder": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\build\\intermediates\\cmake\\debug\\obj",
+    "variantName": "debug",
+    "validAbiList": [
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
+    ],
+    "prefabDirectory": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cmake\\debug\\prefab",
+    "prefabPackageDirectoryList": []
+  },
+  "prefabFolder": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cmake\\debug\\prefab\\x86"
+}

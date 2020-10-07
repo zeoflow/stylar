@@ -1,0 +1,7 @@
+Executable : E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
+arguments : 
+-C
+C:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\.cxx\cmake\debug\x86_64
+pl_droidsonroids_gif
+jvmArgs : 
+
