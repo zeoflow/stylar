@@ -50,7 +50,7 @@ public class MainActivity extends ActivityCore
             .build();
         stylar.setMarkdown(accClosed);
 
-        stylarView.setTextAlignment(ALIGNMENT_LEFT);
+//        stylarView.setTextAlignment(ALIGNMENT_LEFT);
 
 //        stylar.setMarkdown(readFile(getAssets(), "content.txt", "\n\n"));
 

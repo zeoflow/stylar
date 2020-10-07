@@ -41,17 +41,7 @@ ext {
     buildToolsVersion = '30.0.1'
     minSdkVersion = 21
     targetSdkVersion = 30
-    versionCode = 2
-    versionName = "1.0.1"
+    versionCode = 3
+    versionName = "1.1.0"
     ndk = "21.3.6528147"
-
-    ANNOTATIONS = 'org.jetbrains:annotations-java5:17.0.0'
-
-    IX_JAVA = 'com.github.akarnokd:ixjava:1.0.0'
-    COMMONS_IO = 'commons-io:commons-io:2.6'
-    GOOGLE_JAVA_FORMAT = 'com.google.googlejavaformat:google-java-format:1.6'
-    GSON = 'com.google.code.gson:gson:2.8.5'
-    JSON_UNIT = 'net.javacrumbs.json-unit:json-unit:2.0.0.RC1'
-
-    JUNIT = 'junit:junit:4.12'
 }
