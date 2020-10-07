@@ -238,7 +238,7 @@ Project_BINARY_DIR:STATIC=C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/de
 Project_SOURCE_DIR:STATIC=C:/Users/teo/Documents/Github/stylar/gif/src/main/c
 
 //Dependencies for the target
-pl_droidsonroids_gif_LIB_DEPENDS:STATIC=general;jnigraphics;general;android;general;GLESv2;general;log;
+com_zeoflow_gif_LIB_DEPENDS:STATIC=general;jnigraphics;general;android;general;GLESv2;general;log;
 
 
 ########################

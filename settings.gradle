@@ -1,6 +1,5 @@
 rootProject.name = 'StylarLib'
 
-include ':gif'
 include ':numericaltx'
 include ':stylar'
 include ':sample'

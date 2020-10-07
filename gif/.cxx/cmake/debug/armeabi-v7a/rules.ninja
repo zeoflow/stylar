@@ -14,7 +14,7 @@
 #############################################
 # Rule for compiling ASM files.
 
-rule ASM_COMPILER__pl_droidsonroids_gif
+rule ASM_COMPILER__com_zeoflow_gif
   depfile = $DEP_FILE
   deps = gcc
   command = E:\Data\Android\Sdk\ndk\21.3.6528147\toolchains\llvm\prebuilt\windows-x86_64\bin\clang.exe -target armv7-none-linux-androideabi16 -gcc-toolchain E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -24,7 +24,7 @@ rule ASM_COMPILER__pl_droidsonroids_gif
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__pl_droidsonroids_gif
+rule C_COMPILER__com_zeoflow_gif
   depfile = $DEP_FILE
   deps = gcc
   command = E:\Data\Android\Sdk\ndk\21.3.6528147\toolchains\llvm\prebuilt\windows-x86_64\bin\clang.exe --target=armv7-none-linux-androideabi16 --gcc-toolchain=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
@@ -34,7 +34,7 @@ rule C_COMPILER__pl_droidsonroids_gif
 #############################################
 # Rule for linking C shared library.
 
-rule C_SHARED_LIBRARY_LINKER__pl_droidsonroids_gif
+rule C_SHARED_LIBRARY_LINKER__com_zeoflow_gif
   command = cmd.exe /C "$PRE_LINK && E:\Data\Android\Sdk\ndk\21.3.6528147\toolchains\llvm\prebuilt\windows-x86_64\bin\clang.exe --target=armv7-none-linux-androideabi16 --gcc-toolchain=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot -fPIC $LANGUAGE_COMPILE_FLAGS $ARCH_FLAGS $LINK_FLAGS -shared $SONAME_FLAG$SONAME -o $TARGET_FILE $in $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
   description = Linking C shared library $TARGET_FILE
   restat = $RESTAT
@@ -52,7 +52,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\cmake.exe -HC:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\src\main\c -BC:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\.cxx\cmake\debug\armeabi-v7a
+  command = E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\cmake.exe -HC:\Users\teo\Documents\Github\stylar\gif\src\main\c -BC:\Users\teo\Documents\Github\stylar\gif\.cxx\cmake\debug\armeabi-v7a
   description = Re-running CMake...
   generator = 1
 

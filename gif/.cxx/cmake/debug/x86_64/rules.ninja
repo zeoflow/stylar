@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\cmake.exe -HC:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\src\main\c -BC:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\.cxx\cmake\debug\x86_64
+  command = E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\cmake.exe -HC:\Users\teo\Documents\Github\stylar\gif\src\main\c -BC:\Users\teo\Documents\Github\stylar\gif\.cxx\cmake\debug\x86_64
   description = Re-running CMake...
   generator = 1
 

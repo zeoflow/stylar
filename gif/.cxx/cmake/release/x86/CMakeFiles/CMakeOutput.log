@@ -1,18 +1,18 @@
 The target system is: Android - 1 - i686
 The host system is: Windows - 10.0.19041 - AMD64
 Determining if the C compiler works passed with the following output:
-Change Dir: C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_3f5b1"
-[1/2] Building C object CMakeFiles/cmTC_3f5b1.dir/testCCompiler.c.o
-[2/2] Linking C executable cmTC_3f5b1
+Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_b128f"
+[1/2] Building C object CMakeFiles/cmTC_b128f.dir/testCCompiler.c.o
+[2/2] Linking C executable cmTC_b128f
 
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_d791c"
-[1/2] Building C object CMakeFiles/cmTC_d791c.dir/CMakeCCompilerABI.c.o
+Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_e220d"
+[1/2] Building C object CMakeFiles/cmTC_e220d.dir/CMakeCCompilerABI.c.o
 In file included from E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompilerABI.c:9:
 E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCompilerABI.h:4:12: warning: no previous extern declaration for non-static variable 'info_sizeof_dptr' [-Wmissing-variable-declarations]
 const char info_sizeof_dptr[] = {
@@ -21,7 +21,7 @@ E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCompilerA
 const char info_sizeof_dptr[] = {
       ^
 1 warning generated.
-[2/2] Linking C executable cmTC_d791c
+[2/2] Linking C executable cmTC_e220d
 Android (6454773 based on r365631c2) clang version 9.0.8 (https://android.googlesource.com/toolchain/llvm-project 98c855489587874b2a325e7a516b99d838599c6f) (based on LLVM 9.0.8svn)
 Target: i686-none-linux-android16
 Thread model: posix
@@ -31,15 +31,15 @@ Found candidate GCC installation: E:/Data/Android/Sdk/ndk/21.3.6528147/toolchain
 Selected GCC installation: E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x
 Candidate multilib: .;@m32
 Selected multilib: .;@m32
- "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin\\ld" --sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot -pie -z noexecstack --warn-shared-textrel -z now -z relro --hash-style=both --enable-new-dtags --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_d791c "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtbegin_dynamic.o" "-LE:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\lib64\\clang\\9.0.8\\lib\\linux\\i386" -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16 -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --exclude-libs libgcc.a --exclude-libs libgcc_real.a --exclude-libs libatomic.a --build-id --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_d791c.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtend_android.o"
+ "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin\\ld" --sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot -pie -z noexecstack --warn-shared-textrel -z now -z relro --hash-style=both --enable-new-dtags --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_e220d "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtbegin_dynamic.o" "-LE:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\lib64\\clang\\9.0.8\\lib\\linux\\i386" -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16 -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --exclude-libs libgcc.a --exclude-libs libgcc_real.a --exclude-libs libatomic.a --build-id --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_e220d.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtend_android.o"
 
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(i686-linux-android-ld\.exe|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_d791c"]
-  ignore line: [[1/2] Building C object CMakeFiles/cmTC_d791c.dir/CMakeCCompilerABI.c.o]
+  ignore line: [Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_e220d"]
+  ignore line: [[1/2] Building C object CMakeFiles/cmTC_e220d.dir/CMakeCCompilerABI.c.o]
   ignore line: [In file included from E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompilerABI.c:9:]
   ignore line: [E:/Data/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCompilerABI.h:4:12: warning: no previous extern declaration for non-static variable 'info_sizeof_dptr' [-Wmissing-variable-declarations]]
   ignore line: [const char info_sizeof_dptr[] = {]
@@ -48,7 +48,7 @@ Parsed C implicit link information from above output:
   ignore line: [const char info_sizeof_dptr[] = {]
   ignore line: [      ^]
   ignore line: [1 warning generated.]
-  ignore line: [[2/2] Linking C executable cmTC_d791c]
+  ignore line: [[2/2] Linking C executable cmTC_e220d]
   ignore line: [Android (6454773 based on r365631c2) clang version 9.0.8 (https://android.googlesource.com/toolchain/llvm-project 98c855489587874b2a325e7a516b99d838599c6f) (based on LLVM 9.0.8svn)]
   ignore line: [Target: i686-none-linux-android16]
   ignore line: [Thread model: posix]
@@ -60,7 +60,7 @@ Parsed C implicit link information from above output:
   ignore line: [@m32]
   ignore line: [Selected multilib: .]
   ignore line: [@m32]
-  link line: [ "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin\\ld" --sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot -pie -z noexecstack --warn-shared-textrel -z now -z relro --hash-style=both --enable-new-dtags --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_d791c "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtbegin_dynamic.o" "-LE:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\lib64\\clang\\9.0.8\\lib\\linux\\i386" -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16 -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --exclude-libs libgcc.a --exclude-libs libgcc_real.a --exclude-libs libatomic.a --build-id --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_d791c.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtend_android.o"]
+  link line: [ "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin\\ld" --sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot -pie -z noexecstack --warn-shared-textrel -z now -z relro --hash-style=both --enable-new-dtags --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_e220d "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtbegin_dynamic.o" "-LE:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\lib64\\clang\\9.0.8\\lib\\linux\\i386" -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16 -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --exclude-libs libgcc.a --exclude-libs libgcc_real.a --exclude-libs libatomic.a --build-id --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_e220d.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtend_android.o"]
     arg [E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin\\ld] ==> ignore
     arg [--sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot] ==> ignore
     arg [-pie] ==> ignore
@@ -76,7 +76,7 @@ Parsed C implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/system/bin/linker] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_d791c] ==> ignore
+    arg [cmTC_e220d] ==> ignore
     arg [E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtbegin_dynamic.o] ==> ignore
     arg [-LE:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\lib64\\clang\\9.0.8\\lib\\linux\\i386] ==> dir [E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\lib64\\clang\\9.0.8\\lib\\linux\\i386]
     arg [-LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x] ==> dir [E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x]
@@ -94,7 +94,7 @@ Parsed C implicit link information from above output:
     arg [--fatal-warnings] ==> ignore
     arg [--no-undefined] ==> ignore
     arg [--gc-sections] ==> ignore
-    arg [CMakeFiles/cmTC_d791c.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_e220d.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [-ldl] ==> lib [dl]
     arg [-lc] ==> lib [c]
@@ -115,18 +115,18 @@ Parsed C implicit link information from above output:
 
 
 Detecting C [-std=c11] compiler features compiled with the following output:
-Change Dir: C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_162dc"
-[1/2] Building C object CMakeFiles/cmTC_162dc.dir/feature_tests.c.o
-C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/feature_tests.c:2:14: warning: no previous extern declaration for non-static variable 'features' [-Wmissing-variable-declarations]
+Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_fdb0f"
+[1/2] Building C object CMakeFiles/cmTC_fdb0f.dir/feature_tests.c.o
+C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/feature_tests.c:2:14: warning: no previous extern declaration for non-static variable 'features' [-Wmissing-variable-declarations]
   const char features[] = {"\n"
              ^
-C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/feature_tests.c:2:9: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/feature_tests.c:2:9: note: declare 'static' if the variable is not intended to be used outside of this translation unit
   const char features[] = {"\n"
         ^
 1 warning generated.
-[2/2] Linking C executable cmTC_162dc
+[2/2] Linking C executable cmTC_fdb0f
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -136,18 +136,18 @@ C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android
 
 
 Detecting C [-std=c99] compiler features compiled with the following output:
-Change Dir: C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_988d8"
-[1/2] Building C object CMakeFiles/cmTC_988d8.dir/feature_tests.c.o
-C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/feature_tests.c:2:14: warning: no previous extern declaration for non-static variable 'features' [-Wmissing-variable-declarations]
+Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_6e2bf"
+[1/2] Building C object CMakeFiles/cmTC_6e2bf.dir/feature_tests.c.o
+C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/feature_tests.c:2:14: warning: no previous extern declaration for non-static variable 'features' [-Wmissing-variable-declarations]
   const char features[] = {"\n"
              ^
-C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/feature_tests.c:2:9: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/feature_tests.c:2:9: note: declare 'static' if the variable is not intended to be used outside of this translation unit
   const char features[] = {"\n"
         ^
 1 warning generated.
-[2/2] Linking C executable cmTC_988d8
+[2/2] Linking C executable cmTC_6e2bf
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -157,18 +157,18 @@ C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android
 
 
 Detecting C [-std=c90] compiler features compiled with the following output:
-Change Dir: C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_86996"
-[1/2] Building C object CMakeFiles/cmTC_86996.dir/feature_tests.c.o
-C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/feature_tests.c:2:14: warning: no previous extern declaration for non-static variable 'features' [-Wmissing-variable-declarations]
+Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_a900c"
+[1/2] Building C object CMakeFiles/cmTC_a900c.dir/feature_tests.c.o
+C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/feature_tests.c:2:14: warning: no previous extern declaration for non-static variable 'features' [-Wmissing-variable-declarations]
   const char features[] = {"\n"
              ^
-C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/feature_tests.c:2:9: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/feature_tests.c:2:9: note: declare 'static' if the variable is not intended to be used outside of this translation unit
   const char features[] = {"\n"
         ^
 1 warning generated.
-[2/2] Linking C executable cmTC_86996
+[2/2] Linking C executable cmTC_a900c
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -176,19 +176,19 @@ C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android
     Feature record: C_FEATURE:0c_static_assert
     Feature record: C_FEATURE:0c_variadic_macros
 Determining if the CXX compiler works passed with the following output:
-Change Dir: C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_55c43"
-[1/2] Building CXX object CMakeFiles/cmTC_55c43.dir/testCXXCompiler.cxx.o
-[2/2] Linking CXX executable cmTC_55c43
+Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_5f5b5"
+[1/2] Building CXX object CMakeFiles/cmTC_5f5b5.dir/testCXXCompiler.cxx.o
+[2/2] Linking CXX executable cmTC_5f5b5
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_61216"
-[1/2] Building CXX object CMakeFiles/cmTC_61216.dir/CMakeCXXCompilerABI.cpp.o
-[2/2] Linking CXX executable cmTC_61216
+Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_a6ac4"
+[1/2] Building CXX object CMakeFiles/cmTC_a6ac4.dir/CMakeCXXCompilerABI.cpp.o
+[2/2] Linking CXX executable cmTC_a6ac4
 Android (6454773 based on r365631c2) clang version 9.0.8 (https://android.googlesource.com/toolchain/llvm-project 98c855489587874b2a325e7a516b99d838599c6f) (based on LLVM 9.0.8svn)
 Target: i686-none-linux-android16
 Thread model: posix
@@ -198,16 +198,16 @@ Found candidate GCC installation: E:/Data/Android/Sdk/ndk/21.3.6528147/toolchain
 Selected GCC installation: E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x
 Candidate multilib: .;@m32
 Selected multilib: .;@m32
- "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin\\ld" --sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot -pie -z noexecstack --warn-shared-textrel -z now -z relro --hash-style=both --enable-new-dtags --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_61216 "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtbegin_dynamic.o" "-LE:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\lib64\\clang\\9.0.8\\lib\\linux\\i386" -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16 -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --exclude-libs libgcc.a --exclude-libs libgcc_real.a --exclude-libs libatomic.a --build-id --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_61216.dir/CMakeCXXCompilerABI.cpp.o -lm -lgcc -ldl -lc -lgcc -ldl "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtend_android.o"
+ "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin\\ld" --sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot -pie -z noexecstack --warn-shared-textrel -z now -z relro --hash-style=both --enable-new-dtags --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_a6ac4 "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtbegin_dynamic.o" "-LE:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\lib64\\clang\\9.0.8\\lib\\linux\\i386" -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16 -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --exclude-libs libgcc.a --exclude-libs libgcc_real.a --exclude-libs libatomic.a --build-id --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_a6ac4.dir/CMakeCXXCompilerABI.cpp.o -lm -lgcc -ldl -lc -lgcc -ldl "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtend_android.o"
 
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(i686-linux-android-ld\.exe|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_61216"]
-  ignore line: [[1/2] Building CXX object CMakeFiles/cmTC_61216.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [[2/2] Linking CXX executable cmTC_61216]
+  ignore line: [Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_a6ac4"]
+  ignore line: [[1/2] Building CXX object CMakeFiles/cmTC_a6ac4.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [[2/2] Linking CXX executable cmTC_a6ac4]
   ignore line: [Android (6454773 based on r365631c2) clang version 9.0.8 (https://android.googlesource.com/toolchain/llvm-project 98c855489587874b2a325e7a516b99d838599c6f) (based on LLVM 9.0.8svn)]
   ignore line: [Target: i686-none-linux-android16]
   ignore line: [Thread model: posix]
@@ -219,7 +219,7 @@ Parsed CXX implicit link information from above output:
   ignore line: [@m32]
   ignore line: [Selected multilib: .]
   ignore line: [@m32]
-  link line: [ "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin\\ld" --sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot -pie -z noexecstack --warn-shared-textrel -z now -z relro --hash-style=both --enable-new-dtags --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_61216 "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtbegin_dynamic.o" "-LE:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\lib64\\clang\\9.0.8\\lib\\linux\\i386" -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16 -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --exclude-libs libgcc.a --exclude-libs libgcc_real.a --exclude-libs libatomic.a --build-id --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_61216.dir/CMakeCXXCompilerABI.cpp.o -lm -lgcc -ldl -lc -lgcc -ldl "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtend_android.o"]
+  link line: [ "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin\\ld" --sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot -pie -z noexecstack --warn-shared-textrel -z now -z relro --hash-style=both --enable-new-dtags --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_a6ac4 "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtbegin_dynamic.o" "-LE:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\lib64\\clang\\9.0.8\\lib\\linux\\i386" -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16 -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --exclude-libs libgcc.a --exclude-libs libgcc_real.a --exclude-libs libatomic.a --build-id --fatal-warnings --no-undefined --gc-sections CMakeFiles/cmTC_a6ac4.dir/CMakeCXXCompilerABI.cpp.o -lm -lgcc -ldl -lc -lgcc -ldl "E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtend_android.o"]
     arg [E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin\\ld] ==> ignore
     arg [--sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot] ==> ignore
     arg [-pie] ==> ignore
@@ -235,7 +235,7 @@ Parsed CXX implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/system/bin/linker] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_61216] ==> ignore
+    arg [cmTC_a6ac4] ==> ignore
     arg [E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/i686-linux-android/16\\crtbegin_dynamic.o] ==> ignore
     arg [-LE:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\lib64\\clang\\9.0.8\\lib\\linux\\i386] ==> dir [E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\toolchains\\llvm\\prebuilt\\windows-x86_64\\lib64\\clang\\9.0.8\\lib\\linux\\i386]
     arg [-LE:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x] ==> dir [E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/i686-linux-android/4.9.x]
@@ -253,7 +253,7 @@ Parsed CXX implicit link information from above output:
     arg [--fatal-warnings] ==> ignore
     arg [--no-undefined] ==> ignore
     arg [--gc-sections] ==> ignore
-    arg [CMakeFiles/cmTC_61216.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_a6ac4.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lm] ==> lib [m]
     arg [-lgcc] ==> lib [gcc]
     arg [-ldl] ==> lib [dl]
@@ -275,11 +275,11 @@ Parsed CXX implicit link information from above output:
 
 
 Detecting CXX [-std=c++1z] compiler features compiled with the following output:
-Change Dir: C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_4fc4e"
-[1/2] Building CXX object CMakeFiles/cmTC_4fc4e.dir/feature_tests.cxx.o
-[2/2] Linking CXX executable cmTC_4fc4e
+Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_e5613"
+[1/2] Building CXX object CMakeFiles/cmTC_e5613.dir/feature_tests.cxx.o
+[2/2] Linking CXX executable cmTC_e5613
 
 
     Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
@@ -342,11 +342,11 @@ Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC
 
 
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
-Change Dir: C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_c6283"
-[1/2] Building CXX object CMakeFiles/cmTC_c6283.dir/feature_tests.cxx.o
-[2/2] Linking CXX executable cmTC_c6283
+Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_9bc71"
+[1/2] Building CXX object CMakeFiles/cmTC_9bc71.dir/feature_tests.cxx.o
+[2/2] Linking CXX executable cmTC_9bc71
 
 
     Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
@@ -409,11 +409,11 @@ Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC
 
 
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
-Change Dir: C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_5a2fd"
-[1/2] Building CXX object CMakeFiles/cmTC_5a2fd.dir/feature_tests.cxx.o
-[2/2] Linking CXX executable cmTC_5a2fd
+Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_16732"
+[1/2] Building CXX object CMakeFiles/cmTC_16732.dir/feature_tests.cxx.o
+[2/2] Linking CXX executable cmTC_16732
 
 
     Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
@@ -476,11 +476,11 @@ Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC
 
 
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
-Change Dir: C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_d0a6c"
-[1/2] Building CXX object CMakeFiles/cmTC_d0a6c.dir/feature_tests.cxx.o
-[2/2] Linking CXX executable cmTC_d0a6c
+Run Build Command:"E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe" "cmTC_85b78"
+[1/2] Building CXX object CMakeFiles/cmTC_85b78.dir/feature_tests.cxx.o
+[2/2] Linking CXX executable cmTC_85b78
 
 
     Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers

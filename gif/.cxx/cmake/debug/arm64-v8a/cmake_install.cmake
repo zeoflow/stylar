@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/src/main/c
+# Install script for directory: C:/Users/teo/Documents/Github/stylar/gif/src/main/c
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/debug/arm64-v8a/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/debug/arm64-v8a/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

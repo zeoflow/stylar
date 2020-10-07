@@ -14,7 +14,7 @@ import pl.droidsonroids.relinker.ReLinker;
  * See <a href="https://medium.com/keepsafe-engineering/the-perils-of-loading-native-libraries-on-android-befa49dce2db">ReLinker</a> for more details.
  */
 public class LibraryLoader {
-    private static final String BASE_LIBRARY_NAME = "pl_droidsonroids_gif";
+    private static final String BASE_LIBRARY_NAME = "com_zeoflow_gif";
 	@SuppressLint("StaticFieldLeak") //workaround for Android bug
 	private static Context sAppContext;
 

@@ -1,108 +1,108 @@
 {
   "stringTable": {
-    "0": "C:/Users/teo/Downloads/android-gif-drawable-dev/android-gif-drawable-dev/android-gif-drawable/.cxx/cmake/debug/arm64-v8a",
-    "1": "--target=aarch64-none-linux-android21 --gcc-toolchain=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dpl_droidsonroids_gif_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -std=c11 -Weverything -Wall -DDEBUG -g -O0 -fno-limit-debug-info -fPIC"
+    "0": "C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/debug/arm64-v8a",
+    "1": "--target=aarch64-none-linux-android21 --gcc-toolchain=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=E:/Data/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dcom_zeoflow_gif_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -std=c11 -Weverything -Wall -DNDEBUG -Os -g0 -fvisibility=hidden -O0 -fno-limit-debug-info -fPIC"
   },
   "buildFiles": [
-    "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\CMakeLists.txt",
+    "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\CMakeLists.txt",
     "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\build\\cmake\\android.toolchain.cmake",
     "E:\\Data\\Android\\Sdk\\ndk\\21.3.6528147\\build\\cmake\\platforms.cmake"
   ],
   "cleanCommands": [
-    "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\debug\\arm64-v8a\" clean"
+    "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cmake\\debug\\arm64-v8a\" clean"
   ],
-  "buildTargetsCommand": "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\debug\\arm64-v8a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "buildTargetsCommand": "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cmake\\debug\\arm64-v8a\" {LIST_OF_TARGETS_TO_BUILD}",
   "libraries": {
-    "pl_droidsonroids_gif-Debug-arm64-v8a": {
-      "buildCommand": "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\.cxx\\cmake\\debug\\arm64-v8a\" pl_droidsonroids_gif",
+    "com_zeoflow_gif-Debug-arm64-v8a": {
+      "buildCommand": "E:\\Data\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\.cxx\\cmake\\debug\\arm64-v8a\" com_zeoflow_gif",
       "buildType": "debug",
       "toolchain": "2363285133",
       "abi": "arm64-v8a",
-      "artifactName": "pl_droidsonroids_gif",
+      "artifactName": "com_zeoflow_gif",
       "files": [
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\bitmap.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\bitmap.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\control.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\control.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\decoding.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\decoding.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\dispose.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\dispose.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\drawing.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\drawing.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\exception.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\exception.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\gif.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\gif.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\giflib\\dgif_lib.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\giflib\\dgif_lib.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\giflib\\gifalloc.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\giflib\\gifalloc.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\giflib\\openbsd-reallocarray.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\giflib\\openbsd-reallocarray.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\init.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\init.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\jni.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\jni.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\metadata.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\metadata.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\opengl.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\opengl.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\surface.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\surface.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         },
         {
-          "src": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\src\\main\\c\\time.c",
+          "src": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\src\\main\\c\\time.c",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         }
       ],
       "headers": [],
-      "output": "C:\\Users\\teo\\Downloads\\android-gif-drawable-dev\\android-gif-drawable-dev\\android-gif-drawable\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a\\libpl_droidsonroids_gif.so",
+      "output": "C:\\Users\\teo\\Documents\\Github\\stylar\\gif\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a\\libcom_zeoflow_gif.so",
       "runtimeFiles": []
     }
   },

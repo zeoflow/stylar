@@ -1,8 +1,8 @@
 Executable : E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\cmake.exe
 arguments : 
--HC:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\src\main\c
--DCMAKE_C_FLAGS=-std=c11 -Weverything -Wall -DDEBUG -g
--DCMAKE_FIND_ROOT_PATH=C:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\.cxx\cmake\debug\prefab\arm64-v8a\prefab
+-HC:\Users\teo\Documents\Github\stylar\gif\src\main\c
+-DCMAKE_C_FLAGS=-std=c11 -Weverything -Wall -DNDEBUG -Os -g0 -fvisibility=hidden
+-DCMAKE_FIND_ROOT_PATH=C:\Users\teo\Documents\Github\stylar\gif\.cxx\cmake\debug\prefab\arm64-v8a\prefab
 -DCMAKE_BUILD_TYPE=Debug
 -DCMAKE_TOOLCHAIN_FILE=E:\Data\Android\Sdk\ndk\21.3.6528147\build\cmake\android.toolchain.cmake
 -DANDROID_ABI=arm64-v8a
@@ -10,13 +10,13 @@ arguments :
 -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a
 -DCMAKE_ANDROID_NDK=E:\Data\Android\Sdk\ndk\21.3.6528147
 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\build\intermediates\cmake\debug\obj\arm64-v8a
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\Users\teo\Documents\Github\stylar\gif\build\intermediates\cmake\debug\obj\arm64-v8a
 -DCMAKE_MAKE_PROGRAM=E:\Data\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
 -DCMAKE_SYSTEM_NAME=Android
 -DCMAKE_SYSTEM_VERSION=16
 -DANDROID_PLATFORM=android-14
 -DANDROID_STL=none
--BC:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\.cxx\cmake\debug\arm64-v8a
+-BC:\Users\teo\Documents\Github\stylar\gif\.cxx\cmake\debug\arm64-v8a
 -GNinja
 jvmArgs : 
 

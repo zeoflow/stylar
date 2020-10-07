@@ -1,2 +1,6 @@
-ninja: Entering directory `C:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\.cxx\cmake\debug\armeabi-v7a'
-ninja: no work to do.
+ninja: Entering directory `C:\Users\teo\Documents\Github\stylar\gif\.cxx\cmake\debug\armeabi-v7a'
+[0/1] Re-running CMake...
+-- android-14 is unsupported. Using minimum supported version 16.
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/debug/armeabi-v7a

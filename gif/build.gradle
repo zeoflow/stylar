@@ -9,6 +9,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
+        multiDexEnabled true
         externalNativeBuild {
             cmake {
                 arguments "-DANDROID_PLATFORM=android-$rootProject.ext.minSdkVersion", "-DANDROID_STL=none"
@@ -34,6 +35,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:multidex:1.0.3'
     implementation "pl.droidsonroids.relinker:relinker:1.4.1"
     implementation "androidx.annotation:annotation:1.1.0"
 }

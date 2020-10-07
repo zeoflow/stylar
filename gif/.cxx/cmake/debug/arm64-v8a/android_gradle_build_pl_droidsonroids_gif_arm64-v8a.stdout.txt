@@ -1,2 +1,0 @@
-ninja: Entering directory `C:\Users\teo\Downloads\android-gif-drawable-dev\android-gif-drawable-dev\android-gif-drawable\.cxx\cmake\debug\arm64-v8a'
-ninja: no work to do.

@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.zeoflow.gif.GifDrawable;
 import com.zeoflow.stylar.image.MediaDecoder;
 
 import java.io.ByteArrayOutputStream;
@@ -29,74 +28,79 @@ public class GifMediaDecoder extends MediaDecoder
      * @since 4.0.0
      */
     @NonNull
-    public static GifMediaDecoder create() {
+    public static GifMediaDecoder create()
+    {
         return create(true);
     }
 
     @NonNull
-    public static GifMediaDecoder create(boolean autoPlayGif) {
+    public static GifMediaDecoder create(boolean autoPlayGif)
+    {
         return new GifMediaDecoder(autoPlayGif);
     }
 
     private final boolean autoPlayGif;
 
-    protected GifMediaDecoder(boolean autoPlayGif) {
+    protected GifMediaDecoder(boolean autoPlayGif)
+    {
         this.autoPlayGif = autoPlayGif;
 
         // @since 4.0.0
         validate();
     }
 
-    @NonNull
     @Override
-    public Drawable decode(@Nullable String contentType, @NonNull InputStream inputStream) {
+    public Drawable decode(@Nullable String contentType, @NonNull InputStream inputStream)
+    {
 
         final byte[] bytes;
-        try {
+        try
+        {
             bytes = readBytes(inputStream);
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             throw new IllegalStateException("Cannot read GIF input-stream", e);
         }
 
-        final GifDrawable drawable;
-        try {
-            drawable = newGifDrawable(bytes);
-        } catch (IOException e) {
-            throw new IllegalStateException("Exception creating GifDrawable", e);
-        }
-
-        if (!autoPlayGif) {
-            drawable.pause();
-        }
-
-        return drawable;
+//        final GifDrawable drawable;
+//        try {
+//            drawable = newGifDrawable(bytes);
+//        } catch (IOException e) {
+//            throw new IllegalStateException("Exception creating GifDrawable", e);
+//        }
+//
+//        if (!autoPlayGif) {
+//            drawable.pause();
+//        }
+//        return drawable;
+        return null;
     }
 
     @NonNull
     @Override
-    public Collection<String> supportedTypes() {
+    public Collection<String> supportedTypes()
+    {
         return Collections.singleton(CONTENT_TYPE);
     }
 
     @NonNull
-    protected GifDrawable newGifDrawable(@NonNull byte[] bytes) throws IOException {
-        return new GifDrawable(bytes);
-    }
-
-    @NonNull
-    protected static byte[] readBytes(@NonNull InputStream stream) throws IOException {
+    protected static byte[] readBytes(@NonNull InputStream stream) throws IOException
+    {
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         final int length = 1024 * 8;
         final byte[] buffer = new byte[length];
         int read;
-        while ((read = stream.read(buffer, 0, length)) != -1) {
+        while ((read = stream.read(buffer, 0, length)) != -1)
+        {
             outputStream.write(buffer, 0, read);
         }
         return outputStream.toByteArray();
     }
 
-    private static void validate() {
-        if (!GifSupport.hasGifSupport()) {
+    private static void validate()
+    {
+        if (!GifSupport.hasGifSupport())
+        {
             throw new IllegalStateException(GifSupport.missingMessage());
         }
     }
