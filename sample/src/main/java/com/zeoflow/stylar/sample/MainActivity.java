@@ -6,16 +6,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
+import com.zeoflow.compat.ActivityCore;
 import com.zeoflow.stylar.AbstractStylarPlugin;
-import com.zeoflow.stylar.ClickEvent;
 import com.zeoflow.stylar.Stylar;
 import com.zeoflow.stylar.core.StylarTheme;
-import com.zeoflow.stylar.utils.AssetsHelper;
 import com.zeoflow.stylar.view.StylarView;
 
-public class MainActivity extends AppCompatActivity
+import static com.zeoflow.utils.FileUtil.readFile;
+
+public class MainActivity extends ActivityCore
 {
 
     @Override
@@ -29,15 +29,17 @@ public class MainActivity extends AppCompatActivity
 
         String accClosed = "### Your account has been closed.\n\nIt looks like the **`Terms of Service`** may have been violated.\n\nTo have our support team look into this, please [**`contact us`**]($contact_us).";
         StylarView stylarView = findViewById(R.id.zStylarView);
-        final Stylar stylar = Stylar.builder(this)
+        final Stylar stylar = Stylar.builder(zContext)
             .withLayoutElement(stylarView)
             .withAnchoredHeadings(true)
             .withImagePlugins(true)
             .withCodeStyle(false)
             .setClickEvent(link -> Toast.makeText(MainActivity.this, link, Toast.LENGTH_SHORT).show())
-            .usePlugin(new AbstractStylarPlugin() {
+            .usePlugin(new AbstractStylarPlugin()
+            {
                 @Override
-                public void configureTheme(@NonNull StylarTheme.Builder builder) {
+                public void configureTheme(@NonNull StylarTheme.Builder builder)
+                {
                     builder
                         .codeTextColor(Color.parseColor("#CE570CC1"))
                         .codeBackgroundColor(Color.parseColor("#EDEDED"));
@@ -46,7 +48,9 @@ public class MainActivity extends AppCompatActivity
             .build();
         stylar.setMarkdown(accClosed);
 
-        stylar.setMarkdown(AssetsHelper.readFile(getAssets(), "content.txt"));
+        stylar.setMarkdown(readFile(getAssets(), "content.txt", "\n\n"));
+
+        logger(stylarView.getText());
 
     }
 

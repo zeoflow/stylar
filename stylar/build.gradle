@@ -31,7 +31,9 @@ dependencies {
 
     implementation 'com.zeoflow:zson:1.2.2'
     implementation 'com.zeoflow:material-elements:2.1.0'
-    implementation 'com.zeoflow:flow-kit:1.0.1'
+    implementation ('com.zeoflow:flow-kit:1.1.0') {
+        exclude group: 'com.zeoflow', module: 'stylar'
+    }
 
     implementation 'io.coil-kt:coil:0.12.0'
     implementation 'io.coil-kt:coil-base:0.12.0'

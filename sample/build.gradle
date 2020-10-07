@@ -29,6 +29,9 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(':stylar')
+    implementation ('com.zeoflow:flow-kit:1.1.0') {
+        exclude group: 'com.zeoflow', module: 'stylar'
+    }
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.atlassian.commonmark:commonmark:0.13.0'
