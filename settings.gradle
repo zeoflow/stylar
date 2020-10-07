@@ -1,4 +1,4 @@
 rootProject.name = 'StylarLib'
-include ':stylar'
 
+include ':stylar'
 include ':sample'
