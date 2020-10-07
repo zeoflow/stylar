@@ -11,7 +11,8 @@ import java.util.Map;
  * @see Block
  * @since 2.0.0
  */
-public interface HtmlTag {
+public interface HtmlTag
+{
 
     int NO_END = -1;
 
@@ -64,14 +65,16 @@ public interface HtmlTag {
     /**
      * Represents <em>really</em> inline HTML tags (unlile commonmark definitions)
      */
-    interface Inline extends HtmlTag {
+    interface Inline extends HtmlTag
+    {
     }
 
     /**
      * Represents HTML block tags. Please note that all tags that are not inline should be
      * considered as block tags
      */
-    interface Block extends HtmlTag {
+    interface Block extends HtmlTag
+    {
 
         /**
          * @return parent {@link Block} or null if there is no parent (this block is at root level)

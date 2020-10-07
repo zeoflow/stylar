@@ -24,18 +24,22 @@ public class SvgPictureMediaDecoder extends MediaDecoder
     public static final String CONTENT_TYPE = "image/svg+xml";
 
     @NonNull
-    public static SvgPictureMediaDecoder create() {
+    public static SvgPictureMediaDecoder create()
+    {
         return new SvgPictureMediaDecoder();
     }
 
     @NonNull
     @Override
-    public Drawable decode(@Nullable String contentType, @NonNull InputStream inputStream) {
+    public Drawable decode(@Nullable String contentType, @NonNull InputStream inputStream)
+    {
 
         final SVG svg;
-        try {
+        try
+        {
             svg = SVG.getFromInputStream(inputStream);
-        } catch (SVGParseException e) {
+        } catch (SVGParseException e)
+        {
             throw new IllegalStateException("Exception decoding SVG", e);
         }
 
@@ -45,7 +49,8 @@ public class SvgPictureMediaDecoder extends MediaDecoder
 
     @NonNull
     @Override
-    public Collection<String> supportedTypes() {
+    public Collection<String> supportedTypes()
+    {
         return Collections.singleton(CONTENT_TYPE);
     }
 }

@@ -19,14 +19,17 @@ public class CodeStyle_css_extras
 {
 
   @Nullable
-  public static CodeStyle.Grammar create(@NotNull CodeStyle codeStyle) {
+  public static CodeStyle.Grammar create(@NotNull CodeStyle codeStyle)
+  {
 
     final CodeStyle.Grammar css = codeStyle.grammar("css");
 
-    if (css != null) {
+    if (css != null)
+    {
 
       final CodeStyle.Token selector = GrammarUtils.findToken(css, "selector");
-      if (selector != null) {
+      if (selector != null)
+      {
         final CodeStyle.Pattern pattern = pattern(
           compile("[^{}\\s][^{}]*(?=\\s*\\{)"),
           false,

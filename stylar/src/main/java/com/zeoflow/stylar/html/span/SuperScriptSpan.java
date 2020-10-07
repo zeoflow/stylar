@@ -7,19 +7,23 @@ import androidx.annotation.NonNull;
 
 import com.zeoflow.stylar.html.HtmlPlugin;
 
-public class SuperScriptSpan extends MetricAffectingSpan {
+public class SuperScriptSpan extends MetricAffectingSpan
+{
 
     @Override
-    public void updateDrawState(TextPaint tp) {
+    public void updateDrawState(TextPaint tp)
+    {
         apply(tp);
     }
 
     @Override
-    public void updateMeasureState(@NonNull TextPaint tp) {
+    public void updateMeasureState(@NonNull TextPaint tp)
+    {
         apply(tp);
     }
 
-    private void apply(TextPaint paint) {
+    private void apply(TextPaint paint)
+    {
         paint.setTextSize(paint.getTextSize() * HtmlPlugin.SCRIPT_DEF_TEXT_SIZE_RATIO);
         paint.baselineShift += (int) (paint.ascent() / 2);
     }

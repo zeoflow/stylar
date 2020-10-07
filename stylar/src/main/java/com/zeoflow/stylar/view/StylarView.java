@@ -17,6 +17,8 @@ public class StylarView extends FrameLayout
 
     private Context zContext;
     private AttributeSet zAttrs;
+    private TextView mtvTextView;
+    private ScrollView mtvScrollView;
 
     public StylarView(@NonNull Context context)
     {
@@ -38,7 +40,6 @@ public class StylarView extends FrameLayout
         zAttrs = attrs;
         init();
     }
-
     public StylarView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes)
     {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -46,9 +47,6 @@ public class StylarView extends FrameLayout
         zAttrs = attrs;
         init();
     }
-
-    private TextView mtvTextView;
-    private ScrollView mtvScrollView;
 
     private void init()
     {

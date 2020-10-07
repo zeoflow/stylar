@@ -1,7 +1,5 @@
 package com.zeoflow.stylar.codestyle;
 
-import android.util.Log;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,20 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class GrammarUtils {
+public abstract class GrammarUtils
+{
 
-    /**
-     * Used when extending an existing grammar to filter out tokens that should not be cloned.
-     *
-     * @see #extend(CodeStyle.Grammar, String, TokenFilter, CodeStyle.Token...)
-     */
-    public interface TokenFilter {
+    private static final Cloner CLONER = Cloner.create();
 
-        /**
-         * @param token {@link CodeStyle.Token} to validate
-         * @return a boolean indicating if supplied token should be included (passes the test)
-         */
-        boolean test(@NotNull CodeStyle.Token token);
+    private GrammarUtils()
+    {
     }
 
     /**
@@ -43,26 +34,34 @@ public abstract class GrammarUtils {
      * @return a found {@link CodeStyle.Token} or null
      */
     @Nullable
-    public static CodeStyle.Token findToken(@NotNull CodeStyle.Grammar grammar, @NotNull String path) {
+    public static CodeStyle.Token findToken(@NotNull CodeStyle.Grammar grammar, @NotNull String path)
+    {
         final String[] parts = path.split("/");
         return findToken(grammar, parts, 0);
     }
 
     @Nullable
-    private static CodeStyle.Token findToken(@NotNull CodeStyle.Grammar grammar, @NotNull String[] parts, int index) {
+    private static CodeStyle.Token findToken(@NotNull CodeStyle.Grammar grammar, @NotNull String[] parts, int index)
+    {
 
         final String part = parts[index];
         final boolean last = index == parts.length - 1;
 
-        for (CodeStyle.Token token : grammar.tokens()) {
-            if (part.equals(token.name())) {
-                if (last) {
+        for (CodeStyle.Token token : grammar.tokens())
+        {
+            if (part.equals(token.name()))
+            {
+                if (last)
+                {
                     return token;
-                } else {
+                } else
+                {
                     final CodeStyle.Grammar inside = findFirstInsideGrammar(token);
-                    if (inside != null) {
+                    if (inside != null)
+                    {
                         return findToken(inside, parts, index + 1);
-                    } else {
+                    } else
+                    {
                         break;
                     }
                 }
@@ -74,13 +73,15 @@ public abstract class GrammarUtils {
 
     // won't work if there are multiple patterns provided for a token (each with inside grammar)
     public static void insertBeforeToken(
-            @NotNull CodeStyle.Grammar grammar,
-            @NotNull String path,
-            CodeStyle.Token... tokens
-    ) {
+        @NotNull CodeStyle.Grammar grammar,
+        @NotNull String path,
+        CodeStyle.Token... tokens
+    )
+    {
 
         if (tokens == null
-                || tokens.length == 0) {
+            || tokens.length == 0)
+        {
             return;
         }
 
@@ -90,10 +91,11 @@ public abstract class GrammarUtils {
     }
 
     private static void insertBeforeToken(
-            @NotNull CodeStyle.Grammar grammar,
-            @NotNull String[] parts,
-            int index,
-            @NotNull CodeStyle.Token[] tokens) {
+        @NotNull CodeStyle.Grammar grammar,
+        @NotNull String[] parts,
+        int index,
+        @NotNull CodeStyle.Token[] tokens)
+    {
 
         final String part = parts[index];
         final boolean last = index == parts.length - 1;
@@ -102,25 +104,30 @@ public abstract class GrammarUtils {
 
         CodeStyle.Token token;
 
-        for (int i = 0, size = grammarTokens.size(); i < size; i++) {
+        for (int i = 0, size = grammarTokens.size(); i < size; i++)
+        {
 
             token = grammarTokens.get(i);
 
-            if (part.equals(token.name())) {
+            if (part.equals(token.name()))
+            {
 
                 // here we must decide what to do next:
                 //  - it can be out found one
                 //  - or we need to go deeper (c)
-                if (last) {
+                if (last)
+                {
                     // here we go, it's our token
                     insertTokensAt(i, grammarTokens, tokens);
-                } else {
+                } else
+                {
                     // now we must find a grammar that is inside
                     // token can have multiple patterns
                     // but as they are not identified somehow (no name or anything)
                     // we will try to find first pattern with inside grammar
                     final CodeStyle.Grammar inside = findFirstInsideGrammar(token);
-                    if (inside != null) {
+                    if (inside != null)
+                    {
                         insertBeforeToken(inside, parts, index + 1, tokens);
                     }
                 }
@@ -132,10 +139,13 @@ public abstract class GrammarUtils {
     }
 
     @Nullable
-    public static CodeStyle.Grammar findFirstInsideGrammar(@NotNull CodeStyle.Token token) {
+    public static CodeStyle.Grammar findFirstInsideGrammar(@NotNull CodeStyle.Token token)
+    {
         CodeStyle.Grammar grammar = null;
-        for (CodeStyle.Pattern pattern : token.patterns()) {
-            if (pattern.inside() != null) {
+        for (CodeStyle.Pattern pattern : token.patterns())
+        {
+            if (pattern.inside() != null)
+            {
                 grammar = pattern.inside();
                 break;
             }
@@ -144,48 +154,56 @@ public abstract class GrammarUtils {
     }
 
     private static void insertTokensAt(
-            int start,
-            @NotNull List<CodeStyle.Token> grammarTokens,
-            @NotNull CodeStyle.Token[] tokens
-    ) {
-        for (int i = 0, length = tokens.length; i < length; i++) {
+        int start,
+        @NotNull List<CodeStyle.Token> grammarTokens,
+        @NotNull CodeStyle.Token[] tokens
+    )
+    {
+        for (int i = 0, length = tokens.length; i < length; i++)
+        {
             grammarTokens.add(start + i, tokens[i]);
         }
     }
 
     @NotNull
-    public static CodeStyle.Grammar clone(@NotNull CodeStyle.Grammar grammar) {
+    public static CodeStyle.Grammar clone(@NotNull CodeStyle.Grammar grammar)
+    {
         return CLONER.clone(grammar);
     }
 
     @NotNull
-    public static CodeStyle.Token clone(@NotNull CodeStyle.Token token) {
+    public static CodeStyle.Token clone(@NotNull CodeStyle.Token token)
+    {
         return CLONER.clone(token);
     }
 
     @NotNull
-    public static CodeStyle.Pattern clone(@NotNull CodeStyle.Pattern pattern) {
+    public static CodeStyle.Pattern clone(@NotNull CodeStyle.Pattern pattern)
+    {
         return CLONER.clone(pattern);
     }
 
     @NotNull
     public static CodeStyle.Grammar extend(
-            @NotNull CodeStyle.Grammar grammar,
-            @NotNull String name,
-            CodeStyle.Token... tokens) {
+        @NotNull CodeStyle.Grammar grammar,
+        @NotNull String name,
+        CodeStyle.Token... tokens)
+    {
 
         // we clone the whole grammar, but override top-most tokens that are passed here
 
         final int size = tokens != null
-                ? tokens.length
-                : 0;
+            ? tokens.length
+            : 0;
 
-        if (size == 0) {
+        if (size == 0)
+        {
             return new GrammarImpl(name, clone(grammar).tokens());
         }
 
         final Map<String, CodeStyle.Token> overrides = new HashMap<>(size);
-        for (CodeStyle.Token token : tokens) {
+        for (CodeStyle.Token token : tokens)
+        {
             overrides.put(token.name(), token);
         }
 
@@ -194,11 +212,14 @@ public abstract class GrammarUtils {
 
         CodeStyle.Token override;
 
-        for (CodeStyle.Token origin : origins) {
+        for (CodeStyle.Token origin : origins)
+        {
             override = overrides.get(origin.name());
-            if (override != null) {
+            if (override != null)
+            {
                 out.add(override);
-            } else {
+            } else
+            {
                 out.add(clone(origin));
             }
         }
@@ -208,21 +229,25 @@ public abstract class GrammarUtils {
 
     @NotNull
     public static CodeStyle.Grammar extend(
-            @NotNull CodeStyle.Grammar grammar,
-            @NotNull String name,
-            @NotNull TokenFilter filter,
-            CodeStyle.Token... tokens) {
+        @NotNull CodeStyle.Grammar grammar,
+        @NotNull String name,
+        @NotNull TokenFilter filter,
+        CodeStyle.Token... tokens)
+    {
 
         final int size = tokens != null
-                ? tokens.length
-                : 0;
+            ? tokens.length
+            : 0;
 
         final Map<String, CodeStyle.Token> overrides;
-        if (size == 0) {
+        if (size == 0)
+        {
             overrides = Collections.emptyMap();
-        } else {
+        } else
+        {
             overrides = new HashMap<>(size);
-            for (CodeStyle.Token token : tokens) {
+            for (CodeStyle.Token token : tokens)
+            {
                 overrides.put(token.name(), token);
             }
         }
@@ -232,17 +257,21 @@ public abstract class GrammarUtils {
 
         CodeStyle.Token override;
 
-        for (CodeStyle.Token origin : origins) {
+        for (CodeStyle.Token origin : origins)
+        {
 
             // filter out undesired tokens
-            if (!filter.test(origin)) {
+            if (!filter.test(origin))
+            {
                 continue;
             }
 
             override = overrides.get(origin.name());
-            if (override != null) {
+            if (override != null)
+            {
                 out.add(override);
-            } else {
+            } else
+            {
                 out.add(clone(origin));
             }
         }
@@ -251,16 +280,28 @@ public abstract class GrammarUtils {
     }
 
     @NotNull
-    public static CodeStyle.Grammar require(@NotNull CodeStyle codeStyle, @NotNull String name) {
+    public static CodeStyle.Grammar require(@NotNull CodeStyle codeStyle, @NotNull String name)
+    {
         final CodeStyle.Grammar grammar = codeStyle.grammar(name);
-        if (grammar == null) {
+        if (grammar == null)
+        {
             throw new IllegalStateException("Unexpected state, requested language is not found: " + name);
         }
         return grammar;
     }
 
-    private GrammarUtils() {
-    }
+    /**
+     * Used when extending an existing grammar to filter out tokens that should not be cloned.
+     *
+     * @see #extend(CodeStyle.Grammar, String, TokenFilter, CodeStyle.Token...)
+     */
+    public interface TokenFilter
+    {
 
-    private static final Cloner CLONER = Cloner.create();
+        /**
+         * @param token {@link CodeStyle.Token} to validate
+         * @return a boolean indicating if supplied token should be included (passes the test)
+         */
+        boolean test(@NotNull CodeStyle.Token token);
+    }
 }

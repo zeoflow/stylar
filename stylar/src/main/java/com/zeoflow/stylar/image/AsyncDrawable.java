@@ -11,7 +11,8 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class AsyncDrawable extends Drawable {
+public class AsyncDrawable extends Drawable
+{
 
     private final String destination;
     private final AsyncDrawableLoader loader;
@@ -38,24 +39,49 @@ public class AsyncDrawable extends Drawable {
      * @since 1.0.1
      */
     public AsyncDrawable(
-            @NonNull String destination,
-            @NonNull AsyncDrawableLoader loader,
-            @NonNull ImageSizeResolver imageSizeResolver,
-            @Nullable ImageSize imageSize
-    ) {
+        @NonNull String destination,
+        @NonNull AsyncDrawableLoader loader,
+        @NonNull ImageSizeResolver imageSizeResolver,
+        @Nullable ImageSize imageSize
+    )
+    {
         this.destination = destination;
         this.loader = loader;
         this.imageSizeResolver = imageSizeResolver;
         this.imageSize = imageSize;
 
         final Drawable placeholder = this.placeholder = loader.placeholder(this);
-        if (placeholder != null) {
+        if (placeholder != null)
+        {
             setPlaceholderResult(placeholder);
         }
     }
 
+    /**
+     * @since 4.3.0
+     */
     @NonNull
-    public String getDestination() {
+    private static Rect noDimensionsBounds(@Nullable Drawable result)
+    {
+        if (result != null)
+        {
+            final Rect bounds = result.getBounds();
+            if (!bounds.isEmpty())
+            {
+                return bounds;
+            }
+            final Rect intrinsicBounds = DrawableUtils.intrinsicBounds(result);
+            if (!intrinsicBounds.isEmpty())
+            {
+                return intrinsicBounds;
+            }
+        }
+        return new Rect(0, 0, 1, 1);
+    }
+
+    @NonNull
+    public String getDestination()
+    {
         return destination;
     }
 
@@ -64,7 +90,8 @@ public class AsyncDrawable extends Drawable {
      */
     @SuppressWarnings("WeakerAccess")
     @Nullable
-    public ImageSize getImageSize() {
+    public ImageSize getImageSize()
+    {
         return imageSize;
     }
 
@@ -73,7 +100,8 @@ public class AsyncDrawable extends Drawable {
      */
     @SuppressWarnings("unused")
     @NonNull
-    public ImageSizeResolver getImageSizeResolver() {
+    public ImageSizeResolver getImageSizeResolver()
+    {
         return imageSizeResolver;
     }
 
@@ -81,7 +109,8 @@ public class AsyncDrawable extends Drawable {
      * @since 4.2.1
      */
     @SuppressWarnings({"unused", "WeakerAccess"})
-    public boolean hasKnownDimensions() {
+    public boolean hasKnownDimensions()
+    {
         return canvasWidth > 0;
     }
 
@@ -89,7 +118,8 @@ public class AsyncDrawable extends Drawable {
      * @see #hasKnownDimensions()
      * @since 4.0.0
      */
-    public int getLastKnownCanvasWidth() {
+    public int getLastKnownCanvasWidth()
+    {
         return canvasWidth;
     }
 
@@ -98,69 +128,101 @@ public class AsyncDrawable extends Drawable {
      * @since 4.0.0
      */
     @SuppressWarnings("WeakerAccess")
-    public float getLastKnowTextSize() {
+    public float getLastKnowTextSize()
+    {
         return textSize;
     }
 
-    public Drawable getResult() {
+    public Drawable getResult()
+    {
         return result;
     }
 
-    public boolean hasResult() {
+    public void setResult(@NonNull Drawable result)
+    {
+
+        // @since 4.5.0 revert this flag when we have new source
+        wasPlayingBefore = false;
+
+        // if we have previous one, detach it
+        if (this.result != null)
+        {
+            this.result.setCallback(null);
+        }
+
+        this.result = result;
+//        this.result.setCallback(callback);
+
+        initBounds();
+    }
+
+    public boolean hasResult()
+    {
         return result != null;
     }
 
-    public boolean isAttached() {
+    public boolean isAttached()
+    {
         return getCallback() != null;
     }
 
-    public void setCallback2(@Nullable Callback cb) {
+    public void setCallback2(@Nullable Callback cb)
+    {
 
         // @since 4.2.1
         //  wrap callback so invalidation happens to this AsyncDrawable instance
         //  and not for wrapped result/placeholder
         this.callback = cb == null
-                ? null
-                : new WrappedCallback(cb);
+            ? null
+            : new WrappedCallback(cb);
 
         super.setCallback(cb);
 
         // if not null -> means we are attached
-        if (callback != null) {
+        if (callback != null)
+        {
 
             // as we have a placeholder now, it's important to check it our placeholder
             // has a proper callback at this point. This is not required in most cases,
             // as placeholder should be static, but if it's not -> it can operate as usual
             if (result != null
-                    && result.getCallback() == null) {
+                && result.getCallback() == null)
+            {
                 result.setCallback(callback);
             }
 
             // @since 4.5.0 we trigger loading only if we have no result (and result is not placeholder)
             final boolean shouldLoad = result == null || result == placeholder;
 
-            if (result != null) {
+            if (result != null)
+            {
                 result.setCallback(callback);
 
                 // @since 4.5.0
-                if (result instanceof Animatable && wasPlayingBefore) {
+                if (result instanceof Animatable && wasPlayingBefore)
+                {
                     ((Animatable) result).start();
                 }
             }
 
-            if (shouldLoad) {
+            if (shouldLoad)
+            {
                 loader.load(this);
             }
-        } else {
-            if (result != null) {
+        } else
+        {
+            if (result != null)
+            {
 
                 result.setCallback(null);
 
                 // let's additionally stop if it Animatable
-                if (result instanceof Animatable) {
+                if (result instanceof Animatable)
+                {
                     final Animatable animatable = (Animatable) result;
                     final boolean isPlaying = wasPlayingBefore = animatable.isRunning();
-                    if (isPlaying) {
+                    if (isPlaying)
+                    {
                         animatable.stop();
                     }
                 }
@@ -174,7 +236,8 @@ public class AsyncDrawable extends Drawable {
      * @since 3.0.1
      */
     @SuppressWarnings("WeakerAccess")
-    protected void setPlaceholderResult(@NonNull Drawable placeholder) {
+    protected void setPlaceholderResult(@NonNull Drawable placeholder)
+    {
         // okay, if placeholder has bounds -> use it, otherwise use original imageSize
         // it's important to NOT pass to imageSizeResolver when placeholder has bounds
         // this is done, so actual result and placeholder can have _different_
@@ -183,23 +246,27 @@ public class AsyncDrawable extends Drawable {
 
         // this condition should not be true for placeholder (at least for now)
         // (right now this method is always called from constructor)
-        if (result != null) {
+        if (result != null)
+        {
             // but it is, unregister current result
             result.setCallback(null);
         }
 
         final Rect rect = placeholder.getBounds();
 
-        if (rect.isEmpty()) {
+        if (rect.isEmpty())
+        {
             // check for intrinsic bounds
             final Rect intrinsic = DrawableUtils.intrinsicBounds(placeholder);
-            if (intrinsic.isEmpty()) {
+            if (intrinsic.isEmpty())
+            {
                 // @since 4.2.2
                 // if intrinsic bounds are empty, use _any_ non-empty bounds,
                 // they must be non-empty so when result is obtained - proper invalidation will occur
                 // (0, 0, 1, 0) is still considered empty
                 placeholder.setBounds(0, 0, 1, 1);
-            } else {
+            } else
+            {
                 // use them
                 placeholder.setBounds(intrinsic);
             }
@@ -210,7 +277,8 @@ public class AsyncDrawable extends Drawable {
             setBounds(placeholder.getBounds());
             setResult(placeholder);
 
-        } else {
+        } else
+        {
 
             // this method is not the same as above, as we do not want to trigger image-size-resolver
             // in case when placeholder has exact bounds
@@ -227,32 +295,18 @@ public class AsyncDrawable extends Drawable {
         }
     }
 
-    public void setResult(@NonNull Drawable result) {
-
-        // @since 4.5.0 revert this flag when we have new source
-        wasPlayingBefore = false;
-
-        // if we have previous one, detach it
-        if (this.result != null) {
-            this.result.setCallback(null);
-        }
-
-        this.result = result;
-//        this.result.setCallback(callback);
-
-        initBounds();
-    }
-
     /**
      * Remove result from this drawable (for example, in case of cancellation)
      *
      * @since 3.0.1
      */
-    public void clearResult() {
+    public void clearResult()
+    {
 
         final Drawable result = this.result;
 
-        if (result != null) {
+        if (result != null)
+        {
             result.setCallback(null);
             this.result = null;
 
@@ -261,9 +315,11 @@ public class AsyncDrawable extends Drawable {
         }
     }
 
-    private void initBounds() {
+    private void initBounds()
+    {
 
-        if (canvasWidth == 0) {
+        if (canvasWidth == 0)
+        {
             // we still have no bounds - wait for them
             waitingForDimensions = true;
 
@@ -290,70 +346,64 @@ public class AsyncDrawable extends Drawable {
     }
 
     /**
-     * @since 4.3.0
-     */
-    @NonNull
-    private static Rect noDimensionsBounds(@Nullable Drawable result) {
-        if (result != null) {
-            final Rect bounds = result.getBounds();
-            if (!bounds.isEmpty()) {
-                return bounds;
-            }
-            final Rect intrinsicBounds = DrawableUtils.intrinsicBounds(result);
-            if (!intrinsicBounds.isEmpty()) {
-                return intrinsicBounds;
-            }
-        }
-        return new Rect(0, 0, 1, 1);
-    }
-
-    /**
      * @since 1.0.1
      */
     @SuppressWarnings("WeakerAccess")
-    public void initWithKnownDimensions(int width, float textSize) {
+    public void initWithKnownDimensions(int width, float textSize)
+    {
         this.canvasWidth = width;
         this.textSize = textSize;
 
-        if (waitingForDimensions) {
+        if (waitingForDimensions)
+        {
             initBounds();
         }
     }
 
     @Override
-    public void draw(@NonNull Canvas canvas) {
-        if (hasResult()) {
+    public void draw(@NonNull Canvas canvas)
+    {
+        if (hasResult())
+        {
             result.draw(canvas);
         }
     }
 
     @Override
-    public void setAlpha(@IntRange(from = 0, to = 255) int alpha) {
+    public void setAlpha(@IntRange(from = 0, to = 255) int alpha)
+    {
 
     }
 
     @Override
-    public void setColorFilter(@Nullable ColorFilter colorFilter) {
+    public void setColorFilter(@Nullable ColorFilter colorFilter)
+    {
 
     }
 
     @Override
-    public int getOpacity() {
+    public int getOpacity()
+    {
         final int opacity;
-        if (hasResult()) {
+        if (hasResult())
+        {
             opacity = result.getOpacity();
-        } else {
+        } else
+        {
             opacity = PixelFormat.TRANSPARENT;
         }
         return opacity;
     }
 
     @Override
-    public int getIntrinsicWidth() {
+    public int getIntrinsicWidth()
+    {
         final int out;
-        if (hasResult()) {
+        if (hasResult())
+        {
             out = result.getIntrinsicWidth();
-        } else {
+        } else
+        {
             // @since 4.0.0, must not be zero in order to receive canvas dimensions
             out = 1;
         }
@@ -361,11 +411,14 @@ public class AsyncDrawable extends Drawable {
     }
 
     @Override
-    public int getIntrinsicHeight() {
+    public int getIntrinsicHeight()
+    {
         final int out;
-        if (hasResult()) {
+        if (hasResult())
+        {
             out = result.getIntrinsicHeight();
-        } else {
+        } else
+        {
             // @since 4.0.0, must not be zero in order to receive canvas dimensions
             out = 1;
         }
@@ -376,7 +429,8 @@ public class AsyncDrawable extends Drawable {
      * @since 1.0.1
      */
     @NonNull
-    private Rect resolveBounds() {
+    private Rect resolveBounds()
+    {
         // @since 2.0.0 previously we were checking if image is greater than canvas width here
         //          but as imageSizeResolver won't be null anymore, we should transfer this logic
         //          there
@@ -385,39 +439,45 @@ public class AsyncDrawable extends Drawable {
 
     @NonNull
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "AsyncDrawable{" +
-                "destination='" + destination + '\'' +
-                ", imageSize=" + imageSize +
-                ", result=" + result +
-                ", canvasWidth=" + canvasWidth +
-                ", textSize=" + textSize +
-                ", waitingForDimensions=" + waitingForDimensions +
-                '}';
+            "destination='" + destination + '\'' +
+            ", imageSize=" + imageSize +
+            ", result=" + result +
+            ", canvasWidth=" + canvasWidth +
+            ", textSize=" + textSize +
+            ", waitingForDimensions=" + waitingForDimensions +
+            '}';
     }
 
     // @since 4.2.1
     //  Wrapped callback to trigger invalidation for this AsyncDrawable instance (and not result/placeholder)
-    private class WrappedCallback implements Callback {
+    private class WrappedCallback implements Callback
+    {
 
         private final Callback callback;
 
-        WrappedCallback(@NonNull Callback callback) {
+        WrappedCallback(@NonNull Callback callback)
+        {
             this.callback = callback;
         }
 
         @Override
-        public void invalidateDrawable(@NonNull Drawable who) {
+        public void invalidateDrawable(@NonNull Drawable who)
+        {
             callback.invalidateDrawable(AsyncDrawable.this);
         }
 
         @Override
-        public void scheduleDrawable(@NonNull Drawable who, @NonNull Runnable what, long when) {
+        public void scheduleDrawable(@NonNull Drawable who, @NonNull Runnable what, long when)
+        {
             callback.scheduleDrawable(AsyncDrawable.this, what, when);
         }
 
         @Override
-        public void unscheduleDrawable(@NonNull Drawable who, @NonNull Runnable what) {
+        public void unscheduleDrawable(@NonNull Drawable who, @NonNull Runnable what)
+        {
             callback.unscheduleDrawable(AsyncDrawable.this, what);
         }
     }

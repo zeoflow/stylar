@@ -28,9 +28,10 @@ class StylarAdapterImpl extends StylarAdapter
 
     @SuppressWarnings("WeakerAccess")
     StylarAdapterImpl(
-            @NonNull SparseArray<Entry<Node, Holder>> entries,
-            @NonNull Entry<Node, Holder> defaultEntry,
-            @NonNull StylarReducer reducer) {
+        @NonNull SparseArray<Entry<Node, Holder>> entries,
+        @NonNull Entry<Node, Holder> defaultEntry,
+        @NonNull StylarReducer reducer)
+    {
         this.entries = entries;
         this.defaultEntry = defaultEntry;
         this.reducer = reducer;
@@ -39,22 +40,26 @@ class StylarAdapterImpl extends StylarAdapter
     }
 
     @Override
-    public void setMarkdown(@NonNull Stylar stylar, @NonNull String markdown) {
+    public void setMarkdown(@NonNull Stylar stylar, @NonNull String markdown)
+    {
         setParsedMarkdown(stylar, stylar.parse(markdown));
     }
 
     @Override
-    public void setParsedMarkdown(@NonNull Stylar stylar, @NonNull Node document) {
+    public void setParsedMarkdown(@NonNull Stylar stylar, @NonNull Node document)
+    {
         setParsedMarkdown(stylar, reducer.reduce(document));
     }
 
     @Override
-    public void setParsedMarkdown(@NonNull Stylar stylar, @NonNull List<Node> nodes) {
+    public void setParsedMarkdown(@NonNull Stylar stylar, @NonNull List<Node> nodes)
+    {
         // clear all entries before applying
 
         defaultEntry.clear();
 
-        for (int i = 0, size = entries.size(); i < size; i++) {
+        for (int i = 0, size = entries.size(); i < size; i++)
+        {
             entries.valueAt(i).clear();
         }
 
@@ -64,9 +69,11 @@ class StylarAdapterImpl extends StylarAdapter
 
     @NonNull
     @Override
-    public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
 
-        if (layoutInflater == null) {
+        if (layoutInflater == null)
+        {
             layoutInflater = LayoutInflater.from(parent.getContext());
         }
 
@@ -76,7 +83,8 @@ class StylarAdapterImpl extends StylarAdapter
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Holder holder, int position) {
+    public void onBindViewHolder(@NonNull Holder holder, int position)
+    {
 
         final Node node = nodes.get(position);
         final int viewType = getNodeViewType(node.getClass());
@@ -87,14 +95,16 @@ class StylarAdapterImpl extends StylarAdapter
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return nodes != null
-                ? nodes.size()
-                : 0;
+            ? nodes.size()
+            : 0;
     }
 
     @Override
-    public void onViewRecycled(@NonNull Holder holder) {
+    public void onViewRecycled(@NonNull Holder holder)
+    {
         super.onViewRecycled(holder);
 
         final Entry<Node, Holder> entry = getEntry(holder.getItemViewType());
@@ -103,19 +113,22 @@ class StylarAdapterImpl extends StylarAdapter
 
     @SuppressWarnings("unused")
     @NonNull
-    public List<Node> getItems() {
+    public List<Node> getItems()
+    {
         return nodes != null
-                ? Collections.unmodifiableList(nodes)
-                : Collections.<Node>emptyList();
+            ? Collections.unmodifiableList(nodes)
+            : Collections.<Node>emptyList();
     }
 
     @Override
-    public int getItemViewType(int position) {
+    public int getItemViewType(int position)
+    {
         return getNodeViewType(nodes.get(position).getClass());
     }
 
     @Override
-    public long getItemId(int position) {
+    public long getItemId(int position)
+    {
         final Node node = nodes.get(position);
         final int type = getNodeViewType(node.getClass());
         final Entry<Node, Holder> entry = getEntry(type);
@@ -123,23 +136,27 @@ class StylarAdapterImpl extends StylarAdapter
     }
 
     @Override
-    public int getNodeViewType(@NonNull Class<? extends Node> node) {
+    public int getNodeViewType(@NonNull Class<? extends Node> node)
+    {
         // if has registered -> then return it, else 0
         final int hash = node.hashCode();
-        if (entries.indexOfKey(hash) > -1) {
+        if (entries.indexOfKey(hash) > -1)
+        {
             return hash;
         }
         return 0;
     }
 
     @NonNull
-    private Entry<Node, Holder> getEntry(int viewType) {
+    private Entry<Node, Holder> getEntry(int viewType)
+    {
         return viewType == 0
-                ? defaultEntry
-                : entries.get(viewType);
+            ? defaultEntry
+            : entries.get(viewType);
     }
 
-    static class BuilderImpl implements Builder {
+    static class BuilderImpl implements Builder
+    {
 
         private final SparseArray<Entry<Node, Holder>> entries = new SparseArray<>(3);
 
@@ -147,15 +164,17 @@ class StylarAdapterImpl extends StylarAdapter
 
         private StylarReducer reducer;
 
-        BuilderImpl(@NonNull Entry<Node, Holder> defaultEntry) {
+        BuilderImpl(@NonNull Entry<Node, Holder> defaultEntry)
+        {
             this.defaultEntry = defaultEntry;
         }
 
         @NonNull
         @Override
         public <N extends Node> Builder include(
-                @NonNull Class<N> node,
-                @NonNull Entry<? super N, ? extends Holder> entry) {
+            @NonNull Class<N> node,
+            @NonNull Entry<? super N, ? extends Holder> entry)
+        {
             //noinspection unchecked
             entries.append(node.hashCode(), (Entry<Node, Holder>) entry);
             return this;
@@ -163,16 +182,19 @@ class StylarAdapterImpl extends StylarAdapter
 
         @NonNull
         @Override
-        public Builder reducer(@NonNull StylarReducer reducer) {
+        public Builder reducer(@NonNull StylarReducer reducer)
+        {
             this.reducer = reducer;
             return this;
         }
 
         @NonNull
         @Override
-        public StylarAdapter build() {
+        public StylarAdapter build()
+        {
 
-            if (reducer == null) {
+            if (reducer == null)
+            {
                 reducer = StylarReducer.directChildren();
             }
 

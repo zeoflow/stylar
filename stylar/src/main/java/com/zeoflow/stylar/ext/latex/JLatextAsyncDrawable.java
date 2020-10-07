@@ -11,22 +11,25 @@ import com.zeoflow.stylar.image.ImageSizeResolver;
 /**
  * @since 4.3.0
  */
-class JLatextAsyncDrawable extends AsyncDrawable {
+class JLatextAsyncDrawable extends AsyncDrawable
+{
 
     private final boolean isBlock;
 
     JLatextAsyncDrawable(
-            @NonNull String destination,
-            @NonNull AsyncDrawableLoader loader,
-            @NonNull ImageSizeResolver imageSizeResolver,
-            @Nullable ImageSize imageSize,
-            boolean isBlock
-    ) {
+        @NonNull String destination,
+        @NonNull AsyncDrawableLoader loader,
+        @NonNull ImageSizeResolver imageSizeResolver,
+        @Nullable ImageSize imageSize,
+        boolean isBlock
+    )
+    {
         super(destination, loader, imageSizeResolver, imageSize);
         this.isBlock = isBlock;
     }
 
-    public boolean isBlock() {
+    public boolean isBlock()
+    {
         return isBlock;
     }
 }

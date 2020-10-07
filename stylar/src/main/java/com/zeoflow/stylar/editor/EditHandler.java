@@ -13,7 +13,8 @@ import com.zeoflow.stylar.editor.handler.StrongEmphasisEditHandler;
  * @see StrongEmphasisEditHandler
  * @since 4.2.0
  */
-public interface EditHandler<T> {
+public interface EditHandler<T>
+{
 
     void init(@NonNull Stylar stylar);
 
@@ -35,12 +36,12 @@ public interface EditHandler<T> {
      * @see StylarEditorUtils
      */
     void handleMarkdownSpan(
-            @NonNull PersistedSpans persistedSpans,
-            @NonNull Editable editable,
-            @NonNull String input,
-            @NonNull T span,
-            int spanStart,
-            int spanTextLength);
+        @NonNull PersistedSpans persistedSpans,
+        @NonNull Editable editable,
+        @NonNull String input,
+        @NonNull T span,
+        int spanStart,
+        int spanTextLength);
 
     @NonNull
     Class<T> markdownSpanType();

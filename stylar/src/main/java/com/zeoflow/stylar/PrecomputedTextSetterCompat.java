@@ -19,80 +19,56 @@ import java.util.concurrent.Executor;
  * @see Stylar.TextSetter
  * @since 4.1.0
  */
-public class PrecomputedTextSetterCompat implements Stylar.TextSetter {
+public class PrecomputedTextSetterCompat implements Stylar.TextSetter
+{
+
+    private final Executor executor;
+
+    @SuppressWarnings("WeakerAccess")
+    PrecomputedTextSetterCompat(@NonNull Executor executor)
+    {
+        this.executor = executor;
+    }
 
     /**
      * @param executor for background execution of text pre-computation
      */
     @NonNull
-    public static PrecomputedTextSetterCompat create(@NonNull Executor executor) {
+    public static PrecomputedTextSetterCompat create(@NonNull Executor executor)
+    {
         return new PrecomputedTextSetterCompat(executor);
     }
 
-    private final Executor executor;
-
-    @SuppressWarnings("WeakerAccess")
-    PrecomputedTextSetterCompat(@NonNull Executor executor) {
-        this.executor = executor;
-    }
-
-    @Override
-    public void setText(
-            @NonNull TextView textView,
-            @NonNull final Spanned markdown,
-            @NonNull final TextView.BufferType bufferType,
-            @NonNull final Runnable onComplete) {
-
-        // insert version check and do not execute on a device < 21
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            // it's still no-op, so there is no need to start background execution
-            applyText(textView, markdown, bufferType, onComplete);
-            return;
-        }
-
-        final WeakReference<TextView> reference = new WeakReference<>(textView);
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    final PrecomputedTextCompat precomputedTextCompat = precomputedText(reference.get(), markdown);
-                    if (precomputedTextCompat != null) {
-                        applyText(reference.get(), precomputedTextCompat, bufferType, onComplete);
-                    }
-                } catch (Throwable t) {
-                    Log.e("PrecomputdTxtSetterCmpt", "Exception during pre-computing text", t);
-                    // apply initial markdown
-                    applyText(reference.get(), markdown, bufferType, onComplete);
-                }
-            }
-        });
-    }
-
     @Nullable
-    private static PrecomputedTextCompat precomputedText(@Nullable TextView textView, @NonNull Spanned spanned) {
+    private static PrecomputedTextCompat precomputedText(@Nullable TextView textView, @NonNull Spanned spanned)
+    {
 
-        if (textView == null) {
+        if (textView == null)
+        {
             return null;
         }
 
         final PrecomputedTextCompat.Params params;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+        {
             // use native parameters on P
             params = new PrecomputedTextCompat.Params(textView.getTextMetricsParams());
-        } else {
+        } else
+        {
 
             final PrecomputedTextCompat.Params.Builder builder =
-                    new PrecomputedTextCompat.Params.Builder(textView.getPaint());
+                new PrecomputedTextCompat.Params.Builder(textView.getPaint());
 
             // please note that text-direction initialization is omitted
             // by default it will be determined by the first locale-specific character
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            {
                 // another miss on API surface, this can easily be done by the compat class itself
                 builder
-                        .setBreakStrategy(textView.getBreakStrategy())
-                        .setHyphenationFrequency(textView.getHyphenationFrequency());
+                    .setBreakStrategy(textView.getBreakStrategy())
+                    .setHyphenationFrequency(textView.getHyphenationFrequency());
             }
 
             params = builder.build();
@@ -102,18 +78,61 @@ public class PrecomputedTextSetterCompat implements Stylar.TextSetter {
     }
 
     private static void applyText(
-            @Nullable final TextView textView,
-            @NonNull final Spanned text,
-            @NonNull final TextView.BufferType bufferType,
-            @NonNull final Runnable onComplete) {
-        if (textView != null) {
-            textView.post(new Runnable() {
+        @Nullable final TextView textView,
+        @NonNull final Spanned text,
+        @NonNull final TextView.BufferType bufferType,
+        @NonNull final Runnable onComplete)
+    {
+        if (textView != null)
+        {
+            textView.post(new Runnable()
+            {
                 @Override
-                public void run() {
+                public void run()
+                {
                     textView.setText(text, bufferType);
                     onComplete.run();
                 }
             });
         }
+    }
+
+    @Override
+    public void setText(
+        @NonNull TextView textView,
+        @NonNull final Spanned markdown,
+        @NonNull final TextView.BufferType bufferType,
+        @NonNull final Runnable onComplete)
+    {
+
+        // insert version check and do not execute on a device < 21
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+        {
+            // it's still no-op, so there is no need to start background execution
+            applyText(textView, markdown, bufferType, onComplete);
+            return;
+        }
+
+        final WeakReference<TextView> reference = new WeakReference<>(textView);
+        executor.execute(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    final PrecomputedTextCompat precomputedTextCompat = precomputedText(reference.get(), markdown);
+                    if (precomputedTextCompat != null)
+                    {
+                        applyText(reference.get(), precomputedTextCompat, bufferType, onComplete);
+                    }
+                } catch (Throwable t)
+                {
+                    Log.e("PrecomputdTxtSetterCmpt", "Exception during pre-computing text", t);
+                    // apply initial markdown
+                    applyText(reference.get(), markdown, bufferType, onComplete);
+                }
+            }
+        });
     }
 }

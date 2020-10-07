@@ -22,18 +22,21 @@ import java.util.concurrent.Future;
  * @see #withPreRender(StylarEditor, ExecutorService, EditText)
  * @since 4.2.0
  */
-public abstract class StylarEditorTextWatcher implements TextWatcher {
+public abstract class StylarEditorTextWatcher implements TextWatcher
+{
 
     @NonNull
-    public static StylarEditorTextWatcher withProcess(@NonNull StylarEditor editor) {
+    public static StylarEditorTextWatcher withProcess(@NonNull StylarEditor editor)
+    {
         return new WithProcess(editor);
     }
 
     @NonNull
     public static StylarEditorTextWatcher withPreRender(
-            @NonNull StylarEditor editor,
-            @NonNull ExecutorService executorService,
-            @NonNull EditText editText) {
+        @NonNull StylarEditor editor,
+        @NonNull ExecutorService executorService,
+        @NonNull EditText editText)
+    {
         return new WithPreRender(editor, executorService, editText);
     }
 
@@ -41,12 +44,14 @@ public abstract class StylarEditorTextWatcher implements TextWatcher {
     public abstract void afterTextChanged(Editable s);
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    public void beforeTextChanged(CharSequence s, int start, int count, int after)
+    {
 
     }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    public void onTextChanged(CharSequence s, int start, int before, int count)
+    {
 
     }
 
@@ -58,21 +63,26 @@ public abstract class StylarEditorTextWatcher implements TextWatcher {
 
         private boolean selfChange;
 
-        WithProcess(@NonNull StylarEditor editor) {
+        WithProcess(@NonNull StylarEditor editor)
+        {
             this.editor = editor;
         }
 
         @Override
-        public void afterTextChanged(Editable s) {
+        public void afterTextChanged(Editable s)
+        {
 
-            if (selfChange) {
+            if (selfChange)
+            {
                 return;
             }
 
             selfChange = true;
-            try {
+            try
+            {
                 editor.process(s);
-            } finally {
+            } finally
+            {
                 selfChange = false;
             }
         }
@@ -96,61 +106,80 @@ public abstract class StylarEditorTextWatcher implements TextWatcher {
         private boolean selfChange;
 
         WithPreRender(
-                @NonNull StylarEditor editor,
-                @NonNull ExecutorService executorService,
-                @NonNull EditText editText) {
+            @NonNull StylarEditor editor,
+            @NonNull ExecutorService executorService,
+            @NonNull EditText editText)
+        {
             this.editor = editor;
             this.executorService = executorService;
             this.editText = editText;
-            this.editText.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            this.editText.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener()
+            {
                 @Override
-                public void onViewAttachedToWindow(View v) {
+                public void onViewAttachedToWindow(View v)
+                {
 
                 }
 
                 @Override
-                public void onViewDetachedFromWindow(View v) {
+                public void onViewDetachedFromWindow(View v)
+                {
                     WithPreRender.this.editText = null;
                 }
             });
         }
 
         @Override
-        public void afterTextChanged(Editable s) {
+        public void afterTextChanged(Editable s)
+        {
 
-            if (selfChange) {
+            if (selfChange)
+            {
                 return;
             }
 
             // both will be the same here (generator incremented and key assigned incremented value)
             final int key = ++this.generator;
 
-            if (future != null) {
+            if (future != null)
+            {
                 future.cancel(true);
             }
 
             // copy current content (it's not good to pass EditText editable to other thread)
             final SpannableStringBuilder builder = new SpannableStringBuilder(s);
 
-            future = executorService.submit(new Runnable() {
+            future = executorService.submit(new Runnable()
+            {
                 @Override
-                public void run() {
-                    try {
-                        editor.preRender(builder, new StylarEditor.PreRenderResultListener() {
+                public void run()
+                {
+                    try
+                    {
+                        editor.preRender(builder, new StylarEditor.PreRenderResultListener()
+                        {
                             @Override
-                            public void onPreRenderResult(@NonNull final StylarEditor.PreRenderResult result) {
+                            public void onPreRenderResult(@NonNull final StylarEditor.PreRenderResult result)
+                            {
                                 final EditText et = editText;
-                                if (et != null) {
-                                    et.post(new Runnable() {
+                                if (et != null)
+                                {
+                                    et.post(new Runnable()
+                                    {
                                         @Override
-                                        public void run() {
-                                            if (key == generator) {
+                                        public void run()
+                                        {
+                                            if (key == generator)
+                                            {
                                                 final EditText et = editText;
-                                                if (et != null) {
+                                                if (et != null)
+                                                {
                                                     selfChange = true;
-                                                    try {
+                                                    try
+                                                    {
                                                         result.dispatchTo(editText.getText());
-                                                    } finally {
+                                                    } finally
+                                                    {
                                                         selfChange = false;
                                                     }
                                                 }
@@ -160,13 +189,17 @@ public abstract class StylarEditorTextWatcher implements TextWatcher {
                                 }
                             }
                         });
-                    } catch (final Throwable t) {
+                    } catch (final Throwable t)
+                    {
                         final EditText et = editText;
-                        if (et != null) {
+                        if (et != null)
+                        {
                             // propagate exception to main thread
-                            et.post(new Runnable() {
+                            et.post(new Runnable()
+                            {
                                 @Override
-                                public void run() {
+                                public void run()
+                                {
                                     throw new RuntimeException(t);
                                 }
                             });

@@ -11,29 +11,34 @@ import java.util.regex.Pattern;
  *
  * @since 4.2.0
  */
-public class HtmlInlineProcessor extends InlineProcessor {
+public class HtmlInlineProcessor extends InlineProcessor
+{
 
     private static final String HTMLCOMMENT = "<!---->|<!--(?:-?[^>-])(?:-?[^-])*-->";
     private static final String PROCESSINGINSTRUCTION = "[<][?].*?[?][>]";
     private static final String DECLARATION = "<![A-Z]+\\s+[^>]*>";
     private static final String CDATA = "<!\\[CDATA\\[[\\s\\S]*?\\]\\]>";
     private static final String HTMLTAG = "(?:" + Parsing.OPENTAG + "|" + Parsing.CLOSETAG + "|" + HTMLCOMMENT
-            + "|" + PROCESSINGINSTRUCTION + "|" + DECLARATION + "|" + CDATA + ")";
+        + "|" + PROCESSINGINSTRUCTION + "|" + DECLARATION + "|" + CDATA + ")";
     private static final Pattern HTML_TAG = Pattern.compile('^' + HTMLTAG, Pattern.CASE_INSENSITIVE);
 
     @Override
-    public char specialCharacter() {
+    public char specialCharacter()
+    {
         return '<';
     }
 
     @Override
-    protected Node parse() {
+    protected Node parse()
+    {
         String m = match(HTML_TAG);
-        if (m != null) {
+        if (m != null)
+        {
             HtmlInline node = new HtmlInline();
             node.setLiteral(m);
             return node;
-        } else {
+        } else
+        {
             return null;
         }
     }

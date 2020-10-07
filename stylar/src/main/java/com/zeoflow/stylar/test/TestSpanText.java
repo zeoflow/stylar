@@ -5,33 +5,39 @@ import androidx.annotation.NonNull;
 import java.util.Collections;
 import java.util.List;
 
-class TestSpanText extends TestSpan.Text {
+class TestSpanText extends TestSpan.Text
+{
 
     private final String literal;
 
-    TestSpanText(@NonNull String literal) {
+    TestSpanText(@NonNull String literal)
+    {
         this.literal = literal;
     }
 
     @NonNull
     @Override
-    public String literal() {
+    public String literal()
+    {
         return literal;
     }
 
     @Override
-    public int length() {
+    public int length()
+    {
         return literal.length();
     }
 
     @NonNull
     @Override
-    public List<TestSpan> children() {
+    public List<TestSpan> children()
+    {
         return Collections.emptyList();
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -41,7 +47,8 @@ class TestSpanText extends TestSpan.Text {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return literal.hashCode();
     }
 }

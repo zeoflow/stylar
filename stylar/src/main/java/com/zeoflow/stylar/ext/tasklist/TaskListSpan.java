@@ -14,7 +14,8 @@ import com.zeoflow.stylar.utils.LeadingMarginUtils;
 /**
  * @since 1.0.1
  */
-public class TaskListSpan implements LeadingMarginSpan {
+public class TaskListSpan implements LeadingMarginSpan
+{
 
     private static final int[] STATE_CHECKED = new int[]{android.R.attr.state_checked};
 
@@ -26,7 +27,8 @@ public class TaskListSpan implements LeadingMarginSpan {
     // @since 2.0.1 field is NOT final (to allow mutation)
     private boolean isDone;
 
-    public TaskListSpan(@NonNull StylarTheme theme, @NonNull Drawable drawable, boolean isDone) {
+    public TaskListSpan(@NonNull StylarTheme theme, @NonNull Drawable drawable, boolean isDone)
+    {
         this.theme = theme;
         this.drawable = drawable;
         this.isDone = isDone;
@@ -35,7 +37,8 @@ public class TaskListSpan implements LeadingMarginSpan {
     /**
      * @since 2.0.1
      */
-    public boolean isDone() {
+    public boolean isDone()
+    {
         return isDone;
     }
 
@@ -45,20 +48,24 @@ public class TaskListSpan implements LeadingMarginSpan {
      *
      * @since 2.0.1
      */
-    public void setDone(boolean isDone) {
+    public void setDone(boolean isDone)
+    {
         this.isDone = isDone;
     }
 
     @Override
-    public int getLeadingMargin(boolean first) {
+    public int getLeadingMargin(boolean first)
+    {
         return theme.getBlockMargin();
     }
 
     @Override
-    public void drawLeadingMargin(Canvas c, Paint p, int x, int dir, int top, int baseline, int bottom, CharSequence text, int start, int end, boolean first, Layout layout) {
+    public void drawLeadingMargin(Canvas c, Paint p, int x, int dir, int top, int baseline, int bottom, CharSequence text, int start, int end, boolean first, Layout layout)
+    {
 
         if (!first
-                || !LeadingMarginUtils.selfStart(start, text, this)) {
+            || !LeadingMarginUtils.selfStart(start, text, this))
+        {
             return;
         }
 
@@ -66,7 +73,8 @@ public class TaskListSpan implements LeadingMarginSpan {
         final float ascent = p.ascent();
 
         final int save = c.save();
-        try {
+        try
+        {
 
             final int width = theme.getBlockMargin();
             final int height = (int) (descent - ascent + 0.5F);
@@ -76,20 +84,25 @@ public class TaskListSpan implements LeadingMarginSpan {
 
             drawable.setBounds(0, 0, w, h);
 
-            if (drawable.isStateful()) {
+            if (drawable.isStateful())
+            {
                 final int[] state;
-                if (isDone) {
+                if (isDone)
+                {
                     state = STATE_CHECKED;
-                } else {
+                } else
+                {
                     state = STATE_NONE;
                 }
                 drawable.setState(state);
             }
 
             final int l;
-            if (dir > 0) {
+            if (dir > 0)
+            {
                 l = x + ((width - w) / 2);
-            } else {
+            } else
+            {
                 l = x - ((width - w) / 2) - w;
             }
 
@@ -98,7 +111,8 @@ public class TaskListSpan implements LeadingMarginSpan {
             c.translate(l, t);
             drawable.draw(c);
 
-        } finally {
+        } finally
+        {
             c.restoreToCount(save);
         }
     }

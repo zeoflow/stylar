@@ -8,15 +8,21 @@ import androidx.annotation.NonNull;
 /**
  * @since 4.4.0
  */
-public abstract class LayoutUtils {
+public abstract class LayoutUtils
+{
 
     private static final float DEFAULT_EXTRA = 0F;
     private static final float DEFAULT_MULTIPLIER = 1F;
 
+    private LayoutUtils()
+    {
+    }
+
     public static int getLineBottomWithoutPaddingAndSpacing(
-            @NonNull Layout layout,
-            int line
-    ) {
+        @NonNull Layout layout,
+        int line
+    )
+    {
 
         final int bottom = layout.getLineBottom(line);
         final boolean lastLineSpacingNotAdded = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
@@ -28,18 +34,22 @@ public abstract class LayoutUtils {
 
         // simplified check
         final boolean hasLineSpacing = lineSpacingExtra != DEFAULT_EXTRA
-                || lineSpacingMultiplier != DEFAULT_MULTIPLIER;
+            || lineSpacingMultiplier != DEFAULT_MULTIPLIER;
 
         if (!hasLineSpacing
-                || (isSpanLastLine && lastLineSpacingNotAdded)) {
+            || (isSpanLastLine && lastLineSpacingNotAdded))
+        {
             lineBottom = bottom;
-        } else {
+        } else
+        {
             final float extra;
-            if (Float.compare(DEFAULT_MULTIPLIER, lineSpacingMultiplier) != 0) {
+            if (Float.compare(DEFAULT_MULTIPLIER, lineSpacingMultiplier) != 0)
+            {
                 final int lineHeight = getLineHeight(layout, line);
                 extra = lineHeight -
-                        ((lineHeight - lineSpacingExtra) / lineSpacingMultiplier);
-            } else {
+                    ((lineHeight - lineSpacingExtra) / lineSpacingMultiplier);
+            } else
+            {
                 extra = lineSpacingExtra;
             }
             lineBottom = (int) (bottom - extra + .5F);
@@ -48,25 +58,26 @@ public abstract class LayoutUtils {
         // check if it is the last line that span is occupying **and** that this line is the last
         //  one in TextView
         if (isSpanLastLine
-                && (line == layout.getLineCount() - 1)) {
+            && (line == layout.getLineCount() - 1))
+        {
             return lineBottom - layout.getBottomPadding();
         }
 
         return lineBottom;
     }
 
-    public static int getLineTopWithoutPadding(@NonNull Layout layout, int line) {
+    public static int getLineTopWithoutPadding(@NonNull Layout layout, int line)
+    {
         final int top = layout.getLineTop(line);
-        if (line == 0) {
+        if (line == 0)
+        {
             return top - layout.getTopPadding();
         }
         return top;
     }
 
-    public static int getLineHeight(@NonNull Layout layout, int line) {
+    public static int getLineHeight(@NonNull Layout layout, int line)
+    {
         return layout.getLineTop(line + 1) - layout.getLineTop(line);
-    }
-
-    private LayoutUtils() {
     }
 }

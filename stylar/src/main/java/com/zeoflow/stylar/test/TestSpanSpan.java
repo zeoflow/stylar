@@ -5,16 +5,18 @@ import androidx.annotation.NonNull;
 import java.util.List;
 import java.util.Map;
 
-class TestSpanSpan extends TestSpan.Span {
+class TestSpanSpan extends TestSpan.Span
+{
 
     private final String name;
     private final List<TestSpan> children;
     private final Map<String, Object> arguments;
 
     public TestSpanSpan(
-            @NonNull String name,
-            @NonNull List<TestSpan> children,
-            @NonNull Map<String, Object> arguments) {
+        @NonNull String name,
+        @NonNull List<TestSpan> children,
+        @NonNull Map<String, Object> arguments)
+    {
         this.name = name;
         this.children = children;
         this.arguments = arguments;
@@ -22,24 +24,28 @@ class TestSpanSpan extends TestSpan.Span {
 
     @NonNull
     @Override
-    public String name() {
+    public String name()
+    {
         return name;
     }
 
     @NonNull
     @Override
-    public Map<String, Object> arguments() {
+    public Map<String, Object> arguments()
+    {
         return arguments;
     }
 
     @NonNull
     @Override
-    public List<TestSpan> children() {
+    public List<TestSpan> children()
+    {
         return children;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -50,7 +56,8 @@ class TestSpanSpan extends TestSpan.Span {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int result = name.hashCode();
         result = 31 * result + arguments.hashCode();
         return result;

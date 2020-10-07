@@ -2,41 +2,48 @@ package com.zeoflow.stylar.html;
 
 import androidx.annotation.NonNull;
 
-public class CssProperty {
+public class CssProperty
+{
 
     private String key;
     private String value;
 
-    CssProperty() {
+    CssProperty()
+    {
     }
 
-    void set(@NonNull String key, @NonNull String value) {
+    void set(@NonNull String key, @NonNull String value)
+    {
         this.key = key;
         this.value = value;
     }
 
     @NonNull
-    public String key() {
+    public String key()
+    {
         return key;
     }
 
     @NonNull
-    public String value() {
+    public String value()
+    {
         return value;
     }
 
     @NonNull
-    public CssProperty mutate() {
+    public CssProperty mutate()
+    {
         final CssProperty cssProperty = new CssProperty();
         cssProperty.set(this.key, this.value);
         return cssProperty;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "CssProperty{" +
-                "key='" + key + '\'' +
-                ", value='" + value + '\'' +
-                '}';
+            "key='" + key + '\'' +
+            ", value='" + value + '\'' +
+            '}';
     }
 }

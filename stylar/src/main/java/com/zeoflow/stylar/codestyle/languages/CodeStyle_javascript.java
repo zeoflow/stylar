@@ -24,7 +24,8 @@ public class CodeStyle_javascript
 {
 
   @NotNull
-  public static CodeStyle.Grammar create(@NotNull CodeStyle codeStyle) {
+  public static CodeStyle.Grammar create(@NotNull CodeStyle codeStyle)
+  {
 
     final CodeStyle.Grammar js = GrammarUtils.extend(GrammarUtils.require(codeStyle, "clike"), "javascript",
       token("keyword", pattern(compile("\\b(?:as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\\b"))),
@@ -90,7 +91,8 @@ public class CodeStyle_javascript
     ));
 
     final CodeStyle.Grammar markup = codeStyle.grammar("markup");
-    if (markup != null) {
+    if (markup != null)
+    {
       GrammarUtils.insertBeforeToken(markup, "tag",
         token(
           "script", pattern(

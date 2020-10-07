@@ -9,18 +9,21 @@ public abstract class StylarVisitorFactory
 {
 
     @NonNull
-    abstract StylarVisitor create();
-
-    @NonNull
     public static StylarVisitorFactory create(
         @NonNull final StylarVisitorImpl.Builder builder,
-        @NonNull final StylarConfiguration configuration) {
-        return new StylarVisitorFactory() {
+        @NonNull final StylarConfiguration configuration)
+    {
+        return new StylarVisitorFactory()
+        {
             @NonNull
             @Override
-            StylarVisitor create() {
+            StylarVisitor create()
+            {
                 return builder.build(configuration, new RenderPropsImpl());
             }
         };
     }
+
+    @NonNull
+    abstract StylarVisitor create();
 }

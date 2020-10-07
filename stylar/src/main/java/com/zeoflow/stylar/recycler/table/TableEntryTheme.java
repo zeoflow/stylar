@@ -17,52 +17,61 @@ import com.zeoflow.stylar.utils.ColorUtils;
  * @since 3.0.0
  */
 @SuppressWarnings("WeakerAccess")
-public class TableEntryTheme extends TableTheme {
+public class TableEntryTheme extends TableTheme
+{
 
-    @NonNull
-    public static TableEntryTheme create(@NonNull TableTheme tableTheme) {
-        return new TableEntryTheme(tableTheme.asBuilder());
+    protected TableEntryTheme(@NonNull Builder builder)
+    {
+        super(builder);
     }
 
-    protected TableEntryTheme(@NonNull Builder builder) {
-        super(builder);
+    @NonNull
+    public static TableEntryTheme create(@NonNull TableTheme tableTheme)
+    {
+        return new TableEntryTheme(tableTheme.asBuilder());
     }
 
     @Px
     @Override
-    public int tableCellPadding() {
+    public int tableCellPadding()
+    {
         return tableCellPadding;
     }
 
     @ColorInt
-    public int tableBorderColor(@NonNull Paint paint) {
+    public int tableBorderColor(@NonNull Paint paint)
+    {
         return tableBorderColor == 0
-                ? ColorUtils.applyAlpha(paint.getColor(), TABLE_BORDER_DEF_ALPHA)
-                : tableBorderColor;
+            ? ColorUtils.applyAlpha(paint.getColor(), TABLE_BORDER_DEF_ALPHA)
+            : tableBorderColor;
     }
 
     @Px
     @Override
-    public int tableBorderWidth(@NonNull Paint paint) {
+    public int tableBorderWidth(@NonNull Paint paint)
+    {
         return tableBorderWidth < 0
-                ? (int) (paint.getStrokeWidth() + .5F)
-                : tableBorderWidth;
+            ? (int) (paint.getStrokeWidth() + .5F)
+            : tableBorderWidth;
     }
 
     @ColorInt
-    public int tableOddRowBackgroundColor(@NonNull Paint paint) {
+    public int tableOddRowBackgroundColor(@NonNull Paint paint)
+    {
         return tableOddRowBackgroundColor == 0
-                ? ColorUtils.applyAlpha(paint.getColor(), TABLE_ODD_ROW_DEF_ALPHA)
-                : tableOddRowBackgroundColor;
+            ? ColorUtils.applyAlpha(paint.getColor(), TABLE_ODD_ROW_DEF_ALPHA)
+            : tableOddRowBackgroundColor;
     }
 
     @ColorInt
-    public int tableEvenRowBackgroundColor() {
+    public int tableEvenRowBackgroundColor()
+    {
         return tableEvenRowBackgroundColor;
     }
 
     @ColorInt
-    public int tableHeaderRowBackgroundColor() {
+    public int tableHeaderRowBackgroundColor()
+    {
         return tableHeaderRowBackgroundColor;
     }
 }

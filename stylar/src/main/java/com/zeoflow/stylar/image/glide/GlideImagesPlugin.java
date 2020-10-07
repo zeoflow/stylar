@@ -15,19 +15,18 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.zeoflow.stylar.AbstractStylarPlugin;
-import com.zeoflow.stylar.StylarSpansFactory;
-
-import org.commonmark.node.Image;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import com.zeoflow.stylar.StylarConfiguration;
+import com.zeoflow.stylar.StylarSpansFactory;
 import com.zeoflow.stylar.image.AsyncDrawable;
 import com.zeoflow.stylar.image.AsyncDrawableLoader;
 import com.zeoflow.stylar.image.AsyncDrawableScheduler;
 import com.zeoflow.stylar.image.DrawableUtils;
 import com.zeoflow.stylar.image.ImageSpanFactory;
+
+import org.commonmark.node.Image;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @since 4.0.0
@@ -35,16 +34,17 @@ import com.zeoflow.stylar.image.ImageSpanFactory;
 public class GlideImagesPlugin extends AbstractStylarPlugin
 {
 
-    public interface GlideStore {
+    private final GlideAsyncDrawableLoader glideAsyncDrawableLoader;
 
-        @NonNull
-        RequestBuilder<Drawable> load(@NonNull AsyncDrawable drawable);
-
-        void cancel(@NonNull Target<?> target);
+    @SuppressWarnings("WeakerAccess")
+    GlideImagesPlugin(@NonNull GlideStore glideStore)
+    {
+        this.glideAsyncDrawableLoader = new GlideAsyncDrawableLoader(glideStore);
     }
 
     @NonNull
-    public static GlideImagesPlugin create(@NonNull final Context context) {
+    public static GlideImagesPlugin create(@NonNull final Context context)
+    {
         // @since 4.5.0 cache RequestManager
         //  sometimes `cancel` would be called after activity is destroyed,
         //  so `Glide.with(context)` will throw an exception
@@ -52,96 +52,118 @@ public class GlideImagesPlugin extends AbstractStylarPlugin
     }
 
     @NonNull
-    public static GlideImagesPlugin create(@NonNull final RequestManager requestManager) {
-        return create(new GlideStore() {
+    public static GlideImagesPlugin create(@NonNull final RequestManager requestManager)
+    {
+        return create(new GlideStore()
+        {
             @NonNull
             @Override
-            public RequestBuilder<Drawable> load(@NonNull AsyncDrawable drawable) {
+            public RequestBuilder<Drawable> load(@NonNull AsyncDrawable drawable)
+            {
                 return requestManager.load(drawable.getDestination());
             }
 
             @Override
-            public void cancel(@NonNull Target<?> target) {
+            public void cancel(@NonNull Target<?> target)
+            {
                 requestManager.clear(target);
             }
         });
     }
 
     @NonNull
-    public static GlideImagesPlugin create(@NonNull GlideStore glideStore) {
+    public static GlideImagesPlugin create(@NonNull GlideStore glideStore)
+    {
         return new GlideImagesPlugin(glideStore);
     }
 
-    private final GlideAsyncDrawableLoader glideAsyncDrawableLoader;
-
-    @SuppressWarnings("WeakerAccess")
-    GlideImagesPlugin(@NonNull GlideStore glideStore) {
-        this.glideAsyncDrawableLoader = new GlideAsyncDrawableLoader(glideStore);
-    }
-
     @Override
-    public void configureSpansFactory(@NonNull StylarSpansFactory.Builder builder) {
+    public void configureSpansFactory(@NonNull StylarSpansFactory.Builder builder)
+    {
         builder.setFactory(Image.class, new ImageSpanFactory());
     }
 
     @Override
-    public void configureConfiguration(@NonNull StylarConfiguration.Builder builder) {
+    public void configureConfiguration(@NonNull StylarConfiguration.Builder builder)
+    {
         builder.asyncDrawableLoader(glideAsyncDrawableLoader);
     }
 
     @Override
-    public void beforeSetText(@NonNull TextView textView, @NonNull Spanned markdown) {
+    public void beforeSetText(@NonNull TextView textView, @NonNull Spanned markdown)
+    {
         AsyncDrawableScheduler.unschedule(textView);
     }
 
     @Override
-    public void afterSetText(@NonNull TextView textView) {
+    public void afterSetText(@NonNull TextView textView)
+    {
         AsyncDrawableScheduler.schedule(textView);
     }
 
-    private static class GlideAsyncDrawableLoader extends AsyncDrawableLoader {
+    public interface GlideStore
+    {
+
+        @NonNull
+        RequestBuilder<Drawable> load(@NonNull AsyncDrawable drawable);
+
+        void cancel(@NonNull Target<?> target);
+    }
+
+    private static class GlideAsyncDrawableLoader extends AsyncDrawableLoader
+    {
 
         private final GlideStore glideStore;
         private final Map<AsyncDrawable, Target<?>> cache = new HashMap<>(2);
 
-        GlideAsyncDrawableLoader(@NonNull GlideStore glideStore) {
+        GlideAsyncDrawableLoader(@NonNull GlideStore glideStore)
+        {
             this.glideStore = glideStore;
         }
 
         @Override
-        public void load(@NonNull AsyncDrawable drawable) {
+        public void load(@NonNull AsyncDrawable drawable)
+        {
             final Target<Drawable> target = new AsyncDrawableTarget(drawable);
             cache.put(drawable, target);
             glideStore.load(drawable)
-                    .into(target);
+                .into(target);
         }
 
         @Override
-        public void cancel(@NonNull AsyncDrawable drawable) {
+        public void cancel(@NonNull AsyncDrawable drawable)
+        {
             final Target<?> target = cache.remove(drawable);
-            if (target != null) {
+            if (target != null)
+            {
                 glideStore.cancel(target);
             }
         }
 
         @Nullable
         @Override
-        public Drawable placeholder(@NonNull AsyncDrawable drawable) {
+        public Drawable placeholder(@NonNull AsyncDrawable drawable)
+        {
             return null;
         }
 
-        private class AsyncDrawableTarget extends CustomTarget<Drawable> {
+        private class AsyncDrawableTarget extends CustomTarget<Drawable>
+        {
 
             private final AsyncDrawable drawable;
 
-            AsyncDrawableTarget(@NonNull AsyncDrawable drawable) {
+            AsyncDrawableTarget(@NonNull AsyncDrawable drawable)
+            {
                 this.drawable = drawable;
             }
 
             @Override
-            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                if (cache.remove(drawable) != null) {
-                    if (drawable.isAttached()) {
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition)
+            {
+                if (cache.remove(drawable) != null)
+                {
+                    if (drawable.isAttached())
+                    {
                         DrawableUtils.applyIntrinsicBoundsIfEmpty(resource);
                         drawable.setResult(resource);
                     }
@@ -149,19 +171,24 @@ public class GlideImagesPlugin extends AbstractStylarPlugin
             }
 
             @Override
-            public void onLoadStarted(@Nullable Drawable placeholder) {
+            public void onLoadStarted(@Nullable Drawable placeholder)
+            {
                 if (placeholder != null
-                        && drawable.isAttached()) {
+                    && drawable.isAttached())
+                {
                     DrawableUtils.applyIntrinsicBoundsIfEmpty(placeholder);
                     drawable.setResult(placeholder);
                 }
             }
 
             @Override
-            public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                if (cache.remove(drawable) != null) {
+            public void onLoadFailed(@Nullable Drawable errorDrawable)
+            {
+                if (cache.remove(drawable) != null)
+                {
                     if (errorDrawable != null
-                            && drawable.isAttached()) {
+                        && drawable.isAttached())
+                    {
                         DrawableUtils.applyIntrinsicBoundsIfEmpty(errorDrawable);
                         drawable.setResult(errorDrawable);
                     }
@@ -169,10 +196,12 @@ public class GlideImagesPlugin extends AbstractStylarPlugin
             }
 
             @Override
-            public void onLoadCleared(@Nullable Drawable placeholder) {
+            public void onLoadCleared(@Nullable Drawable placeholder)
+            {
                 // we won't be checking if target is still present as cancellation
                 // must remove target anyway
-                if (drawable.isAttached()) {
+                if (drawable.isAttached())
+                {
                     drawable.clearResult();
                 }
             }

@@ -16,6 +16,10 @@ import com.zeoflow.stylar.R;
 public abstract class AsyncDrawableScheduler
 {
 
+    private AsyncDrawableScheduler()
+    {
+    }
+
     public static void schedule(@NonNull final TextView textView)
     {
 
@@ -122,23 +126,11 @@ public abstract class AsyncDrawableScheduler
         return ((Spanned) cs).getSpans(0, length, AsyncDrawableSpan.class);
     }
 
-    private AsyncDrawableScheduler()
-    {
-    }
-
     private static class DrawableCallbackImpl implements Drawable.Callback
     {
 
-        // @since 4.1.0
-        // interface to be used when bounds change and view must be invalidated
-        interface Invalidator
-        {
-            void invalidate();
-        }
-
         private final TextView view;
         private final Invalidator invalidator; // @since 4.1.0
-
         private Rect previousBounds;
 
         DrawableCallbackImpl(
@@ -198,6 +190,13 @@ public abstract class AsyncDrawableScheduler
         public void unscheduleDrawable(@NonNull Drawable who, @NonNull Runnable what)
         {
             view.removeCallbacks(what);
+        }
+
+        // @since 4.1.0
+        // interface to be used when bounds change and view must be invalidated
+        interface Invalidator
+        {
+            void invalidate();
         }
     }
 

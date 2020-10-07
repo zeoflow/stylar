@@ -14,32 +14,37 @@ import com.zeoflow.stylar.image.AsyncDrawable;
 /**
  * @since 4.3.0
  */
-class JLatexInlineAsyncDrawableSpan extends JLatexAsyncDrawableSpan {
+class JLatexInlineAsyncDrawableSpan extends JLatexAsyncDrawableSpan
+{
 
     private final AsyncDrawable drawable;
 
-    JLatexInlineAsyncDrawableSpan(@NonNull StylarTheme theme, @NonNull JLatextAsyncDrawable drawable, @ColorInt int color) {
+    JLatexInlineAsyncDrawableSpan(@NonNull StylarTheme theme, @NonNull JLatextAsyncDrawable drawable, @ColorInt int color)
+    {
         super(theme, drawable, color);
         this.drawable = drawable;
     }
 
     @Override
     public int getSize(
-            @NonNull Paint paint,
-            CharSequence text,
-            @IntRange(from = 0) int start,
-            @IntRange(from = 0) int end,
-            @Nullable Paint.FontMetricsInt fm) {
+        @NonNull Paint paint,
+        CharSequence text,
+        @IntRange(from = 0) int start,
+        @IntRange(from = 0) int end,
+        @Nullable Paint.FontMetricsInt fm)
+    {
 
         // if we have no async drawable result - we will just render text
 
         final int size;
 
-        if (drawable.hasResult()) {
+        if (drawable.hasResult())
+        {
 
             final Rect rect = drawable.getBounds();
 
-            if (fm != null) {
+            if (fm != null)
+            {
                 final int half = rect.bottom / 2;
                 fm.ascent = -half;
                 fm.descent = half;
@@ -50,7 +55,8 @@ class JLatexInlineAsyncDrawableSpan extends JLatexAsyncDrawableSpan {
 
             size = rect.right;
 
-        } else {
+        } else
+        {
 
             // NB, no specific text handling (no new lines, etc)
             size = (int) (paint.measureText(text, start, end) + .5F);

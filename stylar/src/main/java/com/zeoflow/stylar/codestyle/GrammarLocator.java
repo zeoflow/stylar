@@ -10,7 +10,8 @@ import java.util.Set;
  *
  * @see CodeStyle#CodeStyle(GrammarLocator)
  */
-public interface GrammarLocator {
+public interface GrammarLocator
+{
 
     @Nullable
     CodeStyle.Grammar grammar(@NotNull CodeStyle codeStyle, @NotNull String language);

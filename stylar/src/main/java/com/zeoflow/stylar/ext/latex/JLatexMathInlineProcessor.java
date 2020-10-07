@@ -17,16 +17,19 @@ class JLatexMathInlineProcessor extends InlineProcessor
     private static final Pattern RE = Pattern.compile("(\\${2})([\\s\\S]+?)\\1");
 
     @Override
-    public char specialCharacter() {
+    public char specialCharacter()
+    {
         return '$';
     }
 
     @Nullable
     @Override
-    protected Node parse() {
+    protected Node parse()
+    {
 
         final String latex = match(RE);
-        if (latex == null) {
+        if (latex == null)
+        {
             return null;
         }
 

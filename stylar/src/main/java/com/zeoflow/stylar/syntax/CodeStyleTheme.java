@@ -17,10 +17,10 @@ public interface CodeStyleTheme
     int textColor();
 
     void apply(
-            @NonNull String language,
-            @NonNull CodeStyle.Syntax syntax,
-            @NonNull SpannableStringBuilder builder,
-            int start,
-            int end
+        @NonNull String language,
+        @NonNull CodeStyle.Syntax syntax,
+        @NonNull SpannableStringBuilder builder,
+        int start,
+        int end
     );
 }

@@ -11,7 +11,8 @@ import java.util.Collection;
 /**
  * @since 3.0.0
  */
-public abstract class MediaDecoder {
+public abstract class MediaDecoder
+{
 
     /**
      * Changes since 4.0.0:
@@ -22,8 +23,8 @@ public abstract class MediaDecoder {
      */
     @NonNull
     public abstract Drawable decode(
-            @Nullable String contentType,
-            @NonNull InputStream inputStream
+        @Nullable String contentType,
+        @NonNull InputStream inputStream
     );
 
     /**

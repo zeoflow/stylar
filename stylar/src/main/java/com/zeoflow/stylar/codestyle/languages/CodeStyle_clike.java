@@ -14,8 +14,13 @@ import static java.util.regex.Pattern.compile;
 public abstract class CodeStyle_clike
 {
 
+  private CodeStyle_clike()
+  {
+  }
+
   @NotNull
-  public static CodeStyle.Grammar create(@NotNull CodeStyle codeStyle) {
+  public static CodeStyle.Grammar create(@NotNull CodeStyle codeStyle)
+  {
     return grammar(
       "clike",
       token(
@@ -50,8 +55,5 @@ public abstract class CodeStyle_clike
       token("operator", pattern(compile("--?|\\+\\+?|!=?=?|<=?|>=?|==?=?|&&?|\\|\\|?|\\?|\\*|\\/|~|\\^|%"))),
       token("punctuation", pattern(compile("[{}\\[\\];(),.:]")))
     );
-  }
-
-  private CodeStyle_clike() {
   }
 }

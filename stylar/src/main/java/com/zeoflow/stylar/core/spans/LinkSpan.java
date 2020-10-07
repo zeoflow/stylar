@@ -9,16 +9,18 @@ import androidx.annotation.NonNull;
 import com.zeoflow.stylar.LinkResolver;
 import com.zeoflow.stylar.core.StylarTheme;
 
-public class LinkSpan extends URLSpan {
+public class LinkSpan extends URLSpan
+{
 
     private final StylarTheme theme;
     private final String link;
     private final LinkResolver resolver;
 
     public LinkSpan(
-            @NonNull StylarTheme theme,
-            @NonNull String link,
-            @NonNull LinkResolver resolver) {
+        @NonNull StylarTheme theme,
+        @NonNull String link,
+        @NonNull LinkResolver resolver)
+    {
         super(link);
         this.theme = theme;
         this.link = link;
@@ -26,12 +28,14 @@ public class LinkSpan extends URLSpan {
     }
 
     @Override
-    public void onClick(View widget) {
+    public void onClick(View widget)
+    {
         resolver.resolve(widget, link);
     }
 
     @Override
-    public void updateDrawState(@NonNull TextPaint ds) {
+    public void updateDrawState(@NonNull TextPaint ds)
+    {
         theme.applyLinkStyle(ds);
     }
 
@@ -39,7 +43,8 @@ public class LinkSpan extends URLSpan {
      * @since 4.2.0
      */
     @NonNull
-    public String getLink() {
+    public String getLink()
+    {
         return link;
     }
 }

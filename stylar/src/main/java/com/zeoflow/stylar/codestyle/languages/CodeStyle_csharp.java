@@ -20,7 +20,8 @@ public class CodeStyle_csharp
 {
 
   @NotNull
-  public static CodeStyle.Grammar create(@NotNull CodeStyle codeStyle) {
+  public static CodeStyle.Grammar create(@NotNull CodeStyle codeStyle)
+  {
 
     final CodeStyle.Grammar classNameInsidePunctuation = grammar("inside",
       token("punctuation", pattern(compile("\\.")))

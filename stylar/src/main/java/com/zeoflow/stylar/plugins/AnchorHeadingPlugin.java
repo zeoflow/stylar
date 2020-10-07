@@ -3,7 +3,6 @@ package com.zeoflow.stylar.plugins;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,11 +17,7 @@ import com.zeoflow.stylar.core.spans.HeadingSpan;
 
 public class AnchorHeadingPlugin extends AbstractStylarPlugin
 {
-    public interface ScrollTo
-    {
-        void scrollTo(@NonNull TextView view, int top);
-    }
-
+    private static ClickEvent clickEvent;
     private final AnchorHeadingPlugin.ScrollTo scrollTo;
 
     public AnchorHeadingPlugin(@NonNull AnchorHeadingPlugin.ScrollTo scrollTo)
@@ -30,8 +25,16 @@ public class AnchorHeadingPlugin extends AbstractStylarPlugin
         this.scrollTo = scrollTo;
     }
 
-    private static ClickEvent clickEvent;
-    public AbstractStylarPlugin withClickEvent(ClickEvent clickEventN) {
+    @NonNull
+    public static String createAnchor(@NonNull CharSequence content)
+    {
+        return String.valueOf(content)
+            .replaceAll("[^\\w]", "")
+            .toLowerCase();
+    }
+
+    public AbstractStylarPlugin withClickEvent(ClickEvent clickEventN)
+    {
         clickEvent = clickEventN;
         return this;
     }
@@ -71,6 +74,11 @@ public class AnchorHeadingPlugin extends AbstractStylarPlugin
                 );
             }
         }
+    }
+
+    public interface ScrollTo
+    {
+        void scrollTo(@NonNull TextView view, int top);
     }
 
     private static class AnchorLinkResolver extends LinkResolverDef
@@ -114,7 +122,8 @@ public class AnchorHeadingPlugin extends AbstractStylarPlugin
                 if (spans != null)
                 {
                     final String anchor = link.substring(1);
-                    if (clickEvent != null) {
+                    if (clickEvent != null)
+                    {
                         clickEvent.onClick(anchor);
                     }
                     return;
@@ -132,13 +141,5 @@ public class AnchorHeadingPlugin extends AbstractStylarPlugin
         {
             this.anchor = anchor;
         }
-    }
-
-    @NonNull
-    public static String createAnchor(@NonNull CharSequence content)
-    {
-        return String.valueOf(content)
-            .replaceAll("[^\\w]", "")
-            .toLowerCase();
     }
 }

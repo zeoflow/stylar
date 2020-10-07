@@ -9,22 +9,26 @@ import java.util.Map;
 /**
  * @since 3.0.0
  */
-class RenderPropsImpl implements RenderProps {
+class RenderPropsImpl implements RenderProps
+{
 
     private final Map<Prop, Object> values = new HashMap<>(3);
 
     @Nullable
     @Override
-    public <T> T get(@NonNull Prop<T> prop) {
+    public <T> T get(@NonNull Prop<T> prop)
+    {
         //noinspection unchecked
         return (T) values.get(prop);
     }
 
     @NonNull
     @Override
-    public <T> T get(@NonNull Prop<T> prop, @NonNull T defValue) {
+    public <T> T get(@NonNull Prop<T> prop, @NonNull T defValue)
+    {
         Object value = values.get(prop);
-        if (value != null) {
+        if (value != null)
+        {
             //noinspection unchecked
             return (T) value;
         }
@@ -32,21 +36,26 @@ class RenderPropsImpl implements RenderProps {
     }
 
     @Override
-    public <T> void set(@NonNull Prop<T> prop, @Nullable T value) {
-        if (value == null) {
+    public <T> void set(@NonNull Prop<T> prop, @Nullable T value)
+    {
+        if (value == null)
+        {
             values.remove(prop);
-        } else {
+        } else
+        {
             values.put(prop, value);
         }
     }
 
     @Override
-    public <T> void clear(@NonNull Prop<T> prop) {
+    public <T> void clear(@NonNull Prop<T> prop)
+    {
         values.remove(prop);
     }
 
     @Override
-    public void clearAll() {
+    public void clearAll()
+    {
         values.clear();
     }
 }

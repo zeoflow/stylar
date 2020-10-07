@@ -5,6 +5,9 @@ import android.text.style.StrikethroughSpan;
 import androidx.annotation.NonNull;
 
 import com.zeoflow.stylar.AbstractStylarPlugin;
+import com.zeoflow.stylar.RenderProps;
+import com.zeoflow.stylar.SpanFactory;
+import com.zeoflow.stylar.StylarConfiguration;
 import com.zeoflow.stylar.StylarSpansFactory;
 import com.zeoflow.stylar.StylarVisitor;
 
@@ -13,10 +16,6 @@ import org.commonmark.ext.gfm.strikethrough.StrikethroughExtension;
 import org.commonmark.parser.Parser;
 
 import java.util.Collections;
-
-import com.zeoflow.stylar.StylarConfiguration;
-import com.zeoflow.stylar.RenderProps;
-import com.zeoflow.stylar.SpanFactory;
 
 /**
  * Plugin to add strikethrough markdown feature. This plugin will extend commonmark-java.Parser
@@ -30,30 +29,38 @@ public class StrikethroughPlugin extends AbstractStylarPlugin
 {
 
     @NonNull
-    public static StrikethroughPlugin create() {
+    public static StrikethroughPlugin create()
+    {
         return new StrikethroughPlugin();
     }
 
     @Override
-    public void configureParser(@NonNull Parser.Builder builder) {
+    public void configureParser(@NonNull Parser.Builder builder)
+    {
         builder.extensions(Collections.singleton(StrikethroughExtension.create()));
     }
 
     @Override
-    public void configureSpansFactory(@NonNull StylarSpansFactory.Builder builder) {
-        builder.setFactory(Strikethrough.class, new SpanFactory() {
+    public void configureSpansFactory(@NonNull StylarSpansFactory.Builder builder)
+    {
+        builder.setFactory(Strikethrough.class, new SpanFactory()
+        {
             @Override
-            public Object getSpans(@NonNull StylarConfiguration configuration, @NonNull RenderProps props) {
+            public Object getSpans(@NonNull StylarConfiguration configuration, @NonNull RenderProps props)
+            {
                 return new StrikethroughSpan();
             }
         });
     }
 
     @Override
-    public void configureVisitor(@NonNull StylarVisitor.Builder builder) {
-        builder.on(Strikethrough.class, new StylarVisitor.NodeVisitor<Strikethrough>() {
+    public void configureVisitor(@NonNull StylarVisitor.Builder builder)
+    {
+        builder.on(Strikethrough.class, new StylarVisitor.NodeVisitor<Strikethrough>()
+        {
             @Override
-            public void visit(@NonNull StylarVisitor visitor, @NonNull Strikethrough strikethrough) {
+            public void visit(@NonNull StylarVisitor visitor, @NonNull Strikethrough strikethrough)
+            {
                 final int length = visitor.length();
                 visitor.visitChildren(strikethrough);
                 visitor.setSpansForNodeOptional(strikethrough, length);

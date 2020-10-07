@@ -17,60 +17,75 @@ class StylarHtmlRendererImpl extends StylarHtmlRenderer
     private final Map<String, TagHandler> tagHandlers;
 
     @SuppressWarnings("WeakerAccess")
-    StylarHtmlRendererImpl(boolean allowNonClosedTags, @NonNull Map<String, TagHandler> tagHandlers) {
+    StylarHtmlRendererImpl(boolean allowNonClosedTags, @NonNull Map<String, TagHandler> tagHandlers)
+    {
         this.allowNonClosedTags = allowNonClosedTags;
         this.tagHandlers = tagHandlers;
     }
 
     @Override
     public void render(
-            @NonNull final StylarVisitor visitor,
-            @NonNull StylarHtmlParser parser) {
+        @NonNull final StylarVisitor visitor,
+        @NonNull StylarHtmlParser parser)
+    {
 
         final int end;
-        if (!allowNonClosedTags) {
+        if (!allowNonClosedTags)
+        {
             end = HtmlTag.NO_END;
-        } else {
+        } else
+        {
             end = visitor.length();
         }
 
-        parser.flushInlineTags(end, new StylarHtmlParser.FlushAction<HtmlTag.Inline>() {
+        parser.flushInlineTags(end, new StylarHtmlParser.FlushAction<HtmlTag.Inline>()
+        {
             @Override
-            public void apply(@NonNull List<HtmlTag.Inline> tags) {
+            public void apply(@NonNull List<HtmlTag.Inline> tags)
+            {
 
                 TagHandler handler;
 
-                for (HtmlTag.Inline inline : tags) {
+                for (HtmlTag.Inline inline : tags)
+                {
 
                     // if tag is not closed -> do not render
-                    if (!inline.isClosed()) {
+                    if (!inline.isClosed())
+                    {
                         continue;
                     }
 
                     handler = tagHandler(inline.name());
-                    if (handler != null) {
+                    if (handler != null)
+                    {
                         handler.handle(visitor, StylarHtmlRendererImpl.this, inline);
                     }
                 }
             }
         });
 
-        parser.flushBlockTags(end, new StylarHtmlParser.FlushAction<HtmlTag.Block>() {
+        parser.flushBlockTags(end, new StylarHtmlParser.FlushAction<HtmlTag.Block>()
+        {
             @Override
-            public void apply(@NonNull List<HtmlTag.Block> tags) {
+            public void apply(@NonNull List<HtmlTag.Block> tags)
+            {
 
                 TagHandler handler;
 
-                for (HtmlTag.Block block : tags) {
+                for (HtmlTag.Block block : tags)
+                {
 
-                    if (!block.isClosed()) {
+                    if (!block.isClosed())
+                    {
                         continue;
                     }
 
                     handler = tagHandler(block.name());
-                    if (handler != null) {
+                    if (handler != null)
+                    {
                         handler.handle(visitor, StylarHtmlRendererImpl.this, block);
-                    } else {
+                    } else
+                    {
                         // see if any of children can be handled
                         apply(block.children());
                     }
@@ -83,11 +98,13 @@ class StylarHtmlRendererImpl extends StylarHtmlRenderer
 
     @Nullable
     @Override
-    public TagHandler tagHandler(@NonNull String tagName) {
+    public TagHandler tagHandler(@NonNull String tagName)
+    {
         return tagHandlers.get(tagName);
     }
 
-    static class Builder {
+    static class Builder
+    {
 
         private final Map<String, TagHandler> tagHandlers = new HashMap<>(2);
         private boolean allowNonClosedTags;
@@ -95,35 +112,42 @@ class StylarHtmlRendererImpl extends StylarHtmlRenderer
 
         private boolean isBuilt;
 
-        void allowNonClosedTags(boolean allowNonClosedTags) {
+        void allowNonClosedTags(boolean allowNonClosedTags)
+        {
             checkState();
             this.allowNonClosedTags = allowNonClosedTags;
         }
 
-        void addHandler(@NonNull TagHandler tagHandler) {
+        void addHandler(@NonNull TagHandler tagHandler)
+        {
             checkState();
-            for (String tag : tagHandler.supportedTags()) {
+            for (String tag : tagHandler.supportedTags())
+            {
                 tagHandlers.put(tag, tagHandler);
             }
         }
 
         @Nullable
-        TagHandler getHandler(@NonNull String tagName) {
+        TagHandler getHandler(@NonNull String tagName)
+        {
             checkState();
             return tagHandlers.get(tagName);
         }
 
-        public void excludeDefaults(boolean excludeDefaults) {
+        public void excludeDefaults(boolean excludeDefaults)
+        {
             checkState();
             this.excludeDefaults = excludeDefaults;
         }
 
-        boolean excludeDefaults() {
+        boolean excludeDefaults()
+        {
             return excludeDefaults;
         }
 
         @NonNull
-        public StylarHtmlRenderer build() {
+        public StylarHtmlRenderer build()
+        {
 
             checkState();
 
@@ -132,19 +156,24 @@ class StylarHtmlRendererImpl extends StylarHtmlRenderer
             // okay, let's validate that we have at least one tagHandler registered
             // if we have none -> return no-op implementation
             return tagHandlers.size() > 0
-                    ? new StylarHtmlRendererImpl(allowNonClosedTags, Collections.unmodifiableMap(tagHandlers))
-                    : new StylarHtmlRendererNoOp();
+                ? new StylarHtmlRendererImpl(allowNonClosedTags, Collections.unmodifiableMap(tagHandlers))
+                : new StylarHtmlRendererNoOp();
         }
 
-        private void checkState() {
-            if (isBuilt) {
+        private void checkState()
+        {
+            if (isBuilt)
+            {
                 throw new IllegalStateException("Builder has been already built");
             }
         }
 
-        void addDefaultTagHandler(@NonNull TagHandler tagHandler) {
-            for (String tag : tagHandler.supportedTags()) {
-                if (!tagHandlers.containsKey(tag)) {
+        void addDefaultTagHandler(@NonNull TagHandler tagHandler)
+        {
+            for (String tag : tagHandler.supportedTags())
+            {
+                if (!tagHandlers.containsKey(tag))
+                {
                     tagHandlers.put(tag, tagHandler);
                 }
             }

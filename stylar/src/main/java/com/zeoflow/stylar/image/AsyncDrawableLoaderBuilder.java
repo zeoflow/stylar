@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.zeoflow.stylar.image.data.DataUriSchemeHandler;
+import com.zeoflow.stylar.image.gif.GifMediaDecoder;
+import com.zeoflow.stylar.image.gif.GifSupport;
 import com.zeoflow.stylar.image.network.NetworkSchemeHandler;
 import com.zeoflow.stylar.image.svg.SvgMediaDecoder;
 import com.zeoflow.stylar.image.svg.SvgSupport;
@@ -13,21 +15,20 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.zeoflow.stylar.image.gif.GifMediaDecoder;
-import com.zeoflow.stylar.image.gif.GifSupport;
+class AsyncDrawableLoaderBuilder
+{
 
-class AsyncDrawableLoaderBuilder {
-
-    ExecutorService executorService;
     final Map<String, SchemeHandler> schemeHandlers = new HashMap<>(3);
     final Map<String, MediaDecoder> mediaDecoders = new HashMap<>(3);
+    ExecutorService executorService;
     MediaDecoder defaultMediaDecoder;
     ImagesPlugin.PlaceholderProvider placeholderProvider;
     ImagesPlugin.ErrorHandler errorHandler;
 
     boolean isBuilt;
 
-    AsyncDrawableLoaderBuilder() {
+    AsyncDrawableLoaderBuilder()
+    {
 
         // @since 4.0.0
         // okay, let's add supported schemes at the start, this would be : data-uri and default network
@@ -36,47 +37,57 @@ class AsyncDrawableLoaderBuilder {
         addSchemeHandler(NetworkSchemeHandler.create());
 
         // add SVG and GIF, but only if they are present in the class-path
-        if (SvgSupport.hasSvgSupport()) {
+        if (SvgSupport.hasSvgSupport())
+        {
             addMediaDecoder(SvgMediaDecoder.create());
         }
 
-        if (GifSupport.hasGifSupport()) {
+        if (GifSupport.hasGifSupport())
+        {
             addMediaDecoder(GifMediaDecoder.create());
         }
 
         defaultMediaDecoder = DefaultMediaDecoder.create();
     }
 
-    void executorService(@NonNull ExecutorService executorService) {
+    void executorService(@NonNull ExecutorService executorService)
+    {
         checkState();
         this.executorService = executorService;
     }
 
-    void addSchemeHandler(@NonNull SchemeHandler schemeHandler) {
+    void addSchemeHandler(@NonNull SchemeHandler schemeHandler)
+    {
         checkState();
-        for (String scheme : schemeHandler.supportedSchemes()) {
+        for (String scheme : schemeHandler.supportedSchemes())
+        {
             schemeHandlers.put(scheme, schemeHandler);
         }
     }
 
-    void addMediaDecoder(@NonNull MediaDecoder mediaDecoder) {
+    void addMediaDecoder(@NonNull MediaDecoder mediaDecoder)
+    {
         checkState();
-        for (String type : mediaDecoder.supportedTypes()) {
+        for (String type : mediaDecoder.supportedTypes())
+        {
             mediaDecoders.put(type, mediaDecoder);
         }
     }
 
-    void defaultMediaDecoder(@Nullable MediaDecoder mediaDecoder) {
+    void defaultMediaDecoder(@Nullable MediaDecoder mediaDecoder)
+    {
         checkState();
         this.defaultMediaDecoder = mediaDecoder;
     }
 
-    void removeSchemeHandler(@NonNull String scheme) {
+    void removeSchemeHandler(@NonNull String scheme)
+    {
         checkState();
         schemeHandlers.remove(scheme);
     }
 
-    void removeMediaDecoder(@NonNull String contentType) {
+    void removeMediaDecoder(@NonNull String contentType)
+    {
         checkState();
         mediaDecoders.remove(contentType);
     }
@@ -84,7 +95,8 @@ class AsyncDrawableLoaderBuilder {
     /**
      * @since 3.0.0
      */
-    void placeholderProvider(@NonNull ImagesPlugin.PlaceholderProvider placeholderDrawableProvider) {
+    void placeholderProvider(@NonNull ImagesPlugin.PlaceholderProvider placeholderDrawableProvider)
+    {
         checkState();
         this.placeholderProvider = placeholderDrawableProvider;
     }
@@ -92,29 +104,34 @@ class AsyncDrawableLoaderBuilder {
     /**
      * @since 3.0.0
      */
-    void errorHandler(@NonNull ImagesPlugin.ErrorHandler errorHandler) {
+    void errorHandler(@NonNull ImagesPlugin.ErrorHandler errorHandler)
+    {
         checkState();
         this.errorHandler = errorHandler;
     }
 
     @NonNull
-    AsyncDrawableLoader build() {
+    AsyncDrawableLoader build()
+    {
 
         checkState();
 
         isBuilt = true;
 
-        if (executorService == null) {
+        if (executorService == null)
+        {
             executorService = Executors.newCachedThreadPool();
         }
 
         return new AsyncDrawableLoaderImpl(this);
     }
 
-    private void checkState() {
-        if (isBuilt) {
+    private void checkState()
+    {
+        if (isBuilt)
+        {
             throw new IllegalStateException("ImagesPlugin has already been configured " +
-                    "and cannot be modified any further");
+                "and cannot be modified any further");
         }
     }
 }

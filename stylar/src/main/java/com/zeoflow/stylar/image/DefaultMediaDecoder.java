@@ -19,34 +19,41 @@ import java.util.Collections;
  *
  * @since 1.1.0
  */
-public class DefaultMediaDecoder extends MediaDecoder {
-
-    @NonNull
-    public static DefaultMediaDecoder create() {
-        return new DefaultMediaDecoder(Resources.getSystem());
-    }
-
-    @NonNull
-    public static DefaultMediaDecoder create(@NonNull Resources resources) {
-        return new DefaultMediaDecoder(resources);
-    }
+public class DefaultMediaDecoder extends MediaDecoder
+{
 
     private final Resources resources;
 
     @SuppressWarnings("WeakerAccess")
-    DefaultMediaDecoder(Resources resources) {
+    DefaultMediaDecoder(Resources resources)
+    {
         this.resources = resources;
     }
 
     @NonNull
+    public static DefaultMediaDecoder create()
+    {
+        return new DefaultMediaDecoder(Resources.getSystem());
+    }
+
+    @NonNull
+    public static DefaultMediaDecoder create(@NonNull Resources resources)
+    {
+        return new DefaultMediaDecoder(resources);
+    }
+
+    @NonNull
     @Override
-    public Drawable decode(@Nullable String contentType, @NonNull InputStream inputStream) {
+    public Drawable decode(@Nullable String contentType, @NonNull InputStream inputStream)
+    {
 
         final Bitmap bitmap;
-        try {
+        try
+        {
             // absolutely not optimal... thing
             bitmap = BitmapFactory.decodeStream(inputStream);
-        } catch (Throwable t) {
+        } catch (Throwable t)
+        {
             throw new IllegalStateException("Exception decoding input-stream", t);
         }
 
@@ -55,7 +62,8 @@ public class DefaultMediaDecoder extends MediaDecoder {
 
     @NonNull
     @Override
-    public Collection<String> supportedTypes() {
+    public Collection<String> supportedTypes()
+    {
         return Collections.emptySet();
     }
 }

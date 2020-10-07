@@ -14,51 +14,8 @@ import org.commonmark.node.Visitor;
  * @see StylarPlugin#configureVisitor(Builder)
  * @since 3.0.0
  */
-public interface StylarVisitor extends Visitor {
-
-    /**
-     * @see Builder#on(Class, NodeVisitor)
-     */
-    interface NodeVisitor<N extends Node> {
-        void visit(@NonNull StylarVisitor visitor, @NonNull N n);
-    }
-
-    /**
-     * Primary purpose is to control the spacing applied before/after certain blocks, which
-     * visitors are created elsewhere
-     *
-     * @since 4.3.0
-     */
-    interface BlockHandler {
-
-        void blockStart(@NonNull StylarVisitor visitor, @NonNull Node node);
-
-        void blockEnd(@NonNull StylarVisitor visitor, @NonNull Node node);
-    }
-
-    interface Builder {
-
-        /**
-         * @param node        to register
-         * @param nodeVisitor {@link NodeVisitor} to be used or null to ignore previously registered
-         *                    visitor for this node
-         */
-        @NonNull
-        <N extends Node> Builder on(@NonNull Class<N> node, @Nullable NodeVisitor<? super N> nodeVisitor);
-
-        /**
-         * @param blockHandler to handle block start/end
-         * @see BlockHandler
-         * @see BlockHandlerDef
-         * @since 4.3.0
-         */
-        @SuppressWarnings("UnusedReturnValue")
-        @NonNull
-        Builder blockHandler(@NonNull BlockHandler blockHandler);
-
-        @NonNull
-        StylarVisitor build(@NonNull StylarConfiguration configuration, @NonNull RenderProps renderProps);
-    }
+public interface StylarVisitor extends Visitor
+{
 
     @NonNull
     StylarConfiguration configuration();
@@ -135,8 +92,6 @@ public interface StylarVisitor extends Visitor {
      */
     <N extends Node> void setSpansForNode(@NonNull Class<N> node, int start);
 
-    // does not throw if there is no SpanFactory registered for this node
-
     /**
      * Helper method to apply spans from a {@link SpanFactory} <b>if</b> it\'s registered in
      * {@link StylarSpansFactory} instance. Otherwise ignores this call (no spans will be applied).
@@ -162,8 +117,57 @@ public interface StylarVisitor extends Visitor {
      */
     void blockStart(@NonNull Node node);
 
+    // does not throw if there is no SpanFactory registered for this node
+
     /**
      * @since 4.3.0
      */
     void blockEnd(@NonNull Node node);
+
+    /**
+     * @see Builder#on(Class, NodeVisitor)
+     */
+    interface NodeVisitor<N extends Node>
+    {
+        void visit(@NonNull StylarVisitor visitor, @NonNull N n);
+    }
+
+    /**
+     * Primary purpose is to control the spacing applied before/after certain blocks, which
+     * visitors are created elsewhere
+     *
+     * @since 4.3.0
+     */
+    interface BlockHandler
+    {
+
+        void blockStart(@NonNull StylarVisitor visitor, @NonNull Node node);
+
+        void blockEnd(@NonNull StylarVisitor visitor, @NonNull Node node);
+    }
+
+    interface Builder
+    {
+
+        /**
+         * @param node        to register
+         * @param nodeVisitor {@link NodeVisitor} to be used or null to ignore previously registered
+         *                    visitor for this node
+         */
+        @NonNull
+        <N extends Node> Builder on(@NonNull Class<N> node, @Nullable NodeVisitor<? super N> nodeVisitor);
+
+        /**
+         * @param blockHandler to handle block start/end
+         * @see BlockHandler
+         * @see BlockHandlerDef
+         * @since 4.3.0
+         */
+        @SuppressWarnings("UnusedReturnValue")
+        @NonNull
+        Builder blockHandler(@NonNull BlockHandler blockHandler);
+
+        @NonNull
+        StylarVisitor build(@NonNull StylarConfiguration configuration, @NonNull RenderProps renderProps);
+    }
 }

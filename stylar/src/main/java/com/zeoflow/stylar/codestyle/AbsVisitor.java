@@ -8,11 +8,15 @@ public abstract class AbsVisitor implements CodeStyle.Visitor
 {
 
     @Override
-    public void visit(@NotNull List<? extends CodeStyle.Node> nodes) {
-        for (CodeStyle.Node node : nodes) {
-            if (node.isSyntax()) {
+    public void visit(@NotNull List<? extends CodeStyle.Node> nodes)
+    {
+        for (CodeStyle.Node node : nodes)
+        {
+            if (node.isSyntax())
+            {
                 visitSyntax((CodeStyle.Syntax) node);
-            } else {
+            } else
+            {
                 visitText((CodeStyle.Text) node);
             }
         }

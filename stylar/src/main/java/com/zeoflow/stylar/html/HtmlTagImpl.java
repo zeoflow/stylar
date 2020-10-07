@@ -7,14 +7,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-abstract class HtmlTagImpl implements HtmlTag {
+abstract class HtmlTagImpl implements HtmlTag
+{
 
     final String name;
     final int start;
     final Map<String, String> attributes;
     int end = NO_END;
 
-    protected HtmlTagImpl(@NonNull String name, int start, @NonNull Map<String, String> attributes) {
+    protected HtmlTagImpl(@NonNull String name, int start, @NonNull Map<String, String> attributes)
+    {
         this.name = name;
         this.start = start;
         this.attributes = attributes;
@@ -22,120 +24,143 @@ abstract class HtmlTagImpl implements HtmlTag {
 
     @NonNull
     @Override
-    public String name() {
+    public String name()
+    {
         return name;
     }
 
     @Override
-    public int start() {
+    public int start()
+    {
         return start;
     }
 
     @Override
-    public int end() {
+    public int end()
+    {
         return end;
     }
 
     @Override
-    public boolean isEmpty() {
+    public boolean isEmpty()
+    {
         return start == end;
     }
 
     @NonNull
     @Override
-    public Map<String, String> attributes() {
+    public Map<String, String> attributes()
+    {
         return attributes;
     }
 
     @Override
-    public boolean isClosed() {
+    public boolean isClosed()
+    {
         return end > NO_END;
     }
 
     abstract void closeAt(int end);
 
 
-    static class InlineImpl extends HtmlTagImpl implements Inline {
+    static class InlineImpl extends HtmlTagImpl implements Inline
+    {
 
-        InlineImpl(@NonNull String name, int start, @NonNull Map<String, String> attributes) {
+        InlineImpl(@NonNull String name, int start, @NonNull Map<String, String> attributes)
+        {
             super(name, start, attributes);
         }
 
         @Override
-        void closeAt(int end) {
-            if (!isClosed()) {
+        void closeAt(int end)
+        {
+            if (!isClosed())
+            {
                 super.end = end;
             }
         }
 
         @Override
-        public String toString() {
+        public String toString()
+        {
             return "InlineImpl{" +
-                    "name='" + name + '\'' +
-                    ", start=" + start +
-                    ", end=" + end +
-                    ", attributes=" + attributes +
-                    '}';
+                "name='" + name + '\'' +
+                ", start=" + start +
+                ", end=" + end +
+                ", attributes=" + attributes +
+                '}';
         }
 
         @Override
-        public boolean isInline() {
+        public boolean isInline()
+        {
             return true;
         }
 
         @Override
-        public boolean isBlock() {
+        public boolean isBlock()
+        {
             return false;
         }
 
         @NonNull
         @Override
-        public Inline getAsInline() {
+        public Inline getAsInline()
+        {
             return this;
         }
 
         @NonNull
         @Override
-        public Block getAsBlock() {
+        public Block getAsBlock()
+        {
             throw new ClassCastException("Cannot cast Inline instance to Block");
         }
     }
 
-    static class BlockImpl extends HtmlTagImpl implements Block {
-
-        @NonNull
-        static BlockImpl root() {
-            return new BlockImpl("", 0, Collections.<String, String>emptyMap(), null);
-        }
-
-        @NonNull
-        static BlockImpl create(
-                @NonNull String name,
-                int start,
-                @NonNull Map<String, String> attributes,
-                @Nullable BlockImpl parent) {
-            return new BlockImpl(name, start, attributes, parent);
-        }
+    static class BlockImpl extends HtmlTagImpl implements Block
+    {
 
         final BlockImpl parent;
         List<BlockImpl> children;
 
         @SuppressWarnings("NullableProblems")
         BlockImpl(
-                @NonNull String name,
-                int start,
-                @NonNull Map<String, String> attributes,
-                @Nullable BlockImpl parent) {
+            @NonNull String name,
+            int start,
+            @NonNull Map<String, String> attributes,
+            @Nullable BlockImpl parent)
+        {
             super(name, start, attributes);
             this.parent = parent;
         }
 
+        @NonNull
+        static BlockImpl root()
+        {
+            return new BlockImpl("", 0, Collections.<String, String>emptyMap(), null);
+        }
+
+        @NonNull
+        static BlockImpl create(
+            @NonNull String name,
+            int start,
+            @NonNull Map<String, String> attributes,
+            @Nullable BlockImpl parent)
+        {
+            return new BlockImpl(name, start, attributes, parent);
+        }
+
         @Override
-        void closeAt(int end) {
-            if (!isClosed()) {
+        void closeAt(int end)
+        {
+            if (!isClosed())
+            {
                 super.end = end;
-                if (children != null) {
-                    for (BlockImpl child : children) {
+                if (children != null)
+                {
+                    for (BlockImpl child : children)
+                    {
                         child.closeAt(end);
                     }
                 }
@@ -143,23 +168,28 @@ abstract class HtmlTagImpl implements HtmlTag {
         }
 
         @Override
-        public boolean isRoot() {
+        public boolean isRoot()
+        {
             return parent == null;
         }
 
         @Nullable
         @Override
-        public Block parent() {
+        public Block parent()
+        {
             return parent;
         }
 
         @NonNull
         @Override
-        public List<Block> children() {
+        public List<Block> children()
+        {
             final List<Block> list;
-            if (children == null) {
+            if (children == null)
+            {
                 list = Collections.emptyList();
-            } else {
+            } else
+            {
                 list = Collections.unmodifiableList((List<? extends Block>) children);
             }
             return list;
@@ -167,42 +197,48 @@ abstract class HtmlTagImpl implements HtmlTag {
 
         @NonNull
         @Override
-        public Map<String, String> attributes() {
+        public Map<String, String> attributes()
+        {
             return attributes;
         }
 
         @Override
-        public boolean isInline() {
+        public boolean isInline()
+        {
             return false;
         }
 
         @Override
-        public boolean isBlock() {
+        public boolean isBlock()
+        {
             return true;
         }
 
         @NonNull
         @Override
-        public Inline getAsInline() {
+        public Inline getAsInline()
+        {
             throw new ClassCastException("Cannot cast Block instance to Inline");
         }
 
         @NonNull
         @Override
-        public Block getAsBlock() {
+        public Block getAsBlock()
+        {
             return this;
         }
 
         @Override
-        public String toString() {
+        public String toString()
+        {
             return "BlockImpl{" +
-                    "name='" + name + '\'' +
-                    ", start=" + start +
-                    ", end=" + end +
-                    ", attributes=" + attributes +
-                    ", parent=" + (parent != null ? parent.name : null) +
-                    ", children=" + children +
-                    '}';
+                "name='" + name + '\'' +
+                ", start=" + start +
+                ", end=" + end +
+                ", attributes=" + attributes +
+                ", parent=" + (parent != null ? parent.name : null) +
+                ", children=" + children +
+                '}';
         }
     }
 }

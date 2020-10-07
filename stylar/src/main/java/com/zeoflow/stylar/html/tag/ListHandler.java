@@ -2,31 +2,47 @@ package com.zeoflow.stylar.html.tag;
 
 import androidx.annotation.NonNull;
 
+import com.zeoflow.stylar.RenderProps;
+import com.zeoflow.stylar.SpanFactory;
+import com.zeoflow.stylar.SpannableBuilder;
+import com.zeoflow.stylar.StylarConfiguration;
 import com.zeoflow.stylar.StylarVisitor;
+import com.zeoflow.stylar.core.CoreProps;
+import com.zeoflow.stylar.html.HtmlTag;
+import com.zeoflow.stylar.html.StylarHtmlRenderer;
+import com.zeoflow.stylar.html.TagHandler;
 
 import org.commonmark.node.ListItem;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.zeoflow.stylar.StylarConfiguration;
-import com.zeoflow.stylar.RenderProps;
-import com.zeoflow.stylar.SpanFactory;
-import com.zeoflow.stylar.SpannableBuilder;
-import com.zeoflow.stylar.core.CoreProps;
-import com.zeoflow.stylar.html.HtmlTag;
-import com.zeoflow.stylar.html.StylarHtmlRenderer;
-import com.zeoflow.stylar.html.TagHandler;
+public class ListHandler extends TagHandler
+{
 
-public class ListHandler extends TagHandler {
+    private static int currentBulletListLevel(@NonNull HtmlTag.Block block)
+    {
+        int level = 0;
+        while ((block = block.parent()) != null)
+        {
+            if ("ul".equals(block.name())
+                || "ol".equals(block.name()))
+            {
+                level += 1;
+            }
+        }
+        return level;
+    }
 
     @Override
     public void handle(
-            @NonNull StylarVisitor visitor,
-            @NonNull StylarHtmlRenderer renderer,
-            @NonNull HtmlTag tag) {
+        @NonNull StylarVisitor visitor,
+        @NonNull StylarHtmlRenderer renderer,
+        @NonNull HtmlTag tag)
+    {
 
-        if (!tag.isBlock()) {
+        if (!tag.isBlock())
+        {
             return;
         }
 
@@ -34,7 +50,8 @@ public class ListHandler extends TagHandler {
         final boolean ol = "ol".equals(block.name());
         final boolean ul = "ul".equals(block.name());
 
-        if (!ol && !ul) {
+        if (!ol && !ul)
+        {
             return;
         }
 
@@ -45,44 +62,38 @@ public class ListHandler extends TagHandler {
         int number = 1;
         final int bulletLevel = currentBulletListLevel(block);
 
-        for (HtmlTag.Block child : block.children()) {
+        for (HtmlTag.Block child : block.children())
+        {
 
             visitChildren(visitor, renderer, child);
 
-            if (spanFactory != null && "li".equals(child.name())) {
+            if (spanFactory != null && "li".equals(child.name()))
+            {
 
                 // insert list item here
-                if (ol) {
+                if (ol)
+                {
                     CoreProps.LIST_ITEM_TYPE.set(renderProps, CoreProps.ListItemType.ORDERED);
                     CoreProps.ORDERED_LIST_ITEM_NUMBER.set(renderProps, number++);
-                } else {
+                } else
+                {
                     CoreProps.LIST_ITEM_TYPE.set(renderProps, CoreProps.ListItemType.BULLET);
                     CoreProps.BULLET_LIST_ITEM_LEVEL.set(renderProps, bulletLevel);
                 }
 
                 SpannableBuilder.setSpans(
-                        visitor.builder(),
-                        spanFactory.getSpans(configuration, renderProps),
-                        child.start(),
-                        child.end());
+                    visitor.builder(),
+                    spanFactory.getSpans(configuration, renderProps),
+                    child.start(),
+                    child.end());
             }
         }
     }
 
     @NonNull
     @Override
-    public Collection<String> supportedTags() {
+    public Collection<String> supportedTags()
+    {
         return Arrays.asList("ol", "ul");
-    }
-
-    private static int currentBulletListLevel(@NonNull HtmlTag.Block block) {
-        int level = 0;
-        while ((block = block.parent()) != null) {
-            if ("ul".equals(block.name())
-                    || "ol".equals(block.name())) {
-                level += 1;
-            }
-        }
-        return level;
     }
 }

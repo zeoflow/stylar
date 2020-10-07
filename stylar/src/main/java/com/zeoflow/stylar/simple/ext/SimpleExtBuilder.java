@@ -2,51 +2,55 @@ package com.zeoflow.stylar.simple.ext;
 
 import androidx.annotation.NonNull;
 
+import com.zeoflow.stylar.SpanFactory;
+
 import org.commonmark.parser.delimiter.DelimiterProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zeoflow.stylar.SpanFactory;
-
 // @since 4.0.0
-class SimpleExtBuilder {
+class SimpleExtBuilder
+{
 
     private final List<DelimiterProcessor> extensions = new ArrayList<>(2);
 
     private boolean isBuilt;
 
     void addExtension(
-            int length,
-            char character,
-            @NonNull SpanFactory spanFactory) {
+        int length,
+        char character,
+        @NonNull SpanFactory spanFactory)
+    {
 
         checkState();
 
         extensions.add(new SimpleExtDelimiterProcessor(
-                character,
-                character,
-                length,
-                spanFactory));
+            character,
+            character,
+            length,
+            spanFactory));
     }
 
     void addExtension(
-            int length,
-            char openingCharacter,
-            char closingCharacter,
-            @NonNull SpanFactory spanFactory) {
+        int length,
+        char openingCharacter,
+        char closingCharacter,
+        @NonNull SpanFactory spanFactory)
+    {
 
         checkState();
 
         extensions.add(new SimpleExtDelimiterProcessor(
-                openingCharacter,
-                closingCharacter,
-                length,
-                spanFactory));
+            openingCharacter,
+            closingCharacter,
+            length,
+            spanFactory));
     }
 
     @NonNull
-    List<DelimiterProcessor> build() {
+    List<DelimiterProcessor> build()
+    {
 
         checkState();
 
@@ -55,10 +59,12 @@ class SimpleExtBuilder {
         return extensions;
     }
 
-    private void checkState() {
-        if (isBuilt) {
+    private void checkState()
+    {
+        if (isBuilt)
+        {
             throw new IllegalStateException("SimpleExtBuilder is already built, " +
-                    "do not mutate SimpleExtPlugin after configuration is finished");
+                "do not mutate SimpleExtPlugin after configuration is finished");
         }
     }
 }

@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
 import com.zeoflow.stylar.AbstractStylarPlugin;
+import com.zeoflow.stylar.StylarConfiguration;
 import com.zeoflow.stylar.StylarPlugin;
 import com.zeoflow.stylar.StylarSpansFactory;
 import com.zeoflow.stylar.image.data.DataUriSchemeHandler;
@@ -22,37 +23,23 @@ import org.commonmark.node.Image;
 
 import java.util.concurrent.ExecutorService;
 
-import com.zeoflow.stylar.StylarConfiguration;
-
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess"})
 public class ImagesPlugin extends AbstractStylarPlugin
 {
 
-    /**
-     * @since 4.0.0
-     */
-    public interface ImagesConfigure {
-        void configureImages(@NonNull ImagesPlugin plugin);
+    private final AsyncDrawableLoaderBuilder builder;
+
+    // @since 4.0.0
+    ImagesPlugin()
+    {
+        this(new AsyncDrawableLoaderBuilder());
     }
 
-    /**
-     * @since 4.0.0
-     */
-    public interface PlaceholderProvider {
-        @Nullable
-        Drawable providePlaceholder(@NonNull AsyncDrawable drawable);
-    }
-
-    /**
-     * @since 4.0.0
-     */
-    public interface ErrorHandler {
-
-        /**
-         * Can optionally return a Drawable that will be displayed in case of an error
-         */
-        @Nullable
-        Drawable handleError(@NonNull String url, @NonNull Throwable throwable);
+    // @since 4.0.0
+    @VisibleForTesting
+    ImagesPlugin(@NonNull AsyncDrawableLoaderBuilder builder)
+    {
+        this.builder = builder;
     }
 
     /**
@@ -63,28 +50,17 @@ public class ImagesPlugin extends AbstractStylarPlugin
      * @see #create(ImagesConfigure)
      */
     @NonNull
-    public static ImagesPlugin create() {
+    public static ImagesPlugin create()
+    {
         return new ImagesPlugin();
     }
 
     @NonNull
-    public static ImagesPlugin create(@NonNull ImagesConfigure configure) {
+    public static ImagesPlugin create(@NonNull ImagesConfigure configure)
+    {
         final ImagesPlugin plugin = new ImagesPlugin();
         configure.configureImages(plugin);
         return plugin;
-    }
-
-    private final AsyncDrawableLoaderBuilder builder;
-
-    // @since 4.0.0
-    ImagesPlugin() {
-        this(new AsyncDrawableLoaderBuilder());
-    }
-
-    // @since 4.0.0
-    @VisibleForTesting
-    ImagesPlugin(@NonNull AsyncDrawableLoaderBuilder builder) {
-        this.builder = builder;
     }
 
     /**
@@ -93,7 +69,8 @@ public class ImagesPlugin extends AbstractStylarPlugin
      * @since 4.0.0
      */
     @NonNull
-    public ImagesPlugin executorService(@NonNull ExecutorService executorService) {
+    public ImagesPlugin executorService(@NonNull ExecutorService executorService)
+    {
         builder.executorService(executorService);
         return this;
     }
@@ -107,7 +84,8 @@ public class ImagesPlugin extends AbstractStylarPlugin
      * @since 4.0.0
      */
     @NonNull
-    public ImagesPlugin addSchemeHandler(@NonNull SchemeHandler schemeHandler) {
+    public ImagesPlugin addSchemeHandler(@NonNull SchemeHandler schemeHandler)
+    {
         builder.addSchemeHandler(schemeHandler);
         return this;
     }
@@ -119,7 +97,8 @@ public class ImagesPlugin extends AbstractStylarPlugin
      * @since 4.0.0
      */
     @NonNull
-    public ImagesPlugin addMediaDecoder(@NonNull MediaDecoder mediaDecoder) {
+    public ImagesPlugin addMediaDecoder(@NonNull MediaDecoder mediaDecoder)
+    {
         builder.addMediaDecoder(mediaDecoder);
         return this;
     }
@@ -132,7 +111,8 @@ public class ImagesPlugin extends AbstractStylarPlugin
      * @since 4.0.0
      */
     @NonNull
-    public ImagesPlugin defaultMediaDecoder(@Nullable MediaDecoder mediaDecoder) {
+    public ImagesPlugin defaultMediaDecoder(@Nullable MediaDecoder mediaDecoder)
+    {
         builder.defaultMediaDecoder(mediaDecoder);
         return this;
     }
@@ -141,7 +121,8 @@ public class ImagesPlugin extends AbstractStylarPlugin
      * @since 4.0.0
      */
     @NonNull
-    public ImagesPlugin removeSchemeHandler(@NonNull String scheme) {
+    public ImagesPlugin removeSchemeHandler(@NonNull String scheme)
+    {
         builder.removeSchemeHandler(scheme);
         return this;
     }
@@ -150,7 +131,8 @@ public class ImagesPlugin extends AbstractStylarPlugin
      * @since 4.0.0
      */
     @NonNull
-    public ImagesPlugin removeMediaDecoder(@NonNull String contentType) {
+    public ImagesPlugin removeMediaDecoder(@NonNull String contentType)
+    {
         builder.removeMediaDecoder(contentType);
         return this;
     }
@@ -159,7 +141,8 @@ public class ImagesPlugin extends AbstractStylarPlugin
      * @since 4.0.0
      */
     @NonNull
-    public ImagesPlugin placeholderProvider(@NonNull PlaceholderProvider placeholderProvider) {
+    public ImagesPlugin placeholderProvider(@NonNull PlaceholderProvider placeholderProvider)
+    {
         builder.placeholderProvider(placeholderProvider);
         return this;
     }
@@ -169,28 +152,63 @@ public class ImagesPlugin extends AbstractStylarPlugin
      * @since 4.0.0
      */
     @NonNull
-    public ImagesPlugin errorHandler(@NonNull ErrorHandler errorHandler) {
+    public ImagesPlugin errorHandler(@NonNull ErrorHandler errorHandler)
+    {
         builder.errorHandler(errorHandler);
         return this;
     }
 
     @Override
-    public void configureConfiguration(@NonNull StylarConfiguration.Builder builder) {
+    public void configureConfiguration(@NonNull StylarConfiguration.Builder builder)
+    {
         builder.asyncDrawableLoader(this.builder.build());
     }
 
     @Override
-    public void configureSpansFactory(@NonNull StylarSpansFactory.Builder builder) {
+    public void configureSpansFactory(@NonNull StylarSpansFactory.Builder builder)
+    {
         builder.setFactory(Image.class, new ImageSpanFactory());
     }
 
     @Override
-    public void beforeSetText(@NonNull TextView textView, @NonNull Spanned markdown) {
+    public void beforeSetText(@NonNull TextView textView, @NonNull Spanned markdown)
+    {
         AsyncDrawableScheduler.unschedule(textView);
     }
 
     @Override
-    public void afterSetText(@NonNull TextView textView) {
+    public void afterSetText(@NonNull TextView textView)
+    {
         AsyncDrawableScheduler.schedule(textView);
+    }
+
+    /**
+     * @since 4.0.0
+     */
+    public interface ImagesConfigure
+    {
+        void configureImages(@NonNull ImagesPlugin plugin);
+    }
+
+    /**
+     * @since 4.0.0
+     */
+    public interface PlaceholderProvider
+    {
+        @Nullable
+        Drawable providePlaceholder(@NonNull AsyncDrawable drawable);
+    }
+
+    /**
+     * @since 4.0.0
+     */
+    public interface ErrorHandler
+    {
+
+        /**
+         * Can optionally return a Drawable that will be displayed in case of an error
+         */
+        @Nullable
+        Drawable handleError(@NonNull String url, @NonNull Throwable throwable);
     }
 }

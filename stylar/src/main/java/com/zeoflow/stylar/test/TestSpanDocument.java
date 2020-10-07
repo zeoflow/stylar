@@ -4,39 +4,49 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
-class TestSpanDocument extends TestSpan.Document {
-
-    private static void fillWholeText(@NonNull StringBuilder builder, @NonNull TestSpan span) {
-        if (span instanceof Text) {
-            builder.append(((Text) span).literal());
-        } else if (span instanceof Span) {
-            for (TestSpan child : span.children()) {
-                fillWholeText(builder, child);
-            }
-        } else {
-            throw new IllegalStateException("Unexpected state. Found unexpected TestSpan " +
-                    "object of type `" + span.getClass().getName() + "`");
-        }
-    }
+class TestSpanDocument extends TestSpan.Document
+{
 
     private final List<TestSpan> children;
 
-    TestSpanDocument(@NonNull List<TestSpan> children) {
+    TestSpanDocument(@NonNull List<TestSpan> children)
+    {
         this.children = children;
+    }
+
+    private static void fillWholeText(@NonNull StringBuilder builder, @NonNull TestSpan span)
+    {
+        if (span instanceof Text)
+        {
+            builder.append(((Text) span).literal());
+        } else if (span instanceof Span)
+        {
+            for (TestSpan child : span.children())
+            {
+                fillWholeText(builder, child);
+            }
+        } else
+        {
+            throw new IllegalStateException("Unexpected state. Found unexpected TestSpan " +
+                "object of type `" + span.getClass().getName() + "`");
+        }
     }
 
     @NonNull
     @Override
-    public List<TestSpan> children() {
+    public List<TestSpan> children()
+    {
         return children;
     }
 
     @NonNull
     @Override
-    public String wholeText() {
+    public String wholeText()
+    {
         final StringBuilder builder = new StringBuilder();
 
-        for (TestSpan child : children) {
+        for (TestSpan child : children)
+        {
             fillWholeText(builder, child);
         }
 
@@ -44,7 +54,8 @@ class TestSpanDocument extends TestSpan.Document {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -54,7 +65,8 @@ class TestSpanDocument extends TestSpan.Document {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return children.hashCode();
     }
 }

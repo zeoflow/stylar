@@ -18,80 +18,41 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.zeoflow.stylar.core.spans.TextLayoutSpan;
 import com.zeoflow.stylar.image.AsyncDrawable;
 import com.zeoflow.stylar.image.AsyncDrawableSpan;
 import com.zeoflow.stylar.utils.LeadingMarginUtils;
 import com.zeoflow.stylar.utils.SpanUtils;
 
-public class TableRowSpan extends ReplacementSpan {
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TableRowSpan extends ReplacementSpan
+{
 
     public static final int ALIGN_LEFT = 0;
     public static final int ALIGN_CENTER = 1;
     public static final int ALIGN_RIGHT = 2;
-
-    @IntDef(value = {ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Alignment {
-    }
-
-    public interface Invalidator {
-        void invalidate();
-    }
-
-    public static class Cell {
-
-        final int alignment;
-        final CharSequence text;
-
-        public Cell(@Alignment int alignment, CharSequence text) {
-            this.alignment = alignment;
-            this.text = text;
-        }
-
-        @Alignment
-        public int alignment() {
-            return alignment;
-        }
-
-        public CharSequence text() {
-            return text;
-        }
-
-        @NonNull
-        @Override
-        public String toString() {
-            return "Cell{" +
-                    "alignment=" + alignment +
-                    ", text=" + text +
-                    '}';
-        }
-    }
-
     private final TableTheme theme;
     private final List<Cell> cells;
     private final List<Layout> layouts;
     private final TextPaint textPaint;
     private final boolean header;
     private final boolean odd;
-
     private final Rect rect = new Rect();
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
     private int width;
     private int height;
     private Invalidator invalidator;
 
     public TableRowSpan(
-            @NonNull TableTheme theme,
-            @NonNull List<Cell> cells,
-            boolean header,
-            boolean odd) {
+        @NonNull TableTheme theme,
+        @NonNull List<Cell> cells,
+        boolean header,
+        boolean odd)
+    {
         this.theme = theme;
         this.cells = cells;
         this.layouts = new ArrayList<>(cells.size());
@@ -100,25 +61,49 @@ public class TableRowSpan extends ReplacementSpan {
         this.odd = odd;
     }
 
+    @SuppressLint("SwitchIntDef")
+    private static Layout.Alignment alignment(@Alignment int alignment)
+    {
+        final Layout.Alignment out;
+        switch (alignment)
+        {
+            case ALIGN_CENTER:
+                out = Layout.Alignment.ALIGN_CENTER;
+                break;
+            case ALIGN_RIGHT:
+                out = Layout.Alignment.ALIGN_OPPOSITE;
+                break;
+            default:
+                out = Layout.Alignment.ALIGN_NORMAL;
+                break;
+        }
+        return out;
+    }
+
     @Override
     public int getSize(
-            @NonNull Paint paint,
-            CharSequence text,
-            @IntRange(from = 0) int start,
-            @IntRange(from = 0) int end,
-            @Nullable Paint.FontMetricsInt fm) {
+        @NonNull Paint paint,
+        CharSequence text,
+        @IntRange(from = 0) int start,
+        @IntRange(from = 0) int end,
+        @Nullable Paint.FontMetricsInt fm)
+    {
 
         // it's our absolute requirement to have width of the canvas here... because, well, it changes
         // the way we draw text. So, if we do not know the width of canvas we cannot correctly measure our text
 
-        if (layouts.size() > 0) {
+        if (layouts.size() > 0)
+        {
 
-            if (fm != null) {
+            if (fm != null)
+            {
 
                 int max = 0;
-                for (Layout layout : layouts) {
+                for (Layout layout : layouts)
+                {
                     final int height = layout.getHeight();
-                    if (height > max) {
+                    if (height > max)
+                    {
                         max = height;
                     }
                 }
@@ -142,24 +127,28 @@ public class TableRowSpan extends ReplacementSpan {
 
     @Override
     public void draw(
-            @NonNull Canvas canvas,
-            CharSequence text,
-            @IntRange(from = 0) int start,
-            @IntRange(from = 0) int end,
-            float x,
-            int top,
-            int y,
-            int bottom,
-            @NonNull Paint p) {
+        @NonNull Canvas canvas,
+        CharSequence text,
+        @IntRange(from = 0) int start,
+        @IntRange(from = 0) int end,
+        float x,
+        int top,
+        int y,
+        int bottom,
+        @NonNull Paint p)
+    {
 
         final int spanWidth = SpanUtils.width(canvas, text);
-        if (recreateLayouts(spanWidth)) {
+        if (recreateLayouts(spanWidth))
+        {
             width = spanWidth;
             // @since 4.3.1 it's important to cast to TextPaint in order to display links, etc
-            if (p instanceof TextPaint) {
+            if (p instanceof TextPaint)
+            {
                 // there must be a reason why this method receives Paint instead of TextPaint...
                 textPaint.set((TextPaint) p);
-            } else {
+            } else
+            {
                 textPaint.set(p);
             }
             makeNewLayouts();
@@ -179,23 +168,29 @@ public class TableRowSpan extends ReplacementSpan {
         // @since 1.1.1
         // draw backgrounds
         {
-            if (header) {
+            if (header)
+            {
                 theme.applyTableHeaderRowStyle(paint);
-            } else if (odd) {
+            } else if (odd)
+            {
                 theme.applyTableOddRowStyle(paint);
-            } else {
+            } else
+            {
                 // even
                 theme.applyTableEvenRowStyle(paint);
             }
 
             // if present (0 is transparent)
-            if (paint.getColor() != 0) {
+            if (paint.getColor() != 0)
+            {
                 final int save = canvas.save();
-                try {
+                try
+                {
                     rect.set(0, 0, width, bottom - top);
                     canvas.translate(x, top);
                     canvas.drawRect(rect, paint);
-                } finally {
+                } finally
+                {
                     canvas.restoreToCount(save);
                 }
             }
@@ -217,15 +212,18 @@ public class TableRowSpan extends ReplacementSpan {
         final boolean isFirstTableRow;
 
         // @since 4.3.1
-        if (drawBorder) {
+        if (drawBorder)
+        {
             boolean first = false;
             // only if first draw the line
             {
                 final Spanned spanned = (Spanned) text;
                 final TableSpan[] spans = spanned.getSpans(start, end, TableSpan.class);
-                if (spans != null && spans.length > 0) {
+                if (spans != null && spans.length > 0)
+                {
                     final TableSpan span = spans[0];
-                    if (LeadingMarginUtils.selfStart(start, text, span)) {
+                    if (LeadingMarginUtils.selfStart(start, text, span))
+                    {
                         first = true;
                         rect.set((int) x, top, width, top + borderWidth);
                         canvas.drawRect(rect, paint);
@@ -238,7 +236,8 @@ public class TableRowSpan extends ReplacementSpan {
             canvas.drawRect(rect, paint);
 
             isFirstTableRow = first;
-        } else {
+        } else
+        {
             isFirstTableRow = false;
         }
 
@@ -249,31 +248,37 @@ public class TableRowSpan extends ReplacementSpan {
         final int borderBottom = bottom - top - borderWidth;
 
         Layout layout;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++)
+        {
             layout = layouts.get(i);
             final int save = canvas.save();
-            try {
+            try
+            {
 
                 canvas.translate(x + (i * w), top);
 
                 // @since 4.3.1
-                if (drawBorder) {
+                if (drawBorder)
+                {
                     // first vertical border will have full width (it cannot exceed canvas)
-                    if (i == 0) {
+                    if (i == 0)
+                    {
                         rect.set(0, borderTop, borderWidth, borderBottom);
-                    } else {
+                    } else
+                    {
                         rect.set(-borderWidthHalf, borderTop, borderWidthHalf, borderBottom);
                     }
 
                     canvas.drawRect(rect, paint);
 
-                    if (i == (size - 1)) {
+                    if (i == (size - 1))
+                    {
                         // @since 4.6.0 subtract rounding offset for the last vertical divider
                         rect.set(
-                                w - borderWidth - roundingDiff,
-                                borderTop,
-                                w - roundingDiff,
-                                borderBottom
+                            w - borderWidth - roundingDiff,
+                            borderTop,
+                            w - roundingDiff,
+                            borderBottom
                         );
                         canvas.drawRect(rect, paint);
                     }
@@ -282,27 +287,33 @@ public class TableRowSpan extends ReplacementSpan {
                 canvas.translate(padding, padding + heightDiff);
                 layout.draw(canvas);
 
-                if (layout.getHeight() > maxHeight) {
+                if (layout.getHeight() > maxHeight)
+                {
                     maxHeight = layout.getHeight();
                 }
 
-            } finally {
+            } finally
+            {
                 canvas.restoreToCount(save);
             }
         }
 
-        if (height != maxHeight) {
-            if (invalidator != null) {
+        if (height != maxHeight)
+        {
+            if (invalidator != null)
+            {
                 invalidator.invalidate();
             }
         }
     }
 
-    private boolean recreateLayouts(int newWidth) {
+    private boolean recreateLayouts(int newWidth)
+    {
         return width != newWidth;
     }
 
-    private void makeNewLayouts() {
+    private void makeNewLayouts()
+    {
 
         textPaint.setFakeBoldText(header);
 
@@ -312,18 +323,23 @@ public class TableRowSpan extends ReplacementSpan {
 
         this.layouts.clear();
 
-        for (int i = 0, size = cells.size(); i < size; i++) {
+        for (int i = 0, size = cells.size(); i < size; i++)
+        {
             makeLayout(i, w, cells.get(i));
         }
     }
 
-    private void makeLayout(final int index, final int width, @NonNull final Cell cell) {
+    private void makeLayout(final int index, final int width, @NonNull final Cell cell)
+    {
 
-        final Runnable recreate = new Runnable() {
+        final Runnable recreate = new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 final Invalidator invalidator = TableRowSpan.this.invalidator;
-                if (invalidator != null) {
+                if (invalidator != null)
+                {
                     layouts.remove(index);
                     makeLayout(index, width, cell);
                     invalidator.invalidate();
@@ -333,20 +349,22 @@ public class TableRowSpan extends ReplacementSpan {
 
         final Spannable spannable;
 
-        if (cell.text instanceof Spannable) {
+        if (cell.text instanceof Spannable)
+        {
             spannable = (Spannable) cell.text;
-        } else {
+        } else
+        {
             spannable = new SpannableString(cell.text);
         }
 
         final Layout layout = new StaticLayout(
-                spannable,
-                textPaint,
-                width,
-                alignment(cell.alignment),
-                1.0F,
-                0.0F,
-                false
+            spannable,
+            textPaint,
+            width,
+            alignment(cell.alignment),
+            1.0F,
+            0.0F,
+            false
         );
 
         // @since 4.4.0
@@ -358,25 +376,31 @@ public class TableRowSpan extends ReplacementSpan {
         layouts.add(index, layout);
     }
 
-    private void scheduleAsyncDrawables(@NonNull Spannable spannable, @NonNull final Runnable recreate) {
+    private void scheduleAsyncDrawables(@NonNull Spannable spannable, @NonNull final Runnable recreate)
+    {
 
         final AsyncDrawableSpan[] spans = spannable.getSpans(0, spannable.length(), AsyncDrawableSpan.class);
         if (spans != null
-                && spans.length > 0) {
+            && spans.length > 0)
+        {
 
-            for (AsyncDrawableSpan span : spans) {
+            for (AsyncDrawableSpan span : spans)
+            {
 
                 final AsyncDrawable drawable = span.getDrawable();
 
                 // it is absolutely crucial to check if drawable is already attached,
                 //  otherwise we would end up with a loop
-                if (drawable.isAttached()) {
+                if (drawable.isAttached())
+                {
                     continue;
                 }
 
-                drawable.setCallback2(new CallbackAdapter() {
+                drawable.setCallback2(new CallbackAdapter()
+                {
                     @Override
-                    public void invalidateDrawable(@NonNull Drawable who) {
+                    public void invalidateDrawable(@NonNull Drawable who)
+                    {
                         recreate.run();
                     }
                 });
@@ -390,11 +414,13 @@ public class TableRowSpan extends ReplacementSpan {
      * @since 4.6.0
      */
     @Nullable
-    public Layout findLayoutForHorizontalOffset(int x) {
+    public Layout findLayoutForHorizontalOffset(int x)
+    {
         final int size = layouts.size();
         final int w = cellWidth(size);
         final int i = x / w;
-        if (i >= size) {
+        if (i >= size)
+        {
             return null;
         }
         return layouts.get(i);
@@ -403,49 +429,84 @@ public class TableRowSpan extends ReplacementSpan {
     /**
      * @since 4.6.0
      */
-    public int cellWidth() {
+    public int cellWidth()
+    {
         return cellWidth(layouts.size());
     }
 
     // @since 4.6.0
-    protected int cellWidth(int size) {
+    protected int cellWidth(int size)
+    {
         return (int) (1F * width / size + 0.5F);
     }
 
-    @SuppressLint("SwitchIntDef")
-    private static Layout.Alignment alignment(@Alignment int alignment) {
-        final Layout.Alignment out;
-        switch (alignment) {
-            case ALIGN_CENTER:
-                out = Layout.Alignment.ALIGN_CENTER;
-                break;
-            case ALIGN_RIGHT:
-                out = Layout.Alignment.ALIGN_OPPOSITE;
-                break;
-            default:
-                out = Layout.Alignment.ALIGN_NORMAL;
-                break;
-        }
-        return out;
-    }
-
-    public void invalidator(@Nullable Invalidator invalidator) {
+    public void invalidator(@Nullable Invalidator invalidator)
+    {
         this.invalidator = invalidator;
     }
 
-    private static abstract class CallbackAdapter implements Drawable.Callback {
+    @IntDef(value = {ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Alignment
+    {
+    }
+
+    public interface Invalidator
+    {
+        void invalidate();
+    }
+
+    public static class Cell
+    {
+
+        final int alignment;
+        final CharSequence text;
+
+        public Cell(@Alignment int alignment, CharSequence text)
+        {
+            this.alignment = alignment;
+            this.text = text;
+        }
+
+        @Alignment
+        public int alignment()
+        {
+            return alignment;
+        }
+
+        public CharSequence text()
+        {
+            return text;
+        }
+
+        @NonNull
         @Override
-        public void invalidateDrawable(@NonNull Drawable who) {
+        public String toString()
+        {
+            return "Cell{" +
+                "alignment=" + alignment +
+                ", text=" + text +
+                '}';
+        }
+    }
+
+    private static abstract class CallbackAdapter implements Drawable.Callback
+    {
+        @Override
+        public void invalidateDrawable(@NonNull Drawable who)
+        {
 
         }
 
         @Override
-        public void scheduleDrawable(@NonNull Drawable who, @NonNull Runnable what, long when) {
+        public void scheduleDrawable(@NonNull Drawable who, @NonNull Runnable what, long when)
+        {
 
         }
 
         @Override
-        public void unscheduleDrawable(@NonNull Drawable who, @NonNull Runnable what) {
+        public void unscheduleDrawable(@NonNull Drawable who, @NonNull Runnable what)
+        {
 
         }
     }

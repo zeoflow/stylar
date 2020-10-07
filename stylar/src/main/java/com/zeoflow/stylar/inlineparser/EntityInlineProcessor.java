@@ -11,21 +11,26 @@ import java.util.regex.Pattern;
  *
  * @since 4.2.0
  */
-public class EntityInlineProcessor extends InlineProcessor {
+public class EntityInlineProcessor extends InlineProcessor
+{
 
     private static final Pattern ENTITY_HERE = Pattern.compile('^' + Escaping.ENTITY, Pattern.CASE_INSENSITIVE);
 
     @Override
-    public char specialCharacter() {
+    public char specialCharacter()
+    {
         return '&';
     }
 
     @Override
-    protected Node parse() {
+    protected Node parse()
+    {
         String m;
-        if ((m = match(ENTITY_HERE)) != null) {
+        if ((m = match(ENTITY_HERE)) != null)
+        {
             return text(Html5Entities.entityToString(m));
-        } else {
+        } else
+        {
             return null;
         }
     }

@@ -10,35 +10,39 @@ import androidx.annotation.NonNull;
 
 import com.zeoflow.stylar.core.StylarTheme;
 
-public class BlockQuoteSpan implements LeadingMarginSpan {
+public class BlockQuoteSpan implements LeadingMarginSpan
+{
 
     private final StylarTheme theme;
     private final Rect rect = ObjectsPool.rect();
     private final Paint paint = ObjectsPool.paint();
 
-    public BlockQuoteSpan(@NonNull StylarTheme theme) {
+    public BlockQuoteSpan(@NonNull StylarTheme theme)
+    {
         this.theme = theme;
     }
 
     @Override
-    public int getLeadingMargin(boolean first) {
+    public int getLeadingMargin(boolean first)
+    {
         return theme.getBlockMargin();
     }
 
     @Override
     public void drawLeadingMargin(
-            Canvas c,
-            Paint p,
-            int x,
-            int dir,
-            int top,
-            int baseline,
-            int bottom,
-            CharSequence text,
-            int start,
-            int end,
-            boolean first,
-            Layout layout) {
+        Canvas c,
+        Paint p,
+        int x,
+        int dir,
+        int top,
+        int baseline,
+        int bottom,
+        CharSequence text,
+        int start,
+        int end,
+        boolean first,
+        Layout layout)
+    {
 
         final int width = theme.getBlockQuoteWidth();
 

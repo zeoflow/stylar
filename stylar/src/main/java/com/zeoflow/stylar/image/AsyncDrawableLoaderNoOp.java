@@ -5,20 +5,24 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-class AsyncDrawableLoaderNoOp extends AsyncDrawableLoader {
+class AsyncDrawableLoaderNoOp extends AsyncDrawableLoader
+{
     @Override
-    public void load(@NonNull AsyncDrawable drawable) {
+    public void load(@NonNull AsyncDrawable drawable)
+    {
 
     }
 
     @Override
-    public void cancel(@NonNull AsyncDrawable drawable) {
+    public void cancel(@NonNull AsyncDrawable drawable)
+    {
 
     }
 
     @Nullable
     @Override
-    public Drawable placeholder(@NonNull AsyncDrawable drawable) {
+    public Drawable placeholder(@NonNull AsyncDrawable drawable)
+    {
         return null;
     }
 }

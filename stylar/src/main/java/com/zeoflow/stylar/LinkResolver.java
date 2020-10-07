@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
  * @see StylarConfiguration.Builder#linkResolver(LinkResolver)
  * @since 4.0.0
  */
-public interface LinkResolver {
+public interface LinkResolver
+{
     void resolve(@NonNull View view, @NonNull String link);
 }

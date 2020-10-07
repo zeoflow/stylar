@@ -15,7 +15,8 @@ import org.commonmark.parser.block.ParserState;
  * @since 4.3.0 (although there was a class with the same name,
  * which is renamed now to {@link JLatexMathBlockParserLegacy})
  */
-class JLatexMathBlockParser extends AbstractBlockParser {
+class JLatexMathBlockParser extends AbstractBlockParser
+{
 
     private static final char DOLLAR = '$';
     private static final char SPACE = ' ';
@@ -26,27 +27,47 @@ class JLatexMathBlockParser extends AbstractBlockParser {
 
     private final int signs;
 
-    JLatexMathBlockParser(int signs) {
+    JLatexMathBlockParser(int signs)
+    {
         this.signs = signs;
     }
 
+    @SuppressWarnings("SameParameterValue")
+    private static int consume(char c, @NonNull CharSequence line, int start, int end)
+    {
+        for (int i = start; i < end; i++)
+        {
+            if (c != line.charAt(i))
+            {
+                return i - start;
+            }
+        }
+        // all consumed
+        return end - start;
+    }
+
     @Override
-    public Block getBlock() {
+    public Block getBlock()
+    {
         return block;
     }
 
     @Override
-    public BlockContinue tryContinue(ParserState parserState) {
+    public BlockContinue tryContinue(ParserState parserState)
+    {
         final int nextNonSpaceIndex = parserState.getNextNonSpaceIndex();
         final CharSequence line = parserState.getLine();
         final int length = line.length();
 
         // check for closing
-        if (parserState.getIndent() < Parsing.CODE_BLOCK_INDENT) {
-            if (consume(DOLLAR, line, nextNonSpaceIndex, length) == signs) {
+        if (parserState.getIndent() < Parsing.CODE_BLOCK_INDENT)
+        {
+            if (consume(DOLLAR, line, nextNonSpaceIndex, length) == signs)
+            {
                 // okay, we have our number of signs
                 // let's consume spaces until the end
-                if (Parsing.skip(SPACE, line, nextNonSpaceIndex + signs, length) == length) {
+                if (Parsing.skip(SPACE, line, nextNonSpaceIndex + signs, length) == length)
+                {
                     return BlockContinue.finished();
                 }
             }
@@ -56,20 +77,24 @@ class JLatexMathBlockParser extends AbstractBlockParser {
     }
 
     @Override
-    public void addLine(CharSequence line) {
+    public void addLine(CharSequence line)
+    {
         builder.append(line);
         builder.append('\n');
     }
 
     @Override
-    public void closeBlock() {
+    public void closeBlock()
+    {
         block.latex(builder.toString());
     }
 
-    public static class Factory extends AbstractBlockParserFactory {
+    public static class Factory extends AbstractBlockParserFactory
+    {
 
         @Override
-        public BlockStart tryStart(ParserState state, MatchedBlockParser matchedBlockParser) {
+        public BlockStart tryStart(ParserState state, MatchedBlockParser matchedBlockParser)
+        {
 
             // let's define the spec:
             //  * 0-3 spaces before are allowed (Parsing.CODE_BLOCK_INDENT = 4)
@@ -81,7 +106,8 @@ class JLatexMathBlockParser extends AbstractBlockParser {
             final int indent = state.getIndent();
 
             // check if it's an indented code block
-            if (indent >= Parsing.CODE_BLOCK_INDENT) {
+            if (indent >= Parsing.CODE_BLOCK_INDENT)
+            {
                 return BlockStart.none();
             }
 
@@ -92,28 +118,19 @@ class JLatexMathBlockParser extends AbstractBlockParser {
             final int signs = consume(DOLLAR, line, nextNonSpaceIndex, length);
 
             // 2 is minimum
-            if (signs < 2) {
+            if (signs < 2)
+            {
                 return BlockStart.none();
             }
 
             // consume spaces until the end of the line, if any other content is found -> NONE
-            if (Parsing.skip(SPACE, line, nextNonSpaceIndex + signs, length) != length) {
+            if (Parsing.skip(SPACE, line, nextNonSpaceIndex + signs, length) != length)
+            {
                 return BlockStart.none();
             }
 
             return BlockStart.of(new JLatexMathBlockParser(signs))
-                    .atIndex(length + 1);
+                .atIndex(length + 1);
         }
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private static int consume(char c, @NonNull CharSequence line, int start, int end) {
-        for (int i = start; i < end; i++) {
-            if (c != line.charAt(i)) {
-                return i - start;
-            }
-        }
-        // all consumed
-        return end - start;
     }
 }

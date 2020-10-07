@@ -2,6 +2,8 @@ package com.zeoflow.stylar.ext.tasklist;
 
 import android.text.TextUtils;
 
+import com.zeoflow.stylar.utils.ParserUtils;
+
 import org.commonmark.node.AbstractVisitor;
 import org.commonmark.node.ListItem;
 import org.commonmark.node.Node;
@@ -12,36 +14,41 @@ import org.commonmark.parser.PostProcessor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.zeoflow.stylar.utils.ParserUtils;
-
 // @since 4.6.0
 // Hint taken from commonmark-ext-task-list-items artifact
-class TaskListPostProcessor implements PostProcessor {
+class TaskListPostProcessor implements PostProcessor
+{
 
     @Override
-    public Node process(Node node) {
+    public Node process(Node node)
+    {
         final TaskListVisitor visitor = new TaskListVisitor();
         node.accept(visitor);
         return node;
     }
 
-    private static class TaskListVisitor extends AbstractVisitor {
+    private static class TaskListVisitor extends AbstractVisitor
+    {
 
         private static final Pattern REGEX_TASK_LIST_ITEM = Pattern.compile("^\\[([xX\\s])]\\s+(.*)");
 
         @Override
-        public void visit(ListItem listItem) {
+        public void visit(ListItem listItem)
+        {
             // Takes first child and checks if it is Text (we are looking for exact `[xX\s]` without any formatting)
             final Node child = listItem.getFirstChild();
             // check if it is paragraph (can contain text)
-            if (child instanceof Paragraph) {
+            if (child instanceof Paragraph)
+            {
                 final Node node = child.getFirstChild();
-                if (node instanceof Text) {
+                if (node instanceof Text)
+                {
 
                     final Text textNode = (Text) node;
                     final Matcher matcher = REGEX_TASK_LIST_ITEM.matcher(textNode.getLiteral());
 
-                    if (matcher.matches()) {
+                    if (matcher.matches())
+                    {
                         final String checked = matcher.group(1);
                         final boolean isChecked = "x".equals(checked) || "X".equals(checked);
 
@@ -54,7 +61,8 @@ class TaskListPostProcessor implements PostProcessor {
 
                         // append the rest of matched text (can be empty)
                         final String restMatchedText = matcher.group(2);
-                        if (!TextUtils.isEmpty(restMatchedText)) {
+                        if (!TextUtils.isEmpty(restMatchedText))
+                        {
                             paragraph.appendChild(new Text(restMatchedText));
                         }
 

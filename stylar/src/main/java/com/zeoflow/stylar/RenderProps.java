@@ -6,7 +6,8 @@ import androidx.annotation.Nullable;
 /**
  * @since 3.0.0
  */
-public interface RenderProps {
+public interface RenderProps
+{
 
     @Nullable
     <T> T get(@NonNull Prop<T> prop);
