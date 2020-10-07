@@ -7,12 +7,10 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
-import org.scilab.forge.jlatexmath.TeXIcon;
-
 import com.zeoflow.stylar.core.StylarTheme;
 import com.zeoflow.stylar.image.AsyncDrawableSpan;
-import ru.noties.jlatexmath.JLatexMathDrawable;
-import ru.noties.jlatexmath.awt.Color;
+import com.zeoflow.numericaltx.JLatexMathDrawable;
+import com.zeoflow.numericaltx.awt.Color;
 
 /**
  * @since 4.3.0

@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 
-import ru.noties.jlatexmath.JLatexMathDrawable;
+import com.zeoflow.numericaltx.JLatexMathDrawable;
 
 /**
  * @since 4.3.0

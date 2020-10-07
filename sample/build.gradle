@@ -37,13 +37,12 @@ configurations.all {
 
 dependencies {
 	implementation fileTree(dir: "libs", include: ["*.jar"])
+	implementation project(':stylar')
 
 	implementation 'androidx.appcompat:appcompat:1.2.0'
 
 	implementation 'com.atlassian.commonmark:commonmark:0.13.0'
 
 	implementation 'com.github.bumptech.glide:glide:4.11.0'
-
-	implementation project(':stylar')
 
 }

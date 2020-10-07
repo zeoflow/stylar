@@ -34,7 +34,7 @@ import com.zeoflow.stylar.image.AsyncDrawableSpan;
 import com.zeoflow.stylar.image.DrawableUtils;
 import com.zeoflow.stylar.image.ImageSizeResolver;
 
-import ru.noties.jlatexmath.JLatexMathDrawable;
+import com.zeoflow.numericaltx.JLatexMathDrawable;
 
 /**
  * @since 3.0.0

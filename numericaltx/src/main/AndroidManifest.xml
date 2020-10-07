@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zeoflow.numericaltx.android">
+
+    <application>
+
+        <provider
+            android:name="com.zeoflow.numericaltx.numericaltxInitProvider"
+            android:authorities="${applicationId}.numericaltxinitprovider"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

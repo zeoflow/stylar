@@ -43,6 +43,7 @@ ext {
     targetSdkVersion = 30
     versionCode = 1
     versionName = "1.0.0"
+    ndk = "21.3.6528147"
 
     ANNOTATIONS = 'org.jetbrains:annotations-java5:17.0.0'
 

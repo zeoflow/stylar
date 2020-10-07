@@ -1,5 +1,7 @@
-<manifest package="com.zeoflow.stylar">
+<manifest package="com.zeoflow.stylar"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <application />
+    <application
+        tools:overrideLibrary="pl.droidsonroids.gif"/>
 
 </manifest>
