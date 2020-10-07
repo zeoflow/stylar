@@ -2,6 +2,7 @@ package com.zeoflow.stylar.sample;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import com.zeoflow.stylar.Stylar;
 import com.zeoflow.stylar.core.StylarTheme;
 import com.zeoflow.stylar.view.StylarView;
 
+import static com.zeoflow.stylar.view.StylarView.ALIGNMENT_LEFT;
 import static com.zeoflow.utils.FileUtil.readFile;
 
 public class MainActivity extends ActivityCore
@@ -48,9 +50,11 @@ public class MainActivity extends ActivityCore
             .build();
         stylar.setMarkdown(accClosed);
 
-        stylar.setMarkdown(readFile(getAssets(), "content.txt", "\n\n"));
+        stylarView.setTextAlignment(ALIGNMENT_LEFT);
 
-        logger(stylarView.getText());
+//        stylar.setMarkdown(readFile(getAssets(), "content.txt", "\n\n"));
+
+//        logger(stylarView.getText());
 
     }
 
