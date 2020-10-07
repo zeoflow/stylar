@@ -1,3 +1,0 @@
-C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/arm64-v8a/CMakeFiles/com_zeoflow_gif.dir
-C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/arm64-v8a/CMakeFiles/edit_cache.dir
-C:/Users/teo/Documents/Github/stylar/gif/.cxx/cmake/release/arm64-v8a/CMakeFiles/rebuild_cache.dir

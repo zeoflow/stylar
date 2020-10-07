@@ -1,2 +1,0 @@
-android-14 is unsupported. Using minimum supported version 16.
-Configuring done
