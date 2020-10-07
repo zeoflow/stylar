@@ -39,7 +39,6 @@ import ix.Ix;
 import static org.openjdk.javax.tools.Diagnostic.Kind.ERROR;
 import static org.openjdk.javax.tools.Diagnostic.Kind.NOTE;
 
-
 public class CodeStyleBundler extends AbstractProcessor
 {
 
