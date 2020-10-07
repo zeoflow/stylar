@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
             .build();
         stylar.setMarkdown(accClosed);
 
-//        stylar.setMarkdown(AssetsHelper.readFile(getAssets(), "content.txt"));
+        stylar.setMarkdown(AssetsHelper.readFile(getAssets(), "content.txt"));
 
     }
 
