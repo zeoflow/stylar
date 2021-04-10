@@ -56,7 +56,4 @@ dependencies {
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
 }
 
-apply from: "${rootProject.projectDir}/stylar/maven-push.gradle"
-repositories {
-    mavenCentral()
-}
+apply from: "${rootProject.projectDir}/buildSrc/upload.gradle"
