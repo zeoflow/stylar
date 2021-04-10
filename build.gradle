@@ -43,5 +43,4 @@ ext {
     targetSdkVersion = 30
     versionCode = 3
     versionName = "1.1.0"
-    ndk = "21.3.6528147"
 }
