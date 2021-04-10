@@ -1,4 +1,6 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+}
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -27,13 +29,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(':stylar')
-    implementation ('com.zeoflow:flow-kit:1.1.0') {
+    implementation ('com.zeoflow:flow-kit:1.4.1') {
         exclude group: 'com.zeoflow', module: 'stylar'
     }
-
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.atlassian.commonmark:commonmark:0.13.0'
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
 }

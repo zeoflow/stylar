@@ -8,7 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.zeoflow.compat.ActivityCore;
+import com.zeoflow.app.Activity;
 import com.zeoflow.stylar.AbstractStylarPlugin;
 import com.zeoflow.stylar.Stylar;
 import com.zeoflow.stylar.core.StylarTheme;
@@ -17,7 +17,7 @@ import com.zeoflow.stylar.view.StylarView;
 import static com.zeoflow.stylar.view.StylarView.ALIGNMENT_LEFT;
 import static com.zeoflow.utils.FileUtil.readFile;
 
-public class MainActivity extends ActivityCore
+public class MainActivity extends Activity
 {
 
     @Override
