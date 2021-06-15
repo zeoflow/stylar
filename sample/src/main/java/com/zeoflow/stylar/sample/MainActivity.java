@@ -2,7 +2,6 @@ package com.zeoflow.stylar.sample;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,15 +13,10 @@ import com.zeoflow.stylar.Stylar;
 import com.zeoflow.stylar.core.StylarTheme;
 import com.zeoflow.stylar.view.StylarView;
 
-import static com.zeoflow.stylar.view.StylarView.ALIGNMENT_LEFT;
-import static com.zeoflow.utils.FileUtil.readFile;
-
-public class MainActivity extends Activity
-{
+public class MainActivity extends Activity {
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -32,22 +26,20 @@ public class MainActivity extends Activity
         String accClosed = "### Your account has been closed.\n\nIt looks like the **`Terms of Service`** may have been violated.\n\nTo have our support team look into this, please [**`contact us`**]($contact_us).";
         StylarView stylarView = findViewById(R.id.zStylarView);
         final Stylar stylar = Stylar.builder(zContext)
-            .withLayoutElement(stylarView)
-            .withAnchoredHeadings(true)
-            .withImagePlugins(true)
-            .withCodeStyle(false)
-            .setClickEvent(link -> Toast.makeText(MainActivity.this, link, Toast.LENGTH_SHORT).show())
-            .usePlugin(new AbstractStylarPlugin()
-            {
-                @Override
-                public void configureTheme(@NonNull StylarTheme.Builder builder)
-                {
-                    builder
-                        .codeTextColor(Color.parseColor("#CE570CC1"))
-                        .codeBackgroundColor(Color.parseColor("#EDEDED"));
-                }
-            })
-            .build();
+                .withLayoutElement(stylarView)
+                .withAnchoredHeadings(true)
+                .withImagePlugins(true)
+                .withCodeStyle(false)
+                .setClickEvent(link -> Toast.makeText(MainActivity.this, link, Toast.LENGTH_SHORT).show())
+                .usePlugin(new AbstractStylarPlugin() {
+                    @Override
+                    public void configureTheme(@NonNull StylarTheme.Builder builder) {
+                        builder
+                                .codeTextColor(Color.parseColor("#CE570CC1"))
+                                .codeBackgroundColor(Color.parseColor("#EDEDED"));
+                    }
+                })
+                .build();
         stylar.setMarkdown(accClosed);
 
 //        stylarView.setTextAlignment(ALIGNMENT_LEFT);
