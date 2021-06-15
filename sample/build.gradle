@@ -30,7 +30,7 @@ android {
 
 dependencies {
     implementation project(':stylar')
-    implementation ('com.zeoflow:flow-kit:1.4.1') {
+    implementation ('com.zeoflow:flow-kit:1.6.1') {
         exclude group: 'com.zeoflow', module: 'stylar'
     }
 }
