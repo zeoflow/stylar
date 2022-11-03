@@ -1,4 +1,4 @@
-# Stylar for Android
+# Stylar for Android (Deprecated)
 
 ## Intro
 An Android markdown library - it does not require WebView
